@@ -2,21 +2,21 @@
 	<div>
 	
 		<!-- 搜索 -->
-		<el-form :inline="true" :model="searchForm" class="demo-form-inline">
+		<el-form :inline="true" :model="searchForm" class="demo-form-inline" size='mini'>
 			<el-form-item label="姓名">
-				<el-input v-model="searchForm.name" placeholder="请输入姓名"></el-input>
+				<el-input v-model="searchForm.name" placeholder="请输入姓名"/>
 			</el-form-item>
 			<el-form-item label="电话">
-				<el-input v-model="searchForm.phone" placeholder="请输入电话 " ></el-input>
+				<el-input v-model="searchForm.phone" placeholder="请输入电话 " />
 			</el-form-item>
 			<el-form-item label="单号">
-				<el-input v-model="searchForm.orderNum" placeholder="请输入订单号"></el-input>
+				<el-input v-model="searchForm.orderNum" placeholder="请输入订单号"/>
 			</el-form-item>
 			<el-form-item label="状态">
 				<el-select v-model="searchForm.orderStatus" placeholder="订单状态">
-					<el-option label="新订单" value="1"></el-option>
-					<el-option label="已付款" value="2"></el-option>
-					<el-option label="已完成" value="3"></el-option>
+					<el-option label="新订单" value="1"/>
+					<el-option label="已付款" value="2"/>
+					<el-option label="已完成" value="3"/>
 				</el-select>
 			</el-form-item>
 			<el-form-item label="起止时间">
@@ -34,7 +34,7 @@
 		</el-form>
 	
 		<!--表格 -->
-		 <el-table :data="orderList" style="width: 100%"  height="430">
+		 <el-table :data="orderList" style="width: 100%"  height="430"  size='mini'	>
 		  <el-table-column type="expand">
 		    <template slot-scope="props">
 		      <el-form label-position="left" inline class="demo-table-expand">
@@ -53,32 +53,28 @@
 		      </el-form>
 		    </template>
 		  </el-table-column>
-		  <el-table-column
-		    label="订单号"
-		    prop="orderNum">
-		  </el-table-column>
-		  <el-table-column
-		    label="客户姓名"
-		    prop="customerName">
-		  </el-table-column>
-			<el-table-column
-			  label="订单日期"
-			  prop="orderDate">
-			</el-table-column>
-			<el-table-column
-			  label="订单状态"
-			  prop="orderStatus">
-			</el-table-column>
-			 <el-table-column
-			 fixed="right"
-			  label="操作"
-			  width="100">
+		  <el-table-column label="订单号"   prop="orderNum"></el-table-column>
+		  <el-table-column label="客户姓名" prop="customerName"></el-table-column>
+			<el-table-column label="订单日期" prop="orderDate"></el-table-column>
+			<el-table-column label="订单状态" prop="orderStatus"></el-table-column>
+			<el-table-column fixed="right" label="修改" width="50">
 				<template slot-scope="scope">
-        <el-button @click="editOrder(scope.row.orderNum)" type="text" icon="el-icon-edit" size="small"></el-button>
-        <el-button @click="deleteOrder(scope.row.orderNum)" type="text" icon="el-icon-delete" size="small"></el-button>
-				<!-- <template>
-					<el-button type="text" @click="open2">点击打开 Message Box</el-button>
-				</template> -->
+				<edit-order></edit-order>
+			</template>
+			</el-table-column>
+			<el-table-column fixed="right" label="添加" width="50">
+				<template slot-scope="scope">
+					<edit-order-detail></edit-order-detail>
+			</template>
+			</el-table-column>
+			<el-table-column fixed="right" label="下载" width="50">
+				<template slot-scope="scope">
+				<el-button @click="downLoadOrder(scope.row.orderNum)" type="text" icon="el-icon-download" size="small"></el-button>
+			</template>
+			</el-table-column>
+			<el-table-column fixed="right" label="删除" width="50">
+				<template slot-scope="scope">
+				<el-button @click="deleteOrder(scope.row.orderNum)" type="text" icon="el-icon-delete" size="small"></el-button>
 			</template>
 			</el-table-column>
 		</el-table>
@@ -93,6 +89,8 @@
 
 
 <script>
+	import EditOrder from '@/components/order/EditOrder'
+	import EditOrderDetail from '@/components/order/EditOrderDetail'
   export default {
     data() {
       return {
@@ -129,24 +127,31 @@
 				console.log('修改订单');
 				console.log(orderNum);
 			},
-			 deleteOrder(orderNum) {
-        this.$confirm('此操作将删除该订单, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
+			deleteOrder:function(orderNum) {
+				this.$confirm('此操作将删除该订单, 是否继续?', '提示', {
+				  confirmButtonText: '确定',
+				  cancelButtonText: '取消',
+				  type: 'warning'
+				}).then(() => {
 					console.log('删除订单'+orderNum);
-          this.$notify({
-            type: 'success',
-            message: '删除成功!'
-          });
-        }).catch(() => {
-          this.$notify({
-            type: 'info',
-            message: '已取消删除'
-          });          
-        });
-      }
+					this.$notify({
+						type: 'success',
+						message: '删除成功!'
+					});
+				}).catch(() => {
+				  this.$notify({
+					type: 'info',
+					message: '已取消删除'
+				  });          
+				});
+			},
+			downLoadOrder(orderNum){
+				console.log('下载订单'+orderNum);
+			}
+		},
+		components:{
+			"edit-order":EditOrder,
+			"edit-order-detail":EditOrderDetail
 		}
   }
 </script>
