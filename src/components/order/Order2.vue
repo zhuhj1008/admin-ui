@@ -1,8 +1,11 @@
 <template>
 	<div>
-	
+		
 		<!-- 搜索 -->
 		<el-form :inline="true" :model="searchForm" class="demo-form-inline" size='mini'>
+			<el-form-item>
+				<order-add></order-add>
+			</el-form-item>
 			<el-form-item label="姓名">
 				<el-input v-model="searchForm.name" placeholder="请输入姓名"/>
 			</el-form-item>
@@ -81,7 +84,10 @@
 		
 		<!-- 分页 -->
 		<div style="float: right; margin-top: 15px;">
-			<el-pagination background layout="prev, pager, next" :total="1000">
+			<el-pagination background small 
+			:total="page.total" 
+			:current-page.sync="page.currentPage" 
+			@current-change="queryOrder()">
 			</el-pagination>
 		</div>
 	</div>
@@ -89,70 +95,75 @@
 
 
 <script>
+	import OrderAdd from '@/components/order/OrderAdd'
 	import EditOrder from '@/components/order/EditOrder'
 	import EditOrderDetail from '@/components/order/EditOrderDetail'
   export default {
     data() {
       return {
-				searchForm: {
-          name: '',
-					phome:'',
-					orderNum:'',
-          region: '',
-					orderStatus: '',
-					date1:'',
-					date2:''
+		  page: {
+			  total:400,
+			  currentPage:2,
+		  },
+		searchForm: {
+			name: 'aaa',
+			phome:'',
+			orderNum:'',
+			region: '',
+			orderStatus: '',
+			date1:'',
+			date2:'',
+			
         },
-				orderList: [
-					{
-						orderNum: '201904070001',
-						customerName: '朱鸿钧',
-						orderDate: '2019-03-17',
-						orderStatus: '新订单',
-						orderAmount: 3050.3,
-						orderAddress:'河北省保定市河北大学2114',
-						factory:'河北沧州鸿达木业',
-						paymentDate:'2019-04-07'
-					}
-				]
+		orderList: [
+			{
+				orderNum: '201904070001',
+				customerName: '朱鸿钧',
+				orderDate: '2019-03-17',
+				orderStatus: '新订单',
+				orderAmount: 3050.3,
+				orderAddress:'河北省保定市河北大学2114',
+				factory:'河北沧州鸿达木业',
+				paymentDate:'2019-04-07'
+			}
+		]
       }
     },
-		methods: {
-			queryOrder:function(){
-				console.log('查询订单');
-				console.log(this.searchForm.name);
-				console.log(this.searchForm.date1);
-			},
-			editOrder:function(orderNum){
-				console.log('修改订单');
-				console.log(orderNum);
-			},
-			deleteOrder:function(orderNum) {
-				this.$confirm('此操作将删除该订单, 是否继续?', '提示', {
-				  confirmButtonText: '确定',
-				  cancelButtonText: '取消',
-				  type: 'warning'
-				}).then(() => {
-					console.log('删除订单'+orderNum);
-					this.$notify({
-						type: 'success',
-						message: '删除成功!'
-					});
-				}).catch(() => {
-				  this.$notify({
-					type: 'info',
-					message: '已取消删除'
-				  });          
-				});
-			},
-			downLoadOrder(orderNum){
-				console.log('下载订单'+orderNum);
-			}
+	methods: {
+		queryOrder:function(){
+			console.log('查询订单,查询参数'+this.searchForm.toString()+"分页参数"+this.page.currentPage);
 		},
-		components:{
-			"edit-order":EditOrder,
-			"edit-order-detail":EditOrderDetail
+		editOrder:function(orderNum){
+			console.log('修改订单');
+			console.log(orderNum);
+		},
+		deleteOrder:function(orderNum) {
+			this.$confirm('此操作将删除该订单, 是否继续?', '提示', {
+			  confirmButtonText: '确定',
+			  cancelButtonText: '取消',
+			  type: 'warning'
+			}).then(() => {
+				console.log('删除订单'+orderNum);
+				this.$notify({
+					type: 'success',
+					message: '删除成功!'
+				});
+			}).catch(() => {
+			  this.$notify({
+				type: 'info',
+				message: '已取消删除'
+			  });          
+			});
+		},
+		downLoadOrder(orderNum){
+			console.log('下载订单'+orderNum);
 		}
+	},
+	components:{
+		"order-add":OrderAdd,
+		"edit-order":EditOrder,
+		"edit-order-detail":EditOrderDetail
+	}
   }
 </script>
 
