@@ -2,7 +2,7 @@
 	<div class="admin_header">
 		<el-row>
 			<el-col :span="4">
-				<a href="/"><img src="../assets/huya-logo.jpg" style="padding-left:8px;"></a>
+				<a href="/home"><img src="../assets/huya-logo.jpg" style="padding-left:8px;"></a>
 			</el-col>
 			<el-col :span="16">
 				<el-menu
@@ -32,10 +32,8 @@
       return {
 				menuList:[
 					{menuUrl:"/order",menuName:"订单中心"},
-					{menuUrl:"/picture",menuName:"报警中心"},
-					{menuUrl:"/order2",menuName:"消息中心"},
-					{menuUrl:"/Edit_Order",menuName:"修改订单"},
-					
+					{menuUrl:"/picture",menuName:"按钮"},
+					{menuUrl:"/order2",menuName:"调试页面"}		
 				],
         activeIndex: 'order',
       };
