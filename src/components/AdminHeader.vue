@@ -19,7 +19,7 @@
 					
 				</el-menu>
 			</el-col>
-			<el-col :span="4">欢迎你，朱鸿钧</el-col>
+			<el-col :span="4">欢迎你，{{name}}</el-col>
 		</el-row>
 		
 		
@@ -30,11 +30,12 @@
 	export default {
     data() {
       return {
-				menuList:[
-					{menuUrl:"/order",menuName:"订单中心"},
-					{menuUrl:"/picture",menuName:"按钮"},
-					{menuUrl:"/order2",menuName:"调试页面"}		
-				],
+		name:this.$store.state.name,
+		menuList:[
+			{menuUrl:"/order",menuName:"订单中心"},
+			{menuUrl:"/picture",menuName:"按钮"},
+			{menuUrl:"/order2",menuName:"调试页面"}		
+		],
         activeIndex: 'order',
       };
     },

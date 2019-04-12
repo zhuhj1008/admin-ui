@@ -17,9 +17,12 @@
 			</el-form-item>
 			<el-form-item label="状态">
 				<el-select v-model="searchForm.orderStatus" placeholder="订单状态">
-					<el-option label="新订单" value="1"/>
+					<template v-for="status in orderStatus">
+						<el-option :label="status.status" :value="status.id"/>
+					</template>
+					<!-- <el-option label="新订单" value="1"/>
 					<el-option label="已付款" value="2"/>
-					<el-option label="已完成" value="3"/>
+					<el-option label="已完成" value="3"/> -->
 				</el-select>
 			</el-form-item>
 			<el-form-item label="起止时间">
@@ -101,7 +104,8 @@
   export default {
     data() {
       return {
-		  page: {
+		orderStatus:this.$store.state.order.orderStatus,
+		page: {
 			  total:400,
 			  currentPage:2,
 		  },
