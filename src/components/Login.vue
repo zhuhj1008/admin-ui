@@ -29,7 +29,7 @@ export default {
     data(){
         return {
             ruleForm2: {
-                username: 'Joe',
+                username: this.$store.state.user.name,
                 password: 'Joe',
             }
         }
@@ -38,7 +38,7 @@ export default {
         handleSubmit(event){
             this.$refs.ruleForm2.validate(() => {               
 				if(this.ruleForm2.password === 'Joe'){
-					   this.$store.user.commit("setName",this.ruleForm2.username);
+					   this.$store.commit("setName",this.ruleForm2.username);
 					   this.$router.push({path: '/home'});
 				}else{
 					this.$alert('用户名或密码错误!', '提示', {

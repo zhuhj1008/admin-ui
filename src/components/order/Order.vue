@@ -4,7 +4,7 @@
 		<!-- 搜索 -->
 		<el-form :inline="true" :model="searchForm" class="demo-form-inline" size='mini'>
 			<el-form-item>
-				<order-add></order-add>
+				<order-add v-on:addOrder="addOrder"></order-add>
 			</el-form-item>
 			<el-form-item label="姓名">
 				<el-input v-model="searchForm.name" placeholder="请输入姓名"/>
@@ -243,6 +243,9 @@
 		},
 		downLoadOrder(orderNum){
 			console.log('下载订单'+orderNum);
+		},
+		addOrder:function(order){
+			console.log('新增订单'+order.customerName+order.customerPhone+order.customerAddress+order.date1);
 		}
 	},
 	components:{
