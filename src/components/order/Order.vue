@@ -40,7 +40,7 @@
 		</el-form>
 	
 		<!--表格 -->
-		 <el-table :data="orderList" style="width: 100%"  height="430"  size='mini'	>
+		 <el-table :data="orderList" style="width: 100%"  height="460" size='mini'	>
 		  <el-table-column type="expand">
 		    <template slot-scope="props">
 		      <el-form label-position="left" inline class="demo-table-expand">
@@ -86,10 +86,11 @@
 		</el-table>
 		
 		<!-- 分页 -->
-		<div style="float: right; margin-top: 15px;">
+		<div style="float: right; margin-top: 10px; margin-bottom: 5px;">
 			<el-pagination background small 
 			:total="page.total" 
 			:current-page.sync="page.currentPage" 
+			:page-size=8
 			@current-change="queryOrder()">
 			</el-pagination>
 		</div>

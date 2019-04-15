@@ -2,7 +2,7 @@
 	<div>
 		
 		<!-- 搜索 -->
-		<el-form :inline="true" :model="searchForm" class="demo-form-inline" size='mini'>
+		<el-form :inline="true" :model="searchForm" class="demo-form-inline">
 			<el-form-item>
 				<order-add></order-add>
 			</el-form-item>
@@ -37,7 +37,7 @@
 		</el-form>
 	
 		<!--表格 -->
-		 <el-table :data="orderList" style="width: 100%"  height="430"  size='mini'	>
+		 <el-table :data="orderList" style="width: 100%"  height="430">
 		  <el-table-column type="expand">
 		    <template slot-scope="props">
 		      <el-form label-position="left" inline class="demo-table-expand">
@@ -86,7 +86,8 @@
 		<div style="float: right; margin-top: 15px;">
 			<el-pagination background small 
 			:total="page.total" 
-			:current-page.sync="page.currentPage" 
+			:current-page.sync="page.currentPage"
+			:page-size=5
 			@current-change="queryOrder()">
 			</el-pagination>
 		</div>
@@ -102,7 +103,7 @@
     data() {
       return {
 		  page: {
-			  total:400,
+			  total:15,
 			  currentPage:2,
 		  },
 		searchForm: {
@@ -117,6 +118,42 @@
         },
 		orderList: [
 			{
+				orderNum: '201904070001',
+				customerName: '朱鸿钧',
+				orderDate: '2019-03-17',
+				orderStatus: '新订单',
+				orderAmount: 3050.3,
+				orderAddress:'河北省保定市河北大学2114',
+				factory:'河北沧州鸿达木业',
+				paymentDate:'2019-04-07'
+			},{
+				orderNum: '201904070001',
+				customerName: '朱鸿钧',
+				orderDate: '2019-03-17',
+				orderStatus: '新订单',
+				orderAmount: 3050.3,
+				orderAddress:'河北省保定市河北大学2114',
+				factory:'河北沧州鸿达木业',
+				paymentDate:'2019-04-07'
+			},{
+				orderNum: '201904070001',
+				customerName: '朱鸿钧',
+				orderDate: '2019-03-17',
+				orderStatus: '新订单',
+				orderAmount: 3050.3,
+				orderAddress:'河北省保定市河北大学2114',
+				factory:'河北沧州鸿达木业',
+				paymentDate:'2019-04-07'
+			},{
+				orderNum: '201904070001',
+				customerName: '朱鸿钧',
+				orderDate: '2019-03-17',
+				orderStatus: '新订单',
+				orderAmount: 3050.3,
+				orderAddress:'河北省保定市河北大学2114',
+				factory:'河北沧州鸿达木业',
+				paymentDate:'2019-04-07'
+			},{
 				orderNum: '201904070001',
 				customerName: '朱鸿钧',
 				orderDate: '2019-03-17',

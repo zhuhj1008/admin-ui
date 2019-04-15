@@ -15,8 +15,8 @@
 			<el-table-column property="price" label="单价"></el-table-column>
 			<el-table-column property="count" label="数量"></el-table-column>
 			<el-table-column property="count" label="金额"></el-table-column>
-			<el-table-column property="count" label="图"></el-table-column>
 			<el-table-column property="" label="操作" width="150">
+				<el-button type="primary" icon="el-icon-edit" size='mini'></el-button>
 				<el-button type="primary" icon="el-icon-delete" size='mini'></el-button>
 			</el-table-column>
 		  </el-table>

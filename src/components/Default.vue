@@ -1,5 +1,5 @@
 <template>
-	<div>默认页面</div>
+	<div>统计页面</div>
 </template>
 
 <script>

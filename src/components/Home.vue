@@ -7,9 +7,9 @@
 					<router-view></router-view>
 			</el-main>
 			<!-- 外层包一层是为了footer固定在底部 -->
-			<div class="footer">
+			<!-- <div class="footer"> -->
 				<el-footer><admin-footer></admin-footer></el-footer>
-			</div>
+			<!-- </div> -->
 			
 		</el-container>
 	
@@ -19,7 +19,6 @@
 <script>
 import AdminHeader from '@/components/AdminHeader'
 import AdminFooter from '@/components/AdminFooter'
-import Order from '@/components/order/Order'
 export default {
   name: 'Home',
   data () {
@@ -27,9 +26,8 @@ export default {
     }
   },
   components:{
-	  "admin-header":AdminHeader,
-		"admin-footer":AdminFooter,
-		"order":Order,
+	"admin-header":AdminHeader,
+	"admin-footer":AdminFooter,
   }
 }
 </script>
@@ -39,7 +37,7 @@ export default {
 .footer {position:absolute;
 	bottom:0;
 	width:100%;
-	height:60px;
+	height:30px;
 	background-color: #ffcc00;
 }
 	
