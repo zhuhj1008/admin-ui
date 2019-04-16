@@ -3,6 +3,13 @@
 		<el-button type="primary" icon="el-icon-plus" @click="dialogFormVisible = true">添加</el-button>
 		<el-dialog title="添加新订单" :visible.sync="dialogFormVisible" append-to-body>
 		  <el-form :model="orderForm" :inline="true" size="mini">
+			<template>
+				<el-radio  v-model="orderForm.radio" label="1" border>1</el-radio>
+				<el-radio  v-model="orderForm.radio" label="2" border>2</el-radio>
+				<el-radio  v-model="orderForm.radio" label="3" border>3</el-radio>
+				<el-radio  v-model="orderForm.radio" label="4" border>4</el-radio>
+			</template>
+			<br/><br/>
 			<el-form-item label="姓名">
 			  <el-input v-model="orderForm.customerName" autocomplete="off" style="width:200px" clearable></el-input>
 			</el-form-item>
@@ -33,6 +40,7 @@
       return {
         dialogFormVisible: false,
         orderForm: {
+					radio: '',
 					customerName: '',
 					customerPhone:'',
 					customerAddress:'',
