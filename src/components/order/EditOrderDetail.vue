@@ -3,11 +3,36 @@
 		<el-button @click="dialogFormVisible = true" type="text" icon="el-icon-plus" size="small"></el-button>
 		<el-dialog title="添加订单" :visible.sync="dialogFormVisible" width='80%' append-to-body>
 			<el-button type="primary" icon="el-icon-plus" @click="addUser()" size='mini'>添加</el-button>
-			
+			<el-button @click="" size="mini">修改</el-button>
 			<!-- 已经保存的 -->
-			<template v-for="orderDetail in orderDetails">
 			<el-form :inline="true" :model="order" class="demo-form-inline" size='mini' disabled>
-				
+				<div>
+					<el-form-item>
+						<el-input  placeholder="名称"  class="el-select_box input-order"></el-input>
+					</el-form-item>
+					<el-form-item>
+						<el-input  placeholder="颜色"  class="el-select_box input-order"></el-input>
+					</el-form-item>
+					<el-form-item>
+						<el-input  placeholder="长"  class="el-select_box input-order"></el-input>
+					</el-form-item>
+					<el-form-item>
+						<el-input  placeholder="宽"  class="el-select_box input-order"></el-input>
+					</el-form-item>
+					<el-form-item>
+						<el-input  placeholder="高"  class="el-select_box input-order"></el-input>
+					</el-form-item>
+					<el-form-item>
+						<el-input  placeholder="长"  class="el-select_box input-order"></el-input>
+					</el-form-item>
+					<el-form-item>
+						<el-input  placeholder="长"  class="el-select_box input-order"></el-input>
+					</el-form-item>
+					<el-form-item>
+						<el-input  placeholder="长"  class="el-select_box input-order"></el-input>
+					</el-form-item>
+				</div>
+			<template v-for="orderDetail in orderDetails">
 					<div>
 						<el-form-item>
 							<el-input v-model="orderDetail.length" placeholder="长"  class="el-select_box input-order"></el-input>
@@ -33,11 +58,9 @@
 						<el-form-item>
 							<el-input v-model="orderDetail.length" placeholder="长"  class="el-select_box input-order"></el-input>
 						</el-form-item>
-						
 					</div>
-					</el-form>
-					<el-button @click="" size="mini">修改</el-button>
 				</template>
+				</el-form>
 			<el-form :inline="true" :model="order" class="demo-form-inline" size='mini'>
 				<!-- 动态生成的 -->
 				<div class="moreRules">
