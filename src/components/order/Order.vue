@@ -6,7 +6,7 @@
 			<el-form-item>
 				<order-add v-on:addOrder="addOrder"></order-add>
 			</el-form-item>
-			<el-form-item label="姓名">
+			<el-form-item label="经销商">
 				<el-input v-model="searchForm.name" placeholder="请输入姓名"/>
 			</el-form-item>
 			<el-form-item label="电话">
@@ -20,9 +20,6 @@
 					<template v-for="status in orderStatus">
 						<el-option :label="status.status" :value="status.id"/>
 					</template>
-					<!-- <el-option label="新订单" value="1"/>
-					<el-option label="已付款" value="2"/>
-					<el-option label="已完成" value="3"/> -->
 				</el-select>
 			</el-form-item>
 			<el-form-item label="起止时间">
@@ -41,57 +38,60 @@
 	
 		<!--表格 -->
 		 <el-table :data="orderList" style="width: 100%"  height="460" size='mini'	>
-		  <el-table-column type="expand">
-		    <template slot-scope="props">
-		      <el-form label-position="left" inline class="demo-table-expand">
-		        <el-form-item label="订单总额">
-		          <span>{{ props.row.orderAmount }}</span>
-		        </el-form-item>
-		        <el-form-item label="送货地址">
-		          <span>{{ props.row.orderAddress }}</span>
-		        </el-form-item>
-		        <el-form-item label="生产厂商">
-		          <span>{{ props.row.factory }}</span>
-		        </el-form-item>
-		        <el-form-item label="支付时间">
-		          <span>{{ props.row.paymentDate }}</span>
-		        </el-form-item>
-		      </el-form>
-		    </template>
-		  </el-table-column>
-		  <el-table-column label="订单号"   prop="orderNum"></el-table-column>
-		  <el-table-column label="客户姓名" prop="customerName"></el-table-column>
-			<el-table-column label="订单日期" prop="orderDate"></el-table-column>
+		  	<el-table-column type="expand">
+			    <template slot-scope="props">
+			      	<el-form label-position="left" inline class="demo-table-expand">
+				        <el-form-item label="订单总额">
+				          <span>{{ props.row.orderAmount }}</span>
+				        </el-form-item>
+				        <el-form-item label="送货地址">
+				          <span>{{ props.row.orderAddress }}</span>
+				        </el-form-item>
+				        <el-form-item label="生产厂商">
+				          <span>{{ props.row.factory }}</span>
+				        </el-form-item>
+				        <el-form-item label="支付时间">
+				          <span>{{ props.row.paymentDate }}</span>
+				        </el-form-item>
+			      	</el-form>
+			    </template>
+		  	</el-table-column>
+		  	<el-table-column label="订单号"   prop="orderNum"></el-table-column>
+		  	<el-table-column label="经销商" prop="customerName"></el-table-column>
+		  	<el-table-column label="客户姓名" prop="customerName"></el-table-column>
+		  	<el-table-column label="订单总额" prop="orderAmount"></el-table-column>
 			<el-table-column label="订单状态" prop="orderStatus"></el-table-column>
+			<el-table-column label="类别" prop="productType"></el-table-column>
+			<el-table-column label="订单日期" prop="orderDate"></el-table-column>
 			<el-table-column fixed="right" label="修改" width="50">
 				<template slot-scope="scope">
 				<edit-order></edit-order>
-			</template>
+				</template>
 			</el-table-column>
 			<el-table-column fixed="right" label="添加" width="50">
 				<template slot-scope="scope">
 					<edit-order-detail></edit-order-detail>
-			</template>
+				</template>
 			</el-table-column>
 			<el-table-column fixed="right" label="下载" width="50">
 				<template slot-scope="scope">
-				<el-button @click="downLoadOrder(scope.row.orderNum)" type="text" icon="el-icon-download" size="small"></el-button>
-			</template>
+					<el-button @click="downLoadOrder(scope.row.orderNum)" type="text" icon="el-icon-download" size="small"></el-button>
+				</template>
 			</el-table-column>
 			<el-table-column fixed="right" label="删除" width="50">
 				<template slot-scope="scope">
-				<el-button @click="deleteOrder(scope.row.orderNum)" type="text" icon="el-icon-delete" size="small"></el-button>
-			</template>
+					<el-button @click="deleteOrder(scope.row.orderNum)" type="text" icon="el-icon-delete" size="small"></el-button>
+				</template>
 			</el-table-column>
 		</el-table>
 		
 		<!-- 分页 -->
 		<div style="float: right; margin-top: 10px; margin-bottom: 5px;">
 			<el-pagination background small 
-			:total="page.total" 
-			:current-page.sync="page.currentPage" 
-			:page-size=8
-			@current-change="queryOrder()">
+				:total="page.total" 
+				:current-page.sync="page.currentPage" 
+				:page-size=10
+				@current-change="queryOrder()">
 			</el-pagination>
 		</div>
 	</div>
@@ -102,7 +102,7 @@
 	import OrderAdd from '@/components/order/OrderAdd'
 	import EditOrder from '@/components/order/EditOrder'
 	import EditOrderDetail from '@/components/order/EditOrderDetail'
-  export default {
+  	export default {
     data() {
       return {
 		orderStatus:this.$store.state.order.orderStatus,
@@ -125,7 +125,8 @@
 				customerName: '朱鸿钧',
 				orderDate: '2019-03-17',
 				orderStatus: '新订单',
-				orderAmount: 3050.3,
+				productType: '原木门',
+				orderAmount: 5050.6,
 				orderAddress:'河北省保定市河北大学2114',
 				factory:'河北沧州鸿达木业',
 				paymentDate:'2019-04-07'
@@ -134,7 +135,8 @@
 				orderNum: '201904070001',
 				customerName: '朱鸿钧',
 				orderDate: '2019-03-17',
-				orderStatus: '新订单',
+				orderStatus: '已支付',
+				productType: '原木门',
 				orderAmount: 3050.3,
 				orderAddress:'河北省保定市河北大学2114',
 				factory:'河北沧州鸿达木业',
@@ -143,76 +145,13 @@
 				orderNum: '201904070001',
 				customerName: '朱鸿钧',
 				orderDate: '2019-03-17',
-				orderStatus: '新订单',
-				orderAmount: 3050.3,
+				orderStatus: '已完成',
+				productType: '贴皮门',
+				orderAmount: 5257.0,
 				orderAddress:'河北省保定市河北大学2114',
 				factory:'河北沧州鸿达木业',
 				paymentDate:'2019-04-07'
-			},{
-				orderNum: '201904070001',
-				customerName: '朱鸿钧',
-				orderDate: '2019-03-17',
-				orderStatus: '新订单',
-				orderAmount: 3050.3,
-				orderAddress:'河北省保定市河北大学2114',
-				factory:'河北沧州鸿达木业',
-				paymentDate:'2019-04-07'
-			},{
-				orderNum: '201904070001',
-				customerName: '朱鸿钧',
-				orderDate: '2019-03-17',
-				orderStatus: '新订单',
-				orderAmount: 3050.3,
-				orderAddress:'河北省保定市河北大学2114',
-				factory:'河北沧州鸿达木业',
-				paymentDate:'2019-04-07'
-			},{
-				orderNum: '201904070001',
-				customerName: '朱鸿钧',
-				orderDate: '2019-03-17',
-				orderStatus: '新订单',
-				orderAmount: 3050.3,
-				orderAddress:'河北省保定市河北大学2114',
-				factory:'河北沧州鸿达木业',
-				paymentDate:'2019-04-07'
-			},
-			{
-				orderNum: '201904070001',
-				customerName: '朱鸿钧',
-				orderDate: '2019-03-17',
-				orderStatus: '新订单',
-				orderAmount: 3050.3,
-				orderAddress:'河北省保定市河北大学2114',
-				factory:'河北沧州鸿达木业',
-				paymentDate:'2019-04-07'
-			},{
-				orderNum: '201904070001',
-				customerName: '朱鸿钧',
-				orderDate: '2019-03-17',
-				orderStatus: '新订单',
-				orderAmount: 3050.3,
-				orderAddress:'河北省保定市河北大学2114',
-				factory:'河北沧州鸿达木业',
-				paymentDate:'2019-04-07'
-			},{
-				orderNum: '201904070001',
-				customerName: '朱鸿钧',
-				orderDate: '2019-03-17',
-				orderStatus: '新订单',
-				orderAmount: 3050.3,
-				orderAddress:'河北省保定市河北大学2114',
-				factory:'河北沧州鸿达木业',
-				paymentDate:'2019-04-07'
-			},{
-				orderNum: '201904070001',
-				customerName: '朱鸿钧',
-				orderDate: '2019-03-17',
-				orderStatus: '新订单',
-				orderAmount: 3050.3,
-				orderAddress:'河北省保定市河北大学2114',
-				factory:'河北沧州鸿达木业',
-				paymentDate:'2019-04-07'
-			}
+			}	
 		]
       }
     },

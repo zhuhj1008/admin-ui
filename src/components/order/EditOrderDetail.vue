@@ -2,147 +2,167 @@
 	<div>
 		<el-button @click="dialogFormVisible = true" type="text" icon="el-icon-plus" size="small"></el-button>
 		<el-dialog title="添加订单" :visible.sync="dialogFormVisible" width='80%' append-to-body>
-			<el-button type="primary" icon="el-icon-plus" @click="addUser()" size='mini'>添加</el-button>
-			<el-button @click="" size="mini">修改</el-button>
-			<!-- 已经保存的 -->
-			<el-form :inline="true" :model="order" class="demo-form-inline" size='mini' disabled>
+			<el-button type="primary" icon="el-icon-plus" @click="addDetailItem()" size='mini' style="margin-bottom: 10px">添加</el-button>
+			<!-- 抬头 -->
+			<el-form :inline="true" :model="{}" class="demo-form-inline" size='mini' disabled>
 				<div>
 					<el-form-item>
-						<el-input  placeholder="名称"  class="el-select_box input-order"></el-input>
+						<el-input  placeholder="名称"  class="el-select_box input-order-md"></el-input>
 					</el-form-item>
 					<el-form-item>
-						<el-input  placeholder="颜色"  class="el-select_box input-order"></el-input>
+						<el-input  placeholder="颜色"  class="el-select_box input-order-md"></el-input>
 					</el-form-item>
 					<el-form-item>
-						<el-input  placeholder="长"  class="el-select_box input-order"></el-input>
+						<el-input  placeholder="线条"  class="el-select_box input-order-md"></el-input>
 					</el-form-item>
 					<el-form-item>
-						<el-input  placeholder="宽"  class="el-select_box input-order"></el-input>
+						<el-input  placeholder="长"  class="el-select_box input-order-sm"></el-input>
 					</el-form-item>
 					<el-form-item>
-						<el-input  placeholder="高"  class="el-select_box input-order"></el-input>
+						<el-input  placeholder="宽"  class="el-select_box input-order-sm"></el-input>
 					</el-form-item>
 					<el-form-item>
-						<el-input  placeholder="长"  class="el-select_box input-order"></el-input>
+						<el-input  placeholder="高"  class="el-select_box input-order-sm"></el-input>
 					</el-form-item>
 					<el-form-item>
-						<el-input  placeholder="长"  class="el-select_box input-order"></el-input>
+						<el-input  placeholder="数量"  class="el-select_box input-order-sm"></el-input>
 					</el-form-item>
 					<el-form-item>
-						<el-input  placeholder="长"  class="el-select_box input-order"></el-input>
+						<el-input  placeholder="单价"  class="el-select_box input-order-sm"></el-input>
+					</el-form-item>
+					<el-form-item>
+						<el-input  placeholder="备注"  class="el-select_box input-order-md"></el-input>
+					</el-form-item>
+					<el-form-item>
+						<el-button type="primary" size="mini" plain disabled>操作</el-button>
 					</el-form-item>
 				</div>
-			<template v-for="orderDetail in orderDetails">
-					<div>
-						<el-form-item>
-							<el-input v-model="orderDetail.length" placeholder="长"  class="el-select_box input-order"></el-input>
-						</el-form-item>
-						<el-form-item>
-							<el-input v-model="orderDetail.width" placeholder="长"  class="el-select_box input-order"></el-input>
-						</el-form-item>
-						<el-form-item>
-							<el-input v-model="orderDetail.hight" placeholder="长"  class="el-select_box input-order"></el-input>
-						</el-form-item>
-						<el-form-item>
-							<el-input v-model="orderDetail.hight" placeholder="长"  class="el-select_box input-order"></el-input>
-						</el-form-item>
-						<el-form-item>
-							<el-input v-model="orderDetail.length" placeholder="长"  class="el-select_box input-order"></el-input>
-						</el-form-item>
-						<el-form-item>
-							<el-input v-model="orderDetail.hight" placeholder="长"  class="el-select_box input-order"></el-input>
-						</el-form-item>
-						<el-form-item>
-							<el-input v-model="orderDetail.length" placeholder="长"  class="el-select_box input-order"></el-input>
-						</el-form-item>
-						<el-form-item>
-							<el-input v-model="orderDetail.length" placeholder="长"  class="el-select_box input-order"></el-input>
-						</el-form-item>
-					</div>
-				</template>
-				</el-form>
+			</el-form>
 			<el-form :inline="true" :model="order" class="demo-form-inline" size='mini'>
 				<!-- 动态生成的 -->
 				<div class="moreRules">
-					<!-- :rules="[{required: true, message: '请完善信息'}]" -->
-					<div class="moreRulesIn" v-for="(item, index) in order.addOrderDetails" :key="item.key" >
-						<el-form-item  label="" :prop="'addOrderDetails.' + index +'.length'" >
-						<el-input v-model="item.length" placeholder="长"  class="el-select_box input-order"></el-input>
+					<div class="moreRulesIn" v-for="(item, index) in order.orderDetails" :key="item.key" >
+						<el-form-item  label="" :prop="'orderDetails.' + index +'.name'" >
+						<el-input v-model="item.name" placeholder="名称"  class="el-select_box input-order-md"></el-input>
 						</el-form-item>
-						<el-form-item  label="" :prop="'addOrderDetails.'+ index +'.width'" >
-						<el-input v-model="item.width" placeholder="宽"  class="el-select_box input-order"></el-input>
+						<el-form-item  label="" :prop="'orderDetails.'+ index +'.color'" >
+						<el-input v-model="item.color" placeholder="颜色"  class="el-select_box input-order-md"></el-input>
 						</el-form-item>
-						<el-form-item  label="" :prop="'addOrderDetails.'+ index +'.hight'" >
-						<el-input v-model="item.hight" placeholder="高"  class="el-select_box input-order"></el-input>
+						<el-form-item  label="" :prop="'orderDetails.'+ index +'.stripe'" >
+						<el-input v-model="item.stripe" placeholder="线条"  class="el-select_box input-order-md"></el-input>
 						</el-form-item>
-						<el-form-item  label="" :prop="'addOrderDetails.'+ index +'.hight'" >
-						<el-input v-model="item.hight" placeholder="高"  class="el-select_box input-order"></el-input>
+						<el-form-item  label="" :prop="'orderDetails.'+ index +'.hight'" >
+						<el-input v-model="item.hight" placeholder="高"  class="el-select_box input-order-sm"></el-input>
 						</el-form-item>
-						<el-form-item  label="" :prop="'addOrderDetails.'+ index +'.hight'" >
-						<el-input v-model="item.hight" placeholder="高"  class="el-select_box input-order"></el-input>
+						<el-form-item  label="" :prop="'orderDetails.'+ index +'.width'" >
+						<el-input v-model="item.width" placeholder="宽"  class="el-select_box input-order-sm"></el-input>
 						</el-form-item>
-						<el-form-item  label="" :prop="'addOrderDetails.'+ index +'.hight'" >
-						<el-input v-model="item.hight" placeholder="高"  class="el-select_box input-order"></el-input>
+						<el-form-item  label="" :prop="'orderDetails.'+ index +'.deep'" >
+						<el-input v-model="item.deep" placeholder="厚"  class="el-select_box input-order-sm"></el-input>
 						</el-form-item>
-						<el-form-item  label="" :prop="'addOrderDetails.'+ index +'.hight'" >
-						<el-input v-model="item.hight" placeholder="高"  class="el-select_box input-order"></el-input>
+						<el-form-item  label="" :prop="'orderDetails.'+ index +'.count'" >
+						<el-input v-model="item.count" placeholder="数量"  class="el-select_box input-order-sm"></el-input>
 						</el-form-item>
-						<el-form-item  label="" :prop="'addOrderDetails.'+ index +'.hight'" >
-						<el-input v-model="item.hight" placeholder="高"  class="el-select_box input-order"></el-input>
+						<el-form-item  label="" :prop="'orderDetails.'+ index +'.price'" >
+						<el-input v-model="item.price" placeholder="单价"  class="el-select_box input-order-sm"></el-input>
 						</el-form-item>
-						<el-button @click="deleteRules(item, index)" size="mini">删除</el-button>
+						<el-form-item  label="" :prop="'orderDetails.'+ index +'.remark'" >
+						<el-input v-model="item.remark" placeholder="备注"  class="el-select_box input-order-md"></el-input>
+						</el-form-item>
+						<el-button @click="deleteDetailItem(item, index)" size="mini">删除</el-button>
 					</div>
 				</div>
 			</el-form>
+
+			<div slot="footer" class="dialog-footer">
+				<el-input v-model='getTotalAmount' size='mini' class='el-select_box input-order-bg' style="margin-right: 10px" disabled>
+				   <template slot="prepend">总金额</template>
+				</el-input>
+				<el-button type="primary" @click="" size='mini'>保  存</el-button>
+				<el-button @click="dialogFormVisible = false" size='mini'>取  消</el-button>
+				
+		  </div>
 		</el-dialog>
 	</div>
 </template>
 
 <script>
-	  export default {
-    data() {
-      return {
-				orderDetails:[
-					{
-					length:'1',
-					width:'2',
-					hight:'3'
-					},{
-					length:'1',
-					width:'2',
-					hight:'3'
-					},
-				],
-				order:{
-					addOrderDetails:[{
-					  length:'',
-					  width:'',
-					  hight:''
-					}]
-				},
-        dialogFormVisible: false
-      };
-    },
+	export default {
+	    data() {
+	      	return {
+	      		dialogFormVisible: false,
+	      		order:{
+		      			orderDetails:[
+						{
+							name:'二层门',
+							color:'开放漆有料头',
+							stripe:'70波浪线',
+							hight:2000,
+							width:800,
+							deep:315,
+							count:1,
+							price:1780,
+							remark:'实木贴皮'
+						},
+						{
+							name:'卫门',
+							color:'开放漆有料头',
+							stripe:'70波浪线',
+							hight:2000,
+							width:770,
+							deep:165,
+							count:1,
+							price:1680,
+							remark:'实木复合贴皮'
+						},
+					],
+	      		}
+	      	};
+	    },
 		methods: {
-		   addUser() {
-		        this.order.addOrderDetails.push({
-		            field:'',
+		   	addDetailItem() {
+		        this.order.orderDetails.push({
 		            name:'',
-		            max:'',
+					color:'',
+					stripe:'',
+					hight:'',
+					width:'',
+					deep:'',
+					count:'',
+					price:'',
+					remark:''
 		      })
-		  },
-		   deleteRules(item, index) {
-		        this.index = this.order.addOrderDetails.indexOf(item)
+		  	},
+		   	deleteDetailItem(item, index) {
+		   		console.log(item,index);
+		        this.index = this.order.orderDetails.indexOf(item)
 		        if (index !== -1) {
-		            this.order.addOrderDetails.splice(index, 1)
+		            this.order.orderDetails.splice(index, 1)
 		        }
-		  }
+		  	},
+		},
+		computed: {
+			getTotalAmount: function(){
+				let totalAmount = 0;
+				this.order.orderDetails.forEach((item) => {
+				   //遍历prodAllPrice这个字段，并累加
+				   totalAmount += item.count*item.price;
+				 });
+				return totalAmount;
+			}
+			
 		}
-  };
+  	};
 </script>
 
 <style>
-.input-order{
+.input-order-sm{
 	width:65px;
+}
+.input-order-md{
+	width:110px;
+}
+.input-order-bg{
+	width:180px;
 }
 </style>
