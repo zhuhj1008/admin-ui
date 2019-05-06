@@ -30,12 +30,13 @@
       return {
         ruleForm2: {
           phone: this.$store.state.user.name,
-          password: 'Joe',
+          password: 'Joe23',
         }
       }
     },
     methods: {
       handleSubmit(event) {
+
         this.$post('/test/a',this.ruleForm2).then((response) => {
           console.log(response);
         });

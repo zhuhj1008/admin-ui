@@ -41,10 +41,12 @@ axios.interceptors.request.use(
 
 export function post(url,data = {}){
   return new Promise((resolve,reject) => {
-    data.timeStr= JSON.stringify(new Date());
-    data.signature='';
-    data.body='';
-    axios.post(url,data)
+    console.log(data);
+    const  param = {};
+    param.body= data;
+    param.timeStr= JSON.stringify(new Date());
+    param.signature='adafrgsdfge';
+    axios.post(url,param)
       .then(response => {
         resolve(response.data);
       },err => {
