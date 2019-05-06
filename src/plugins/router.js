@@ -7,7 +7,6 @@ import Home from '@/components/Home'
 import Default from '@/components/Default'
 import Order from '@/components/order/Order'
 import Order2 from '@/components/order/Order2'
-import EditOrder from '@/components/order/EditOrder'
 import Picture from '@/components/picture/Picture'
 
 

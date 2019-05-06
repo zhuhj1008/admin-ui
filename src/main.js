@@ -5,8 +5,11 @@ import router from './plugins/router.js'
 import store from './plugins/store.js'
 // import 'element-ui/lib/theme-chalk/index.css'
 import '../theme/index.css'
-Vue.config.productionTip = false
+import {post} from './plugins/http.js'
 
+
+Vue.config.productionTip = false
+Vue.prototype.$post=post;
 
 /* eslint-disable no-new */
 new Vue({
