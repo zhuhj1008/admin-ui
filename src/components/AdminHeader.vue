@@ -30,7 +30,7 @@
 	export default {
     data() {
       return {
-		name:this.$store.state.user.name,
+		name:this.$store.state.currentUser.name,
 		menuList:[
 			{menuUrl:"/order",menuName:"订单中心"},
 			{menuUrl:"/picture",menuName:"按钮"},
