@@ -1,13 +1,14 @@
 <template>
   <div>
     <el-button type="primary" icon="el-icon-plus" @click="dialogFormVisible = true">添加</el-button>
-    <el-dialog title="添加新订单" :visible.sync="dialogFormVisible" width='55%' append-to-body>
+    <el-dialog title="添加新订单" :visible.sync="dialogFormVisible" width='55%' :show-close=false
+               :close-on-press-escape=false :close-on-click-modal="false" append-to-body>
       <el-form :model="orderForm" :inline="true" size="mini">
         <template>
-          <el-radio v-model="orderForm.orderType" label="1" border>三个字</el-radio>
-          <el-radio v-model="orderForm.orderType" label="2" border>三个字</el-radio>
-          <el-radio v-model="orderForm.orderType" label="3" border>三个字</el-radio>
-          <el-radio v-model="orderForm.orderType" label="4" border>三个字</el-radio>
+          <el-radio v-model="orderForm.orderType" label="1" border>类型一</el-radio>
+          <el-radio v-model="orderForm.orderType" label="2" border>类型二</el-radio>
+          <el-radio v-model="orderForm.orderType" label="3" border>类型三</el-radio>
+          <el-radio v-model="orderForm.orderType" label="4" border>类型四</el-radio>
         </template>
         <br/><br/>
         <div>
@@ -53,8 +54,8 @@
       </el-form>
 
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="addOrder()">确 定</el-button>
+        <el-button @click="submit()">取 消</el-button>
+        <el-button type="primary" @click="submit()">保 存</el-button>
       </div>
     </el-dialog>
   </div>
@@ -79,13 +80,28 @@
       }
     },
     methods: {
-      // addOrder: function () {
-      //   this.dialogFormVisible = false;
-      //   this.$emit("addOrder", this.orderForm);
-      // }
-      addOrder: function () {
+      submit: function () {
         this.dialogFormVisible = false;
         console.log('新增订单' + JSON.stringify(this.orderForm));
+        this.$post('/order/save', this.orderForm).then((response) => {
+          if (response.code == 1) {
+            this.$notify({
+              type: 'success',
+              message: '保存成功!'
+            });
+          }
+        });
+        this.$emit('queryOrder');
+      },
+      cancel: function () {
+        this.$confirm('此操作将不会保存订单信息, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.dialogFormVisible = false;
+        }).catch(() => {
+        });
       }
     }
   };

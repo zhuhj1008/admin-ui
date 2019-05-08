@@ -1,10 +1,9 @@
 <template>
   <div>
-
     <!-- 搜索 -->
     <el-form :inline="true" :model="searchForm" class="demo-form-inline" size='mini'>
       <el-form-item>
-        <order-add></order-add>
+        <order-add @queryOrder="queryOrder"></order-add>
         <!--<order-add v-on:addOrder="addOrder"></order-add>-->
       </el-form-item>
       <el-form-item label="单号">
@@ -13,7 +12,7 @@
       <el-form-item label="经销商">
         <el-input v-model="searchForm.brokerName" placeholder="请输入姓名"/>
       </el-form-item>
-      <el-form-item label="客户">
+      <el-form-item label="电话">
         <el-input v-model="searchForm.brokerPhone" placeholder="请输入电话 "/>
       </el-form-item>
       <el-form-item label="状态">
@@ -70,8 +69,8 @@
       <el-table-column label="客户" prop="customerName"></el-table-column>
       <el-table-column label="订单状态" prop="orderStatus"></el-table-column>
       <el-table-column label="订单总额" prop="totalAmount"></el-table-column>
-      <el-table-column label="订单日期" prop="createTime"></el-table-column>
-      <el-table-column label="交付日期" prop="deliveryTime"></el-table-column>
+      <el-table-column label="订单日期" prop="createTime" :formatter="dateFormatter"></el-table-column>
+      <el-table-column label="交付日期" prop="deliveryTime" :formatter="dateFormatter"></el-table-column>
       <el-table-column fixed="right" label="修改" width="50">
         <template slot-scope="scope">
           <edit-order :orderId="scope.row.orderId"></edit-order>
@@ -100,8 +99,8 @@
     <div style="float: right; margin-top: 10px; margin-bottom: 5px;">
       <el-pagination background small
                      :total="page.total"
-                     :current-page.sync="page.currentPage"
-                     :page-size=10
+                     :current-page.sync="searchForm.pageNo"
+                     :page-size="searchForm.pageSize"
                      @current-change="queryOrder()">
       </el-pagination>
     </div>
@@ -120,7 +119,6 @@
         orderStatus: this.$store.state.order.orderStatus,
         page: {
           total: 400,
-          currentPage: 1,
         },
         searchForm: {
           orderId: '',
@@ -129,30 +127,40 @@
           orderStatus: '',
           beginDate: '',
           endDate: '',
+          pageNo: 1,
+          pageSize: 10
         },
         orderList: [
-          {
-            orderId: '201904070001',
-            brokerName: '朱鸿钧',
-            customerName: '朱鸿钧',
-            orderStatus: '1',
-            totalAmount: 5050.6,
-            actualAmount: 5000.00,
-            createTime: '2019-03-17',
-            paymentTime: '2019-04-07',
-            deliveryTime: '2019-05-07',
-            brokerPhone: '15175225612',
-            customerPhone: '15175225612',
-            customerAddress: '河北省保定市河北大学2114',
-            orderType: "1",
-            remark: '不包含安装',
-          }
+          // {
+          //   orderId: '201904070001',
+          //   brokerName: '朱鸿钧',
+          //   customerName: '朱鸿钧',
+          //   orderStatus: '1',
+          //   totalAmount: 5050.6,
+          //   actualAmount: 5000.00,
+          //   createTime: '2019-03-17',
+          //   paymentTime: '2019-04-07',
+          //   deliveryTime: '2019-05-07',
+          //   brokerPhone: '15175225612',
+          //   customerPhone: '15175225612',
+          //   customerAddress: '河北省保定市河北大学2114',
+          //   orderType: "1",
+          //   remark: '不包含安装',
+          // }
         ]
       }
     },
+    mounted:function () {
+      this.queryOrder();
+    },
     methods: {
       queryOrder: function () {
-        console.log('查询订单,查询参数' + JSON.stringify(this.searchForm));
+        this.$post('/order/query', this.searchForm).then((response) => {
+          if (response.code == 1) {
+            this.page.total = response.data.total;
+            this.orderList = response.data.contents;
+          }
+        });
       },
       editOrder: function (orderNum) {
         console.log('修改订单');
@@ -179,9 +187,16 @@
       downLoadOrder(orderNum) {
         console.log('下载订单' + orderNum);
       },
-      // addOrder: function (order) {
-      //   console.log('新增订单' + JSON.stringify(order));
-      // }
+      dateFormatter(row, column) {
+        const date = new Date(row[column.property])
+        const Y = date.getFullYear() + '-'
+        const M = date.getMonth() + 1 + '-'
+        const D = date.getDate() + ' '
+        const h = date.getHours() + ':'
+        const m = date.getMinutes() + ':'
+        const s = date.getSeconds();
+        return Y + M + D;
+      },
     },
     components: {
       "order-add": OrderAdd,

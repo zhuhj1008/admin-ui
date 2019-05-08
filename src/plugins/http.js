@@ -45,7 +45,6 @@ axios.interceptors.response.use(
 
 export function post(url, data = {}) {
   return new Promise((resolve, reject) => {
-    console.log(data);
     const param = {};
     param.body = data;
     param.timeStr = new Date();

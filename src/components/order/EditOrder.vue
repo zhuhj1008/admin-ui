@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-button @click="toEditOrder()" type="text" icon="el-icon-edit" size="mini"></el-button>
-    <el-dialog title="修改订单" :visible.sync="dialogFormVisible" close-on-press-escape:false append-to-body>
+    <el-dialog title="修改订单" :visible.sync="dialogFormVisible" :show-close=false :close-on-press-escape=false :close-on-click-modal="false" append-to-body>
       <el-form :model="form" :inline="true" size="mini">
         <div>
           <el-form-item>
