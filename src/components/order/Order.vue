@@ -73,7 +73,7 @@
       <el-table-column label="交付日期" prop="deliveryTime" :formatter="dateFormatter"></el-table-column>
       <el-table-column fixed="right" label="修改" width="50">
         <template slot-scope="scope">
-          <edit-order :orderId="scope.row.orderId"></edit-order>
+          <edit-order @queryOrder="queryOrder" :orderId="scope.row.orderId"></edit-order>
         </template>
       </el-table-column>
       <el-table-column fixed="right" label="添加" width="50">
@@ -130,24 +130,7 @@
           pageNo: 1,
           pageSize: 10
         },
-        orderList: [
-          // {
-          //   orderId: '201904070001',
-          //   brokerName: '朱鸿钧',
-          //   customerName: '朱鸿钧',
-          //   orderStatus: '1',
-          //   totalAmount: 5050.6,
-          //   actualAmount: 5000.00,
-          //   createTime: '2019-03-17',
-          //   paymentTime: '2019-04-07',
-          //   deliveryTime: '2019-05-07',
-          //   brokerPhone: '15175225612',
-          //   customerPhone: '15175225612',
-          //   customerAddress: '河北省保定市河北大学2114',
-          //   orderType: "1",
-          //   remark: '不包含安装',
-          // }
-        ]
+        orderList: []
       }
     },
     mounted:function () {
@@ -155,6 +138,7 @@
     },
     methods: {
       queryOrder: function () {
+
         this.$post('/order/query', this.searchForm).then((response) => {
           if (response.code == 1) {
             this.page.total = response.data.total;
@@ -192,9 +176,9 @@
         const Y = date.getFullYear() + '-'
         const M = date.getMonth() + 1 + '-'
         const D = date.getDate() + ' '
-        const h = date.getHours() + ':'
+        /*const h = date.getHours() + ':'
         const m = date.getMinutes() + ':'
-        const s = date.getSeconds();
+        const s = date.getSeconds();*/
         return Y + M + D;
       },
     },

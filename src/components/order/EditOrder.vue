@@ -1,7 +1,8 @@
 <template>
   <div>
-    <el-button @click="toEditOrder()" type="text" icon="el-icon-edit" size="mini"></el-button>
-    <el-dialog title="修改订单" :visible.sync="dialogFormVisible" :show-close=false :close-on-press-escape=false :close-on-click-modal="false" append-to-body>
+    <el-button @click="dialogFormVisible = true,toEditOrder()" type="text" icon="el-icon-edit" size="mini"></el-button>
+    <el-dialog title="修改订单" :visible.sync="dialogFormVisible" width='55%' :show-close=false
+               :close-on-press-escape=false :close-on-click-modal="false" append-to-body>
       <el-form :model="form" :inline="true" size="mini">
         <div>
           <el-form-item>
@@ -13,16 +14,16 @@
         </div>
 
         <el-form-item label="单号">
-          <el-input v-model="form.orderNo" autocomplete="off" style="width:130px" disabled></el-input>
+          <el-input v-model="form.orderId" autocomplete="off" style="width:130px" disabled></el-input>
         </el-form-item>
         <el-form-item label="数量">
           <el-input v-model="form.count" autocomplete="off" style="width:90px" disabled></el-input>
         </el-form-item>
         <el-form-item label="总额">
-          <el-input v-model="form.amount" autocomplete="off" style="width:90px" disabled></el-input>
+          <el-input v-model="form.totalAmount" autocomplete="off" style="width:90px" disabled></el-input>
         </el-form-item>
         <el-form-item label="实收">
-          <el-input v-model="form.amount" autocomplete="off" style="width:170px" clearable></el-input>
+          <el-input v-model="form.actualAmount" autocomplete="off" style="width:170px" clearable></el-input>
         </el-form-item>
         <el-form-item label="状态" style="width:240px">
           <el-select v-model="form.orderStatus" placeholder="">
@@ -55,7 +56,7 @@
 
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="editOrder()">确 定</el-button>
+        <el-button type="primary" @click="dialogFormVisible = false,editOrder()">确 定</el-button>
       </div>
     </el-dialog>
   </div>
@@ -67,31 +68,47 @@
       return {
         dialogFormVisible: false,
         form: {
-          orderType: '3',
-          orderNo: '20190407003',
-          orderStatus: '已完成',
-          brokerName: '朱鸿钧',
-          brokerPhone: '15175225612',
-          customerName: '朱鸿钧',
-          customerPhone: '15175225612',
-          customerAddress: '河北省保定市河北大学2114',
-          count: 10,
-          amount: '170.45',
+          orderId: '',
+          orderType: '',
+          orderStatus: '',
+          brokerName: '',
+          brokerPhone: '',
+          customerName: '',
+          customerPhone: '',
+          customerAddress: '',
+          count: '',
+          totalAmount: '',
+          actualAmount: '',
           remark: '',
         }
       };
     },
     methods: {
       toEditOrder: function () {
-        this.dialogFormVisible = true;
-        console.log('修改订单' + this.orderId);
+        const param = {};
+        param.orderId = this.orderId;
+        this.$post("/order/queryById", param).then((response) => {
+          if (response.code == 1) {
+            this.form = response.data;
+          }
+        });
+
       },
       editOrder: function () {
-        this.dialogFormVisible = false;
         console.log('修改订单' + this.orderId);
+        this.$post("/order/update", this.form).then((response) => {
+          if (response.code == 1) {
+            //重新加载列表数据
+            this.$emit('queryOrder');
+            this.$notify({
+              type: 'success',
+              message: '修改成功!'
+            });
+          }
+        });
       }
     },
-    props:[
+    props: [
       "orderId"
     ]
   };

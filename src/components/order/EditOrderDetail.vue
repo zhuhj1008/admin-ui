@@ -1,6 +1,7 @@
 <template>
   <div>
-    <el-button @click="toOrderDetail()" type="text" icon="el-icon-plus" size="small"></el-button>
+    <el-button @click="dialogFormVisible = true,toOrderDetail()" type="text" icon="el-icon-plus"
+               size="small"></el-button>
     <el-dialog title="添加订单" :visible.sync="dialogFormVisible" width='95%' append-to-body>
       <el-button type="primary" icon="el-icon-plus" @click="addDetailItem()" size='mini' style="margin-bottom: 10px">
         添加
@@ -12,7 +13,7 @@
             <el-input placeholder="名称" class="el-select_box input-order-md"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-input placeholder="颜色" class="el-select_box input-order-md"></el-input>
+            <el-input placeholder="颜色" class="el-select_box input-order-sm"></el-input>
           </el-form-item>
           <el-form-item>
             <el-input placeholder="线条" class="el-select_box input-order-md"></el-input>
@@ -30,13 +31,10 @@
             <el-input placeholder="数量" class="el-select_box input-order-sm"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-input placeholder="单价" class="el-select_box input-order-sm"></el-input>
+            <el-input placeholder="单价" class="el-select_box input-order-md"></el-input>
           </el-form-item>
           <el-form-item>
             <el-input placeholder="备注" class="el-select_box input-order-md"></el-input>
-          </el-form-item>
-          <el-form-item>
-            <el-button type="primary" size="mini" plain disabled>操作</el-button>
           </el-form-item>
         </div>
       </el-form>
@@ -48,7 +46,7 @@
               <el-input v-model="item.productName" placeholder="名称" class="el-select_box input-order-md"></el-input>
             </el-form-item>
             <el-form-item label="" :prop="'orderDetails.'+ index +'.color'">
-              <el-input v-model="item.color" placeholder="颜色" class="el-select_box input-order-md"></el-input>
+              <el-input v-model="item.color" placeholder="颜色" class="el-select_box input-order-sm"></el-input>
             </el-form-item>
             <el-form-item label="" :prop="'orderDetails.'+ index +'.stripe'">
               <el-input v-model="item.stripe" placeholder="线条" class="el-select_box input-order-md"></el-input>
@@ -66,7 +64,7 @@
               <el-input v-model="item.count" placeholder="数量" class="el-select_box input-order-sm"></el-input>
             </el-form-item>
             <el-form-item label="" :prop="'orderDetails.'+ index +'.price'">
-              <el-input v-model="item.price" placeholder="单价" class="el-select_box input-order-sm"></el-input>
+              <el-input v-model="item.price" placeholder="单价" class="el-select_box input-order-md"></el-input>
             </el-form-item>
             <el-form-item label="" :prop="'orderDetails.'+ index +'.remark'">
               <el-input v-model="item.remark" placeholder="备注" class="el-select_box input-order-md"></el-input>
@@ -81,9 +79,8 @@
                   disabled>
           <template slot="prepend">总金额</template>
         </el-input>
-        <el-button type="primary" @click="saveOrderDetail()" size='mini'>保 存</el-button>
         <el-button @click="dialogFormVisible = false" size='mini'>取 消</el-button>
-
+        <el-button type="primary" @click="dialogFormVisible = false,saveOrderDetail()" size='mini'>保 存</el-button>
       </div>
     </el-dialog>
   </div>
@@ -95,37 +92,22 @@
       return {
         dialogFormVisible: false,
         order: {
-          orderDetails: [
-            {
-              productName: '二层门',
-              color: '开放漆有料头',
-              stripe: '70波浪线',
-              height: 2000,
-              width: 800,
-              thickness: 315,
-              count: 1,
-              price: 1780,
-              remark: '实木贴皮'
-            },
-            {
-              productName: '卫门',
-              color: '开放漆有料头',
-              stripe: '70波浪线',
-              height: 2000,
-              width: 770,
-              thickness: 165,
-              count: 1,
-              price: 1680,
-              remark: '实木复合贴皮'
-            },
-          ],
+          orderDetails: [],
         }
       };
     },
+    props: [
+      "orderId"
+    ],
     methods: {
       toOrderDetail() {
-        this.dialogFormVisible = true;
-        console.log('修改订单明细' + this.orderId);
+        const param = {};
+        param.orderId = this.orderId;
+        this.$post("/order/queryDetail", param).then((response) => {
+          if (response.code == 1) {
+            this.order.orderDetails = response.data;
+          }
+        })
       },
       addDetailItem() {
         this.order.orderDetails.push({
@@ -147,13 +129,20 @@
         }
       },
       saveOrderDetail() {
-        this.dialogFormVisible = false;
-        console.log("保存订单：" + JSON.stringify(this.order.orderDetails))
+        console.log("保存订单：" + JSON.stringify(this.order.orderDetails));
+        const param = {};
+        param.orderId = this.orderId;
+        param.details = this.order.orderDetails;
+        this.$post("/order/saveDetail", param).then((response => {
+          if (response.code == 1) {
+            this.$notify({
+              type: 'success',
+              message: '保存成功!'
+            });
+          }
+        }));
       }
     },
-    props: [
-      "orderId"
-    ],
     computed: {
       getTotalAmount: function () {
         let totalAmount = 0;
@@ -168,11 +157,11 @@
 
 <style>
   .input-order-sm {
-    width: 60px;
+    width: 70px;
   }
 
   .input-order-md {
-    width: 110px;
+    width: 100px;
   }
 
   .input-order-bg {
