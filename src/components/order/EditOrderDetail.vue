@@ -2,7 +2,8 @@
   <div>
     <el-button @click="dialogFormVisible = true,toOrderDetail()" type="text" icon="el-icon-plus"
                size="small"></el-button>
-    <el-dialog title="添加订单" :visible.sync="dialogFormVisible" width='95%' append-to-body>
+    <el-dialog title="添加订单" :visible.sync="dialogFormVisible" width='95%' :show-close=false
+               :close-on-press-escape=false :close-on-click-modal="false" append-to-body>
       <el-button type="primary" icon="el-icon-plus" @click="addDetailItem()" size='mini' style="margin-bottom: 10px">
         添加
       </el-button>

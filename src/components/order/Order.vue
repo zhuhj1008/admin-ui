@@ -133,7 +133,7 @@
         orderList: []
       }
     },
-    mounted:function () {
+    mounted: function () {
       this.queryOrder();
     },
     methods: {
@@ -156,10 +156,16 @@
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          console.log('删除订单' + orderNum);
-          this.$notify({
-            type: 'success',
-            message: '删除成功!'
+          const param = {};
+          param.orderId = orderNum;
+          this.$post("/order/delete", param).then((response) => {
+            if (response.code == 1) {
+              this.queryOrder();
+              this.$notify({
+                type: 'success',
+                message: '删除成功!'
+              });
+            }
           });
         }).catch(() => {
           this.$notify({
