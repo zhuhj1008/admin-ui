@@ -7,9 +7,9 @@
 					<router-view></router-view>
 			</el-main>
 			<!-- 外层包一层是为了footer固定在底部 -->
-			<div class="footer">
+			<!--<div class="footer">-->
 				<el-footer><admin-footer></admin-footer></el-footer>
-			</div>
+			<!--</div>-->
 			
 		</el-container>
 	

@@ -39,7 +39,7 @@
     </el-form>
 
     <!--表格 -->
-    <el-table :data="orderList" style="width: 100%" height="460" size='mini'>
+    <el-table :data="orderList" style="width: 100%" size='mini'>
       <el-table-column type="expand">
         <template slot-scope="props">
           <el-form label-position="left" inline class="demo-table-expand">
@@ -98,9 +98,12 @@
     <!-- 分页 -->
     <div style="float: right; margin-top: 10px; margin-bottom: 5px;">
       <el-pagination background small
+                     layout=" total, sizes, prev, pager, next, jumper"
                      :total="page.total"
                      :current-page.sync="searchForm.pageNo"
+                     :page-sizes="[10, 20, 50]"
                      :page-size="searchForm.pageSize"
+                     @size-change=" changeSize"
                      @current-change="queryOrder()">
       </el-pagination>
     </div>
@@ -137,6 +140,10 @@
       this.queryOrder();
     },
     methods: {
+      changeSize:function(val){
+        this.searchForm.pageSize = val;
+        this.queryOrder();
+      },
       queryOrder: function () {
 
         this.$post('/order/query', this.searchForm).then((response) => {
