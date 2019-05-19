@@ -34,7 +34,8 @@
 		menuList:[
 			{menuUrl:"/order",menuName:"订单中心"},
 			{menuUrl:"/picture",menuName:"按钮"},
-			{menuUrl:"/order2",menuName:"调试页面"}		
+			{menuUrl:"/order2",menuName:"调试页面"}	,
+			{menuUrl:"/broker",menuName:"经销商"}	,
 		],
         activeIndex: 'order',
       };

@@ -140,7 +140,7 @@
       this.queryOrder();
     },
     methods: {
-      changeSize:function(val){
+      changeSize: function (val) {
         this.searchForm.pageSize = val;
         this.queryOrder();
       },

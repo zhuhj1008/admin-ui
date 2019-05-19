@@ -8,6 +8,7 @@ import Default from '@/components/Default'
 import Order from '@/components/order/Order'
 import Order2 from '@/components/order/Order2'
 import Picture from '@/components/picture/Picture'
+import Broker from '@/components/broker/Broker'
 
 
 Vue.use(Router)
@@ -24,7 +25,8 @@ export default new Router({
 				{path: '/',name: 'Default',component: Default},
 				{path: '/order',name: 'Order',component: Order},
 				{path: '/order2',name: 'Order2',component: Order2},
-				{path: '/picture',name: 'Picture',component: Picture}
+				{path: '/picture',name: 'Picture',component: Picture},
+				{path: '/broker',name: 'Broker',component: Broker}
 			]
 		},
   ]
