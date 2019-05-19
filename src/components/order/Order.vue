@@ -4,7 +4,6 @@
     <el-form :inline="true" :model="searchForm" class="demo-form-inline" size='mini'>
       <el-form-item>
         <order-add @queryOrder="queryOrder"></order-add>
-        <!--<order-add v-on:addOrder="addOrder"></order-add>-->
       </el-form-item>
       <el-form-item label="单号">
         <el-input v-model="searchForm.orderId" placeholder="请输入订单号"/>

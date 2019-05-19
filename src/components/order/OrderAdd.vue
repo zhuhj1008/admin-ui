@@ -42,7 +42,6 @@
         </el-form-item>
 
 
-
         <el-form-item label="备注" prop="remark">
           <el-input v-model="orderForm.remark" autocomplete="off" style="width:430px" clearable></el-input>
         </el-form-item>
@@ -57,6 +56,7 @@
 </template>
 
 <script>
+
   export default {
     data() {
       return {
@@ -76,7 +76,6 @@
     },
     methods: {
       submit: function (formName) {
-        console.log('新增订单' + JSON.stringify(this.orderForm));
         this.$post('/order/save', this.orderForm).then((response) => {
           if (response.code == 1) {
             //清空表单数据
