@@ -1,6 +1,7 @@
 <template>
   <div>
-    <el-button type="primary" icon="el-button-plus" @click="dialogFormVisible=true">添加</el-button>
+    <el-button @click="dialogFormVisible=true,toEdit()" type="text" icon="el-icon-edit"
+               size="small"></el-button>
     <el-dialog title="添加代理商" :visible.sync="dialogFormVisible" :show-close=false
                :close-on-press-escape=false :close-on-click-modal="false" append-to-body>
 
@@ -25,7 +26,7 @@
 
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogFormVisible = false,saveBroker('brokerForm')">保 存</el-button>
+        <el-button type="primary" @click="dialogFormVisible = false,editSubmit()">保 存</el-button>
       </div>
     </el-dialog>
 
@@ -49,12 +50,18 @@
       }
     },
     methods: {
-      saveBroker: function (formName) {
-        console.log("保存经销商，信息：" + JSON.stringify(this.brokerForm));
+      toEdit: function () {
+        const param = {};
+        param.brokerId = this.brokerId;
+        this.$post("/broker/query", param).then((response) => {
+          if (response.code == 1) {
+            this.brokerForm = response.data;
+          }
+        });
+      },
+      editSubmit: function () {
         this.$post("/broker/save", this.brokerForm).then((response) => {
           if (response.code == 1) {
-            //清空表单数据
-            this.$refs[formName].resetFields();
             //重新加载列表数据
             this.$emit('queryBroker');
             this.$notify({
@@ -64,7 +71,10 @@
           }
         })
       }
-    }
+    },
+    props: [
+      "brokerId"
+    ]
   }
 </script>
 
