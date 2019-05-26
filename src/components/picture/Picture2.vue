@@ -8,26 +8,24 @@
 
           <el-submenu v-for="(menu,index) in menus" :key="index" :index="menu.menuId">
             <template slot="title"><span>{{menu.menuName}}</span></template>
-            <el-menu-item v-for="(subMenu,index2) in menu.children" :key="index2" :index="subMenu.menuId" @click="consoleLog(subMenu.menuName)">
+            <el-menu-item v-for="(subMenu,index2) in menu.children" :key="index2" :index="subMenu.menuId"
+                          @click="consoleLog(subMenu.menuName)">
               {{subMenu.menuName}}
             </el-menu-item>
           </el-submenu>
-
-          <!--<el-submenu index="1">-->
-          <!--<template slot="title"><span>导航一</span></template>-->
-          <!--<el-menu-item index="1">选项1-1</el-menu-item>-->
-          <!--<el-menu-item index="1">选项1-2</el-menu-item>-->
-          <!--</el-submenu>-->
-          <!--<el-submenu index="2">-->
-          <!--<template slot="title"><span>导航二</span></template>-->
-          <!--<el-menu-item index="4">选项1-3</el-menu-item>-->
-          <!--</el-submenu>-->
         </el-menu>
-
       </el-aside>
-      <el-main class="el-main-book">Main</el-main>
+      <el-main class="el-main-book">
+        <el-row>
+          <el-col :span="4" v-for="o in 18" :key="o" class="joe">
+            <el-card :body-style="{ padding: '0px' }">
+              <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
+                   class="image">
+            </el-card>
+          </el-col>
+        </el-row>
+      </el-main>
     </el-container>
-
   </div>
 </template>
 
@@ -64,10 +62,13 @@
       }
     },
     methods: {
-      consoleLog(val){
-        console.log("AAA:"+val);
+      consoleLog(val) {
+        console.log("AAA:" + val);
       }
-    }
+    },
+    mounted: function () {
+      // this.queryOrder();
+    },
   }
 
 </script>
