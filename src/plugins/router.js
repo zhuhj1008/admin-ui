@@ -7,7 +7,7 @@ import Home from '@/components/Home'
 import Default from '@/components/Default'
 import Order from '@/components/order/Order'
 import Picture from '@/components/picture/Picture'
-import Picture2 from '@/components/picture/Picture2'
+import Product from '@/components/product/Product'
 import Broker from '@/components/broker/Broker'
 
 
@@ -26,7 +26,7 @@ export default new Router({
         {path: '/', name: 'Default', component: Default},
         {path: '/order', name: 'Order', component: Order},
         {path: '/picture', name: 'Picture', component: Picture},
-        {path: '/picture2', name: 'Picture2', component: Picture2},
+        {path: '/product', name: 'Product', component: Product},
         {path: '/broker', name: 'Broker', component: Broker}
       ]
     },

@@ -15,16 +15,20 @@
         </el-menu>
       </el-aside>
       <el-main class="el-main-book">
-        <div style="padding-top: 10px; padding-bottom: 10px;">
-          <el-button type="primary" icon="el-icon-check" circle></el-button>
-          <el-button type="primary" icon="el-icon-star-off" circle></el-button>
-        </div>
         <el-row>
-          <el-col :span="4" v-for="o in 12" :key="o" class="joe">
-            <!--../../assets/product/demo.jpg-->
+          <!--新增-->
+          <el-col :span="4">
+            <el-card>
+              <img src="../../assets/product/product_add.svg" class="image" style="width: 60px; height: 170px">
+              <div style="padding: 5px;">
+                <el-button type="text" class="error">添加</el-button>
+              </div>
+            </el-card>
+          </el-col>
+          <el-col :span="4" v-for="o in 11" :key="o">
             <!--https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png-->
             <el-card>
-              <img src="../../assets/product/demo.jpg" class="image" style="width: 100%; height: 100%">
+              <img src="../../assets/product/demo.jpg" class="image" style="width: 95px; height: 170px">
               <div style="padding: 5px;">
                 <el-button type="text" class="error">OX-892</el-button>
               </div>
@@ -40,28 +44,31 @@
   export default {
     data() {
       return {
+        searchForm: {
+          productCode: ''
+        },
         menus: [
           {
             menuId: "1",
-            menuName: "导航一",
+            menuName: "图册一",
             children: [
               {
                 menuId: "2",
-                menuName: "导航1-1",
+                menuName: "鸿达",
               },
               {
                 menuId: "3",
-                menuName: "导航1-2",
+                menuName: "雅耐",
               }
             ]
           },
           {
             menuId: "4",
-            menuName: "导航2",
+            menuName: "图册二",
             children: [
               {
                 menuId: "5",
-                menuName: "导航2-1",
+                menuName: "其他",
               }
             ]
           }
@@ -72,7 +79,10 @@
       consoleLog(val) {
         console.log("AAA:" + val);
       },
-      queryDetail:function(){
+      queryProduct: function () {
+
+      },
+      queryDetail: function () {
         console.log("asas");
       }
     },
@@ -99,7 +109,7 @@
   }
 
   /*.el-container-book {*/
-    /*margin-bottom: 10px;*/
+  /*margin-bottom: 10px;*/
   /*}*/
 
 </style>

@@ -35,7 +35,7 @@
 			{menuUrl:"/order",menuName:"订单中心"},
       {menuUrl:"/broker",menuName:"经销商"}	,
 			{menuUrl:"/picture",menuName:"产品图册"},
-      {menuUrl:"/picture2",menuName:"产品图册"},
+      {menuUrl:"/product",menuName:"产品"},
 		],
         activeIndex: 'order',
       };
