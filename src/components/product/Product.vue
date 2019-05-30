@@ -18,20 +18,12 @@
         <el-row>
           <!--新增-->
           <el-col :span="4">
-            <el-card>
-              <img src="../../assets/product/product_add.svg" class="image" style="width: 60px; height: 170px">
-              <div style="padding: 5px;">
-                <el-button type="text" class="error">添加</el-button>
-              </div>
-            </el-card>
+            <product-add></product-add>
           </el-col>
           <el-col :span="4" v-for="o in 11" :key="o">
-            <!--https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png-->
             <el-card>
               <img src="../../assets/product/demo.jpg" class="image" style="width: 95px; height: 170px">
-              <div style="padding: 5px;">
-                <el-button type="text" class="error">OX-892</el-button>
-              </div>
+              <product-edit></product-edit>
             </el-card>
           </el-col>
         </el-row>
@@ -41,6 +33,10 @@
 </template>
 
 <script>
+
+  import ProductAdd from '@/components/product/ProductAdd'
+  import ProductEdit from '@/components/product/ProductEdit'
+
   export default {
     data() {
       return {
@@ -88,6 +84,10 @@
     },
     mounted: function () {
       // this.queryOrder();
+    },
+    components: {
+      "product-add": ProductAdd,
+      "product-edit": ProductEdit,
     },
   }
 

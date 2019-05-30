@@ -6,10 +6,9 @@
       <el-form :model="form" :inline="true" size="mini">
         <div>
           <el-form-item>
-            <el-radio v-model="form.orderType" label="1" border>三个字</el-radio>
-            <el-radio v-model="form.orderType" label="2" border>三个字</el-radio>
-            <el-radio v-model="form.orderType" label="3" border>三个字</el-radio>
-            <el-radio v-model="form.orderType" label="4" border>三个字</el-radio>
+            <template v-for="type in orderType">
+              <el-radio v-model="form.orderType" :label="type.id" border>{{type.text}}</el-radio>
+            </template>
           </el-form-item>
         </div>
 
@@ -67,6 +66,7 @@
     data() {
       return {
         dialogFormVisible: false,
+        orderType: this.$store.state.order.orderType,
         form: {
           orderId: '',
           orderType: '',
