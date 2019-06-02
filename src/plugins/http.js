@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import context from '../main.js'
 
-axios.defaults.timeout = 5000;
+axios.defaults.timeout = 1000 * 60 ;
 axios.defaults.baseURL = 'http://localhost:8888';
 
 //http request 拦截器

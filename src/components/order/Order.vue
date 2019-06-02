@@ -6,16 +6,16 @@
         <order-add @queryOrder="queryOrder"></order-add>
       </el-form-item>
       <el-form-item label="单号">
-        <el-input v-model="searchForm.orderId" placeholder="请输入订单号"/>
+        <el-input v-model="searchForm.orderId" placeholder="请输入订单号" clearable/>
       </el-form-item>
       <el-form-item label="经销商">
-        <el-input v-model="searchForm.brokerName" placeholder="请输入姓名"/>
+        <el-input v-model="searchForm.brokerName" placeholder="请输入姓名" clearable/>
       </el-form-item>
       <el-form-item label="电话">
-        <el-input v-model="searchForm.brokerPhone" placeholder="请输入电话 "/>
+        <el-input v-model="searchForm.brokerPhone" placeholder="请输入电话 " clearable/>
       </el-form-item>
       <el-form-item label="状态">
-        <el-select v-model="searchForm.orderStatus" placeholder="订单状态">
+        <el-select v-model="searchForm.orderStatus" placeholder="订单状态" clearable>
           <template v-for="status in orderStatus">
             <el-option :label="status.status" :value="status.id"/>
           </template>

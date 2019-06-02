@@ -20,9 +20,10 @@
           <el-col :span="4">
             <product-add></product-add>
           </el-col>
-          <el-col :span="4" v-for="o in 11" :key="o">
+          <el-col :span="4" v-for="o in 25" :key="o">
             <el-card>
-              <img src="../../assets/product/demo.jpg" class="image" style="width: 95px; height: 170px">
+              <img src="../../assets/product/demo.jpg" class="image"
+                   style="text-align:center; width: 95px; height: 170px">
               <product-edit></product-edit>
             </el-card>
           </el-col>

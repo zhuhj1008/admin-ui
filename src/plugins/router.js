@@ -11,6 +11,9 @@ import Product from '@/components/product/Product'
 import Broker from '@/components/broker/Broker'
 
 
+import Test from '@/components/Test'
+
+
 Vue.use(Router)
 Vue.use(ElementUI)
 
@@ -27,7 +30,8 @@ export default new Router({
         {path: '/order', name: 'Order', component: Order},
         {path: '/picture', name: 'Picture', component: Picture},
         {path: '/product', name: 'Product', component: Product},
-        {path: '/broker', name: 'Broker', component: Broker}
+        {path: '/broker', name: 'Broker', component: Broker},
+        {path: '/test', name: 'Test', component: Test}
       ]
     },
   ]

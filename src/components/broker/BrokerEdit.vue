@@ -2,10 +2,10 @@
   <div>
     <el-button @click="dialogFormVisible=true,toEdit()" type="text" icon="el-icon-edit"
                size="small"></el-button>
-    <el-dialog title="添加代理商" :visible.sync="dialogFormVisible" :show-close=false
+    <el-dialog title="代理商信息" :visible.sync="dialogFormVisible" :show-close=false
                :close-on-press-escape=false :close-on-click-modal="false" append-to-body>
 
-      <el-form :model="brokerForm" :inline="true" size="mini" ref="brokerForm" prop="brokerForm">
+      <el-form :model="brokerForm" :inline="true" size="mini" ref="brokerForm" prop="brokerForm" :rules="rules" hide-required-asterisk>
         <el-form-item label="经销商" prop="brokerName">
           <el-input v-model="brokerForm.brokerName" style="width:150px" clearable></el-input>
         </el-form-item>
@@ -46,6 +46,11 @@
           phone: "",
           address: "",
           remark: ""
+        },
+        rules: {
+          brokerName: [
+            {required: true, message: '请输入经销商', trigger: 'blur'}
+          ]
         }
       }
     },

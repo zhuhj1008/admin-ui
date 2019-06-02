@@ -27,11 +27,9 @@
         </div>
 
         <el-form-item label="经销商" prop="brokerName">
-          <!--<el-input v-model="orderForm.brokerName" autocomplete="off" style="width:200px" clearable></el-input>-->
           <el-autocomplete v-model="orderForm.brokerName"
                            :fetch-suggestions="queryBroker"
                            style="width:200px"></el-autocomplete>
-          <!--&lt;!&ndash;@select="handleSelect"&ndash;&gt;-->
         </el-form-item>
         <el-form-item label="客户姓名" prop="customerName">
           <el-input v-model="orderForm.customerName" autocomplete="off" style="width:200px" clearable></el-input>
@@ -79,11 +77,11 @@
     },
     methods: {
       queryBroker: function (queryString, cb) {
+        this.loadBroker();
         const suggestBroker = this.suggestBroker;
         const results = queryString ? suggestBroker.filter(this.createFilter(queryString)) : suggestBroker;
         // 调用 callback 返回建议列表的数据
         cb(results);
-
       },
       createFilter(queryString) {
         return (broker) => {
@@ -130,10 +128,7 @@
           }
         });
       }
-    },
-    mounted: function () {
-      this.loadBroker();
-    },
+    }
   };
 </script>
 

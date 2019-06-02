@@ -6,9 +6,7 @@
       <el-form :model="form" :inline="true" size="mini">
         <div>
           <el-form-item>
-            <template v-for="type in orderType">
-              <el-radio v-model="form.orderType" :label="type.id" border>{{type.text}}</el-radio>
-            </template>
+              <el-radio v-for="item in orderType"  :key="item.id" v-model="form.orderType" :label="item.id" border>{{item.text}}</el-radio>
           </el-form-item>
         </div>
 
@@ -24,16 +22,19 @@
         <el-form-item label="实收">
           <el-input v-model="form.actualAmount" autocomplete="off" style="width:170px" clearable></el-input>
         </el-form-item>
-        <el-form-item label="状态" style="width:240px">
+        <el-form-item label="状态" style="width:240px" v-model="form.orderStatus">
           <el-select v-model="form.orderStatus" placeholder="">
-            <el-option label="新订单" value="shanghai"></el-option>
-            <el-option label="已完成" value="beijing"></el-option>
+            <el-option v-for="item in orderStatus" :key="item.id" :label="item.status"
+                       :value="item.id"></el-option>
           </el-select>
         </el-form-item>
 
 
-        <el-form-item label="代理">
-          <el-input v-model="form.brokerName" autocomplete="off" style="width:200px" clearable></el-input>
+        <el-form-item label="经销">
+          <!--<el-input v-model="form.brokerName" autocomplete="off" style="width:200px" clearable></el-input>-->
+          <el-autocomplete v-model="form.brokerName"
+                           :fetch-suggestions="queryBroker"
+                           style="width:200px"></el-autocomplete>
         </el-form-item>
         <el-form-item label="电话">
           <el-input v-model="form.brokerPhone" autocomplete="off" style="width:163px" clearable></el-input>
@@ -65,8 +66,11 @@
   export default {
     data() {
       return {
+
         dialogFormVisible: false,
+        orderStatus: this.$store.state.order.orderStatus,
         orderType: this.$store.state.order.orderType,
+        suggestBroker:[],
         form: {
           orderId: '',
           orderType: '',
@@ -92,7 +96,19 @@
             this.form = response.data;
           }
         });
+      },
+      queryBroker: function (queryString, cb) {
+        this.loadBroker();
+        const suggestBroker = this.suggestBroker;
+        const results = queryString ? suggestBroker.filter(this.createFilter(queryString)) : suggestBroker;
+        // 调用 callback 返回建议列表的数据
+        cb(results);
 
+      },
+      createFilter(queryString) {
+        return (broker) => {
+          return (broker.value.toLowerCase().indexOf(queryString.toLowerCase()) !== -1);
+        };
       },
       editOrder: function () {
         console.log('修改订单' + this.orderId);
@@ -104,6 +120,19 @@
               type: 'success',
               message: '修改成功!'
             });
+          }
+        });
+      },
+      loadBroker: function () {
+        this.$post("/broker/queryAllName").then(response => {
+          if (response.code == 1) {
+            const nameList = response.data;
+            console.log(JSON.stringify(nameList));
+            for (const name of nameList) {
+              const broker = {};
+              broker.value = name;
+              this.suggestBroker.push(broker);
+            }
           }
         });
       }

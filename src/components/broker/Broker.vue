@@ -16,7 +16,6 @@
       <el-form-item label="联系电话">
         <el-input v-model="searchForm.phone"></el-input>
       </el-form-item>
-
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" @click="queryBroker()">搜索</el-button>
       </el-form-item>
@@ -28,12 +27,6 @@
       <el-table-column prop="contact" label="联系人"></el-table-column>
       <el-table-column prop="phone" label="联系电话"></el-table-column>
       <el-table-column prop="createTime" label="创建时间" :formatter="dateFormatter"></el-table-column>
-      <el-table-column fixed="right" label="订单" width="50">
-        <template slot-scope="scope">
-          <el-button @click="deleteBroker(scope.row.brokerId)" type="text" icon="el-icon-view"
-                     size="small"></el-button>
-        </template>
-      </el-table-column>
       <el-table-column fixed="right" label="修改" width="50">
         <template slot-scope="scope">
           <broker-edit @queryBroker="queryBroker" :brokerId="scope.row.brokerId"></broker-edit>

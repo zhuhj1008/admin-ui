@@ -36,6 +36,7 @@
       {menuUrl:"/broker",menuName:"经销商"}	,
 			{menuUrl:"/picture",menuName:"产品图册"},
       {menuUrl:"/product",menuName:"产品"},
+      {menuUrl:"/test",menuName:"调试页面"},
 		],
         activeIndex: 'order',
       };

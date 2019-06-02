@@ -14,15 +14,16 @@ export default new Vuex.Store({
     },
     order: {
       orderStatus: [
-        {"id": "1", "status": "新订单"},
-        {"id": "2", "status": "已付款"},
-        {"id": "3", "status": "已完成"}
+        // {"id": null, "status": "全部"},
+        {"id": 1, "status": "新订单"},
+        {"id": 2, "status": "已付款"},
+        {"id": 3, "status": "已完成"}
       ],
       orderType: [
-        {"id": "1", "text": "实木复合门"},
-        {"id": "2", "text": "工艺贴皮门"},
-        {"id": "3", "text": "原木门"},
-        {"id": "4", "text": "钢木门"}
+        {"id": 1, "text": "实木复合门"},
+        {"id": 2, "text": "工艺贴皮门"},
+        {"id": 3, "text": "原木门"},
+        {"id": 4, "text": "钢木门"}
       ]
     }
   },
