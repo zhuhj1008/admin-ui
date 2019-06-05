@@ -2,7 +2,7 @@
      
   <div>
     <el-card>
-      <img src="../../assets/product/product_add.svg" class="image" style="width: 60px; height: 170px">
+      <img src="../../assets/product/product_add.svg" class="image" style="width: 60px; height: 160px">
       <div style="padding: 5px;">
         <el-button type="text" class="error" @click="dialogFormVisible=true">添加</el-button>
       </div>
