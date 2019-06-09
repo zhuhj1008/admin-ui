@@ -18,11 +18,11 @@
         <el-row>
           <!--新增-->
           <el-col :span="4">
-            <product-add></product-add>
+            <product-add :menus="menus"></product-add>
           </el-col>
           <el-col :span="4" v-for="o in 25" :key="o">
             <el-card>
-              <img src="../../assets/product/demo.jpg" class="image"
+              <img src="../../assets/product/demo.jpg"
                    style="text-align:center; width: 95px; height: 170px">
               <product-edit></product-edit>
             </el-card>
@@ -44,35 +44,18 @@
         searchForm: {
           productCode: ''
         },
-        menus: [
-          {
-            menuId: "1",
-            menuName: "图册一",
-            children: [
-              {
-                menuId: "2",
-                menuName: "鸿达",
-              },
-              {
-                menuId: "3",
-                menuName: "雅耐",
-              }
-            ]
-          },
-          {
-            menuId: "4",
-            menuName: "图册二",
-            children: [
-              {
-                menuId: "5",
-                menuName: "其他",
-              }
-            ]
-          }
-        ]
+        menus: []
       }
     },
     methods: {
+      loadProductMenu: function () {
+        this.$post("/common/findBookMenu").then(response => {
+          if (response.code == 1) {
+            console.log(JSON.stringify(response.data));
+            this.menus = response.data;
+          }
+        })
+      },
       consoleLog(val) {
         console.log("AAA:" + val);
       },
@@ -89,6 +72,9 @@
     components: {
       "product-add": ProductAdd,
       "product-edit": ProductEdit,
+    },
+    mounted: function () {
+      this.loadProductMenu();
     },
   }
 
@@ -108,9 +94,5 @@
     text-align: center;
     /*line-height: 500px;*/
   }
-
-  /*.el-container-book {*/
-  /*margin-bottom: 10px;*/
-  /*}*/
 
 </style>
