@@ -17,7 +17,7 @@
         </el-form-item>
 
         <el-form-item label="分类" prop="productType">
-          <el-input v-model="form.productType" autocomplete="off" style="width:200px" clearable></el-input>
+          <el-cascader v-model="form.productType" :options="productTypes"></el-cascader>
         </el-form-item>
 
         <el-form-item label="图册" prop="book">
@@ -38,31 +38,32 @@
           </el-col>
         </el-form-item>
         <div>
-        <el-form-item label="小图" prop="productCode">
-          <el-upload class="upload-demo" drag action="https://jsonplaceholder.typicode.com/posts/" list-type="picture">
-            <i class="el-icon-upload"></i>
-            <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-            <div class="el-upload__text">小图只能上传一个</div>
-            <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
-          </el-upload>
-        </el-form-item>
+          <el-form-item label="小图" prop="productCode">
+            <el-upload class="upload-demo" drag action="https://jsonplaceholder.typicode.com/posts/"
+                       list-type="picture" :data="uploadSmallData">
+              <i class="el-icon-upload"></i>
+              <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+              <div class="el-upload__text">小图只能上传一个</div>
+              <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
+            </el-upload>
+          </el-form-item>
 
-        <el-form-item label="大图" prop="productCode">
-          <el-upload class="upload-demo" drag action="https://jsonplaceholder.typicode.com/posts/" list-type="picture"
-                     multiple>
-            <i class="el-icon-upload"></i>
-            <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-            <div class="el-upload__text">大图能上传多个</div>
-            <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
-          </el-upload>
-        </el-form-item>
+          <el-form-item label="大图" prop="productCode">
+            <el-upload class="upload-demo" drag action="https://jsonplaceholder.typicode.com/posts/" list-type="picture"
+                       multiple>
+              <i class="el-icon-upload"></i>
+              <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+              <div class="el-upload__text">大图能上传多个</div>
+              <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
+            </el-upload>
+          </el-form-item>
         </div>
       </el-form>
 
 
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogFormVisible = false">保 存</el-button>
+        <el-button type="primary" @click="dialogFormVisible = false,save()">保 存</el-button>
       </div>
     </el-dialog>
   </div>
@@ -75,18 +76,27 @@
         dialogFormVisible: false,
         form: {
           productName: '',
-          productType: '',
+          productType: [],
           productCode: '',
           picture: '',
           book: '',
-          minPrice:'',
-          maxPrice:''
+          minPrice: '',
+          maxPrice: ''
+        },
+        uploadSmallData:{
+          type:"",
+          productId:""
         }
       }
     },
-    methods:{},
-    props:[
-      "menus"
+    methods: {
+      save:function () {
+        console.log("productType"+JSON.stringify(this.form.productType[this.form.productType.length -1]));
+        console.log("picture"+JSON.stringify(this.form.picture))
+      }
+    },
+    props: [
+      "productTypes"
     ]
   }
 </script>

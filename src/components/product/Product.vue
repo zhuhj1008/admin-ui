@@ -5,11 +5,11 @@
         <el-menu
           default-active="2"
           class="el-menu-vertical-demo">
-          <el-submenu v-for="(menu,index) in menus" :key="index" :index="menu.menuId">
-            <template slot="title"><span>{{menu.menuName}}</span></template>
-            <el-menu-item v-for="(subMenu,index2) in menu.children" :key="index2" :index="subMenu.menuId"
-                          @click="consoleLog(subMenu.menuName)">
-              {{subMenu.menuName}}
+          <el-submenu v-for="(type,index) in productTypes" :key="index" :index="type.value">
+            <template slot="title"><span>{{type.label}}</span></template>
+            <el-menu-item v-for="(subType,index2) in type.children" :key="index2" :index="subType.value"
+                          @click="queryProduct(subType.value)">
+              {{subType.label}}
             </el-menu-item>
           </el-submenu>
         </el-menu>
@@ -18,7 +18,7 @@
         <el-row>
           <!--新增-->
           <el-col :span="4">
-            <product-add :menus="menus"></product-add>
+            <product-add :productTypes="productTypes"></product-add>
           </el-col>
           <el-col :span="4" v-for="o in 25" :key="o">
             <el-card>
@@ -44,23 +44,19 @@
         searchForm: {
           productCode: ''
         },
-        menus: []
+        productTypes: []
       }
     },
     methods: {
       loadProductMenu: function () {
-        this.$post("/common/findBookMenu").then(response => {
+        this.$post("/product/queryType").then(response => {
           if (response.code == 1) {
-            console.log(JSON.stringify(response.data));
-            this.menus = response.data;
+            this.productTypes = response.data;
           }
         })
       },
-      consoleLog(val) {
-        console.log("AAA:" + val);
-      },
-      queryProduct: function () {
-
+      queryProduct: function (val) {
+        console.log("查询产品，产品类型:" + val);
       },
       queryDetail: function () {
         console.log("asas");
