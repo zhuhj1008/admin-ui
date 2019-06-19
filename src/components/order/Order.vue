@@ -177,7 +177,7 @@
         });
       },
       downLoadOrder(orderNum) {
-        console.log('下载订单' + orderNum);
+        window.location.href = "http://localhost:8888/order/download?orderId=" + orderNum;
       },
       dateFormatter(row, column) {
         const date = new Date(row[column.property])

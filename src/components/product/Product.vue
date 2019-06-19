@@ -20,10 +20,10 @@
           <el-col :span="4">
             <product-add :productTypes="productTypes"></product-add>
           </el-col>
-          <el-col :span="4" v-for="o in 25" :key="o">
+          <!--v-for="o in 25" :key="o"-->
+          <el-col :span="4" v-for="(product,index) in productList" :key="index" :index="index">
             <el-card>
-              <img src="../../assets/product/demo.jpg"
-                   style="text-align:center; width: 95px; height: 170px">
+              <img :src="product.picture" style="text-align:center; width: 95px; height: 170px">
               <product-edit></product-edit>
             </el-card>
           </el-col>
@@ -44,7 +44,8 @@
         searchForm: {
           productCode: ''
         },
-        productTypes: []
+        productTypes: [],
+        productList: []
       }
     },
     methods: {
@@ -57,6 +58,13 @@
       },
       queryProduct: function (val) {
         console.log("查询产品，产品类型:" + val);
+        const param = {};
+        param.productType = val;
+        this.$post("/product/queryByType", param).then(response => {
+          if (response.code == 1) {
+            this.productList = response.data;
+          }
+        })
       },
       queryDetail: function () {
         console.log("asas");
