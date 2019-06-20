@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-container class="el-container-book">
-      <el-aside class="el-aside-book" style="width: 200px;">
+      <el-aside class="el-aside-book" style="width: 200px; height: 700px">
         <el-menu
           default-active="2"
           class="el-menu-vertical-demo">
@@ -24,7 +24,7 @@
           <el-col :span="4" v-for="(product,index) in productList" :key="index" :index="index">
             <el-card>
               <img :src="product.picture" style="text-align:center; width: 95px; height: 170px">
-              <product-edit></product-edit>
+              <product-edit :productId="product.productId" :productCode="product.productCode"></product-edit>
             </el-card>
           </el-col>
         </el-row>

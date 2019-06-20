@@ -49,8 +49,8 @@
           </el-form-item>
 
           <el-form-item label="大图" prop="productCode">
-            <el-upload class="upload-demo" drag action="https://jsonplaceholder.typicode.com/posts/" list-type="picture"
-                       multiple>
+            <el-upload class="upload-demo" drag action="https://jsonplaceholder.typicode.com/posts/"
+                       list-type="picture" multiple>
               <i class="el-icon-upload"></i>
               <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
               <div class="el-upload__text">大图能上传多个</div>
@@ -83,16 +83,16 @@
           minPrice: '',
           maxPrice: ''
         },
-        uploadSmallData:{
-          type:"",
-          productId:""
+        uploadSmallData: {
+          type: "",
+          productId: ""
         }
       }
     },
     methods: {
-      save:function () {
-        console.log("productType"+JSON.stringify(this.form.productType[this.form.productType.length -1]));
-        console.log("picture"+JSON.stringify(this.form.picture))
+      save: function () {
+        console.log("productType" + JSON.stringify(this.form.productType[this.form.productType.length - 1]));
+        console.log("picture" + JSON.stringify(this.form.picture))
       }
     },
     props: [
