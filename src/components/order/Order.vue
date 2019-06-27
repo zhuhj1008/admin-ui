@@ -177,7 +177,8 @@
         });
       },
       downLoadOrder(orderNum) {
-        window.location.href = "http://39.105.2.84:6060/order/download?orderId=" + orderNum;
+        // window.location.href = "http://39.105.2.84:6060/order/download?orderId=" + orderNum;
+        window.location.href = "http://127.0.0.1:6060/order/download?orderId=" + orderNum;
       },
       dateFormatter(row, column) {
         const date = new Date(row[column.property])
