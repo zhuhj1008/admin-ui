@@ -5,6 +5,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    serverUrl: 'http://39.105.2.84:6060',
     currentUser: {
       userId: '',
       name: '',

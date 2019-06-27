@@ -3,8 +3,8 @@ import axios from 'axios';
 import context from '../main.js'
 
 axios.defaults.timeout = 1000 * 60 ;
-axios.defaults.baseURL = 'http://localhost:8888';
-
+axios.defaults.baseURL = 'http://39.105.2.84:6060';
+//this.$store.state.serverUrl   http://39.105.2.84:6060
 //http request 拦截器
 axios.interceptors.request.use(
   config => {
