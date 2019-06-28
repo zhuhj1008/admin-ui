@@ -10,6 +10,11 @@ import {post} from './plugins/http.js'
 Vue.config.productionTip = false
 Vue.prototype.$post=post;
 
+router.beforeEach((to, from, next) => {
+  document.title=to.meta.title;//让页面显示路由对应的name值。
+  next()
+});
+
 /* eslint-disable no-new */
 export default new Vue({
   el: '#app',

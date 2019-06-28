@@ -22,16 +22,16 @@ export default new Router({
   mode: 'history',
   routes: [
     {path: '/', redirect: '/login'},
-    {path: '/login', name: 'Login', component: Login},
+    {path: '/login', name: 'Login', component: Login,meta:{title:'登陆'}},
     {
       path: '/home', component: Home,
       children: [
-        {path: '/', name: 'Default', component: Default},
-        {path: '/order', name: 'Order', component: Order},
-        {path: '/picture', name: 'Picture', component: Picture},
-        {path: '/product', name: 'Product', component: Product},
-        {path: '/broker', name: 'Broker', component: Broker},
-        {path: '/test', name: 'Test', component: Test}
+        {path: '/', name: 'Default', component: Default,meta:{title:'首页'}},
+        {path: '/order', name: 'Order', component: Order,meta:{title:'订单'}},
+        {path: '/picture', name: 'Picture', component: Picture,meta:{title:'图册'}},
+        {path: '/product', name: 'Product', component: Product,meta:{title:'图册'}},
+        {path: '/broker', name: 'Broker', component: Broker,meta:{title:'经销商'}},
+        {path: '/test', name: 'Test', component: Test,meta:{title:'调试'}}
       ]
     },
   ]
