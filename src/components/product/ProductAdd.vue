@@ -39,13 +39,23 @@
         </el-form-item>
         <div>
           <el-form-item label="小图" prop="productCode">
-            <el-upload class="upload-demo" drag action="https://jsonplaceholder.typicode.com/posts/"
-                       list-type="picture" :data="uploadSmallData">
+            <el-upload class="upload-demo" drag list-type="picture"
+                       :on-success="uploadSuccess()"
+                       :http-request="upload()"
+                       :headers="uploadHeaders"
+                       :file-list="smallPictures">
+              <i class="el-icon-upload"></i>
+              <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+              <div class="el-upload__text">小图只能上传一个</div>
+            </el-upload>
+
+            <!--<el-upload class="upload-demo" drag
+                       list-type="picture" :data="smallPicture">
               <i class="el-icon-upload"></i>
               <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
               <div class="el-upload__text">小图只能上传一个</div>
               <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
-            </el-upload>
+            </el-upload>-->
           </el-form-item>
 
           <el-form-item label="大图" prop="productCode">
@@ -74,6 +84,10 @@
     data() {
       return {
         dialogFormVisible: false,
+        uploadHeaders: {
+          authorization: '*'
+        },
+        smallPictures:'',
         form: {
           productName: '',
           productType: [],
@@ -83,13 +97,17 @@
           minPrice: '',
           maxPrice: ''
         },
-        uploadSmallData: {
-          type: "",
-          productId: ""
-        }
       }
     },
     methods: {
+
+      uploadSuccess: function(){
+        this.$notify({
+          type: 'info',
+          message: '上传成功'
+        });
+        console.log("上传成功："+JSON.stringify(this.smallPictures))
+      },
       save: function () {
         console.log("productType" + JSON.stringify(this.form.productType[this.form.productType.length - 1]));
         console.log("picture" + JSON.stringify(this.form.picture))

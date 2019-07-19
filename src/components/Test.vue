@@ -47,9 +47,9 @@
         dataObj: {
           region:'oss-cn-beijing',
           bucket:'joe-zhj',
-          accessKeyId:'STS.NHPWcL5UV6YasySdjUWTiW474',
-          accessKeySecret:'HWu8tBUmBdBRKkkTY3MPqVz3Ydu4AekLToUktXtTnYoY',
-          stsToken:'CAISggJ1q6Ft5B2yfSjIr4vlHNn42Ip3gZuKcV/igGoAW9tFuPGc1jz2IH1Mf3lhAO8ftf8/nWtT7vodlrpUcKQDR0vJKNlw7NFM/Bi6Yo3H4ywJHHCszc/LI3OaLjKm9u2wCryLYbGwU/OpbE++5U0X6LDmdDKkckW4OJmS8/BOZcgWWQ/KBlgvRq0hRG1YpdQdKGHaONu0LxfumRCwNkdzvRdmgm4NgsbWgO/ks0WP3QGkk7dK9tSgf8j/M/MBZskvD42Hu8VtbbfE3SJq7BxHybx7lqQs+02c44nGUwgIvEzdaLqNqYY3cFBjHq8hAOteq/zx0/9/t6nBl4bnOeD0phOuok8agAFIbc3FnNy4nrURqqKI/tL4BjBRKTUeT//LaoObdC8niKN3kc3DOrYP+QfVxocxtJJbGYHte7MjvKcd1PEZpZLs+zufQOICoHRAApKxTW0wMxlOH4+3LvWj7smHdmOKxy5WOzOn1xxjvNNou4HNxiV9egNptlmLmKhOqEy153v6KQ=='
+          accessKeyId:'STS.NKNMvKFEPWQ8rmucfdH3zJkxu',
+          accessKeySecret:'545aWdDWXeG5mqUg7sRT2fCiYU6GEGjaM6aVBi3bqykJ',
+          stsToken:'CAISggJ1q6Ft5B2yfSjIr4j7Bsz/q5px4JPTcEvEh2YxRLxWpa7Tlzz2IH1Mf3lhAO8ftf8/nWtT7vodlrpUcKQDR0vJKNlw7NFM/Bi6Yo3H4zIZOxKszc/LI3OaLjKm9u2wCryLYbGwU/OpbE++5U0X6LDmdDKkckW4OJmS8/BOZcgWWQ/KBlgvRq0hRG1YpdQdKGHaONu0LxfumRCwNkdzvRdmgm4NgsbWgO/ks0WP3QGkk7dK9tSgf8j/M/MBZskvD42Hu8VtbbfE3SJq7BxHybx7lqQs+02c44nGUwgIvEzdaLqNqYY3cFBjHq8hAOteq/zx0/9/t6nBl4bnOeD0phOuok8agAGWMDLzzHgRlGd6ti5XWcgle3kvJPXXUknew1tkkgSCaRu13wvTgbpGJghaAH86RTfXeB/uI85MUzkn8rD7R+eR/l5aZmteIt619nR5YRQONlehqmbWhEcj34n8sb4FP24WxU+NOQ/e1DtWBOx0ZOnhNlubodyITGnu5ci7tUO8rA=='
         },
         // expiration: '',
         fileList: [],
@@ -62,10 +62,12 @@
     },
     methods: {
       aaa(){
-        const client = Client(this.dataObj);
+        // const client = Client(this.dataObj);
         // const res = client.signatureUrl(this.imageName);
-        const res = client.getObjectUrl(this.imageName);
-        console.log(JSON.stringify(res));
+        // // const res = client.getObjectUrl(this.imageName);
+        // console.log(JSON.stringify(res));
+        console.log(JSON.stringify(this.fileList))
+
       },
       // getDate(){
       //   const date = new Date(),
@@ -76,7 +78,7 @@
       //     mm = date.getMinutes() > 9 ? date.getMinutes() : `0${date.getMinutes()}`;
       //   return `${year}${month}${day}${hh}${mm}`;
       // },
-      /*getAliToken(){ //获取Token
+      getAliToken(){ //获取Token
         return new Promise((resolve, reject) => {
           this.$axios({
             method: 'POST',
@@ -101,7 +103,7 @@
             reject(false);
           })
         })
-      },*/
+      },
       // beforeUpload(file){
       //   return new Promise((resolve, reject) => {
       //     this.getAliToken().then(response => {
@@ -133,7 +135,6 @@
           }).then(({res}) => {
             console.log(res);
             if (res.statusCode === 200) {
-              // option.onSuccess(ret)
               return res.requestUrls
             } else {
               vm.disabled = false;
@@ -148,7 +149,6 @@
           console.error(error);
           this.disabled = false;
           option.onError('上传失败');
-          console.log("JOE-上传失败")
         }
       },
       handleSuccess(response, file, fileList){
@@ -173,9 +173,9 @@
         }
       }
     },
-    // created(){
-    //   this.getAliToken();
-    // }
+    created(){
+      this.getAliToken();
+    }
 
   }
 </script>
