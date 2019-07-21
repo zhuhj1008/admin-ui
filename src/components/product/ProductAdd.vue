@@ -40,10 +40,11 @@
         <div>
           <el-form-item label="小图" prop="productCode">
             <el-upload class="upload-demo" drag list-type="picture"
-                       :on-success="uploadSuccess()"
-                       :http-request="upload()"
+                       action=""
+                       :http-request="upload"
+                       :on-success="uploadSuccess"
                        :headers="uploadHeaders"
-                       :file-list="smallPictures">
+                       :file-list="form.smallPictures">
               <i class="el-icon-upload"></i>
               <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
               <div class="el-upload__text">小图只能上传一个</div>
@@ -80,14 +81,11 @@
 </template>
 
 <script>
+  import Client from '../../plugins/ossClient';
   export default {
     data() {
       return {
         dialogFormVisible: false,
-        uploadHeaders: {
-          authorization: '*'
-        },
-        smallPictures:'',
         form: {
           productName: '',
           productType: [],
@@ -95,23 +93,85 @@
           picture: '',
           book: '',
           minPrice: '',
-          maxPrice: ''
+          maxPrice: '',
+          smallPictures: [],
         },
+        uploadHeaders: {
+          authorization: '*'
+        },
+        ossData: {
+          region: '',
+          bucket: '',
+          accessKeyId: '',
+          accessKeySecret: '',
+          securityToken: ''
+        }
       }
     },
     methods: {
-
-      uploadSuccess: function(){
-        this.$notify({
-          type: 'info',
-          message: '上传成功'
+      getOSSToken: function () {
+        this.$post("/common/ossToken").then((response) => {
+          if (response.code == 1) {
+            this.ossData = response.data;
+            this.ossData.region = 'oss-cn-beijing';
+            this.ossData.bucket = 'joe-zhj';
+          }
         });
-        console.log("上传成功："+JSON.stringify(this.smallPictures))
+      },
+      async upload(option) {
+        try {
+          let vm = this;
+          vm.disabled = true;
+          const client = Client(this.ossData), file = option.file;
+          //随机命名
+          const random_name = this.random_string(6) + '_' + new Date().getTime() + '.' + file.name.split('.').pop();
+          // 分片上传文件
+          await client.multipartUpload(random_name, file, {
+            progress: async function (p) {
+              let e = {};
+              e.percent = p * 100;
+              option.onProgress(e)
+            }
+          }).then(({res}) => {
+            if (res.statusCode === 200) {
+              return res.requestUrls
+            } else {
+              vm.disabled = false;
+              option.onError('上传失败');
+            }
+          }).catch(error => {
+            vm.disabled = false;
+            option.onError('上传失败');
+          });
+        } catch (error) {
+          console.error(error);
+          this.disabled = false;
+          option.onError('上传失败');
+        }
+      },
+      uploadSuccess: function () {
+        // this.$notify({
+        //   type: 'info',
+        //   message: '上传成功'
+        // });
+        console.log("上传成功：" + JSON.stringify(this.smallPictures))
       },
       save: function () {
         console.log("productType" + JSON.stringify(this.form.productType[this.form.productType.length - 1]));
         console.log("picture" + JSON.stringify(this.form.picture))
+      },
+      // 随机生成文件名
+      random_string(len) {
+        len = len || 32;
+        let chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz12345678', maxPos = chars.length, pwd = '';
+        for (let i = 0; i < len; i++) {
+          pwd += chars.charAt(Math.floor(Math.random() * maxPos));
+        }
+        return pwd;
       }
+    },
+    created() {
+      this.getOSSToken();
     },
     props: [
       "productTypes"

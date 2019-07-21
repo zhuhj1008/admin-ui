@@ -47,9 +47,9 @@
         dataObj: {
           region:'oss-cn-beijing',
           bucket:'joe-zhj',
-          accessKeyId:'STS.NKNMvKFEPWQ8rmucfdH3zJkxu',
-          accessKeySecret:'545aWdDWXeG5mqUg7sRT2fCiYU6GEGjaM6aVBi3bqykJ',
-          stsToken:'CAISggJ1q6Ft5B2yfSjIr4j7Bsz/q5px4JPTcEvEh2YxRLxWpa7Tlzz2IH1Mf3lhAO8ftf8/nWtT7vodlrpUcKQDR0vJKNlw7NFM/Bi6Yo3H4zIZOxKszc/LI3OaLjKm9u2wCryLYbGwU/OpbE++5U0X6LDmdDKkckW4OJmS8/BOZcgWWQ/KBlgvRq0hRG1YpdQdKGHaONu0LxfumRCwNkdzvRdmgm4NgsbWgO/ks0WP3QGkk7dK9tSgf8j/M/MBZskvD42Hu8VtbbfE3SJq7BxHybx7lqQs+02c44nGUwgIvEzdaLqNqYY3cFBjHq8hAOteq/zx0/9/t6nBl4bnOeD0phOuok8agAGWMDLzzHgRlGd6ti5XWcgle3kvJPXXUknew1tkkgSCaRu13wvTgbpGJghaAH86RTfXeB/uI85MUzkn8rD7R+eR/l5aZmteIt619nR5YRQONlehqmbWhEcj34n8sb4FP24WxU+NOQ/e1DtWBOx0ZOnhNlubodyITGnu5ci7tUO8rA=='
+          accessKeyId:'STS.NJQfpA6TaF92wPKUviZWFV96H',
+          accessKeySecret:'5f5Uz9ThXqxX9vyLrB4oSKGeDWBQnENtrxJmE2JJVw8F',
+          securityToken:' CAISggJ1q6Ft5B2yfSjIr4nkLcr124tA8fvZdXb6sXY8Vthqufydqjz2IH1Mf3lhAO8ftf8/nWtT7vodlrpUcKQDR0vJKNlw7NFM/Bi6Yo3H43JIHyCszc/LI3OaLjKm9u2wCryLYbGwU/OpbE++5U0X6LDmdDKkckW4OJmS8/BOZcgWWQ/KBlgvRq0hRG1YpdQdKGHaONu0LxfumRCwNkdzvRdmgm4NgsbWgO/ks0WP3QGkk7dK9tSgf8j/M/MBZskvD42Hu8VtbbfE3SJq7BxHybx7lqQs+02c44nGUwgIvEzdaLqNqYY3cFBjHq8hAOteq/zx0/9/t6nBl4bnOeD0phOuok8agAFf69GDChB6liH7xq9bJmprJzdzAJU7fYR5h+XROmkTI2OsXM8emj1Fia619YsEKWSSzgYhw8TjnUZAildLH2dTUTJpWJhq7rdp71e0xsGhFUA0K5C9M+wTbinFCWYH/KEShIJqmW1YF7hp8kkxMb+Z/JpwGLIuzcUeRYf2kLLWXg=='
         },
         // expiration: '',
         fileList: [],
@@ -78,32 +78,32 @@
       //     mm = date.getMinutes() > 9 ? date.getMinutes() : `0${date.getMinutes()}`;
       //   return `${year}${month}${day}${hh}${mm}`;
       // },
-      getAliToken(){ //获取Token
-        return new Promise((resolve, reject) => {
-          this.$axios({
-            method: 'POST',
-            url: this.url
-          }).then(res => {
-            if (res.success) {
-              const {expiration, tempAk, tempSk, token} = res.data;
-              this.expiration = expiration;
-              this.dataObj = {
-                region: this.region,
-                bucket: this.bucket,
-                accessKeyId: tempAk,
-                accessKeySecret: tempSk,
-                stsToken: token
-              };
-              resolve(true);
-            } else {
-              reject(false);
-            }
-          }).catch(err => {
-            console.log(err);
-            reject(false);
-          })
-        })
-      },
+      // getAliToken(){ //获取Token
+      //   return new Promise((resolve, reject) => {
+      //     this.$axios({
+      //       method: 'POST',
+      //       url: this.url
+      //     }).then(res => {
+      //       if (res.success) {
+      //         const {expiration, tempAk, tempSk, token} = res.data;
+      //         this.expiration = expiration;
+      //         this.dataObj = {
+      //           region: this.region,
+      //           bucket: this.bucket,
+      //           accessKeyId: tempAk,
+      //           accessKeySecret: tempSk,
+      //           securityToken: token
+      //         };
+      //         resolve(true);
+      //       } else {
+      //         reject(false);
+      //       }
+      //     }).catch(err => {
+      //       console.log(err);
+      //       reject(false);
+      //     })
+      //   })
+      // },
       // beforeUpload(file){
       //   return new Promise((resolve, reject) => {
       //     this.getAliToken().then(response => {
@@ -173,9 +173,9 @@
         }
       }
     },
-    created(){
-      this.getAliToken();
-    }
+    // created(){
+    //   this.getAliToken();
+    // }
 
   }
 </script>

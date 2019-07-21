@@ -8,7 +8,7 @@ export default function Client(data) {
     region: data.region,
     accessKeyId: data.accessKeyId,
     accessKeySecret: data.accessKeySecret,
-    stsToken: data.stsToken,
+    stsToken: data.securityToken,
     bucket: data.bucket
   })
 }
