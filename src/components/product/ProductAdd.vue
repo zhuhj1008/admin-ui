@@ -82,6 +82,7 @@
 
 <script>
   import Client from '../../plugins/ossClient';
+
   export default {
     data() {
       return {
@@ -154,7 +155,7 @@
         //   type: 'info',
         //   message: '上传成功'
         // });
-        console.log("上传成功：" + JSON.stringify(this.smallPictures))
+        console.log("上传成功：" + JSON.stringify(this.form.smallPictures))
       },
       save: function () {
         console.log("productType" + JSON.stringify(this.form.productType[this.form.productType.length - 1]));

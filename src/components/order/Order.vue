@@ -1,14 +1,20 @@
 <template>
   <div>
     <!-- 搜索 -->
-    <el-form :inline="true" :model="searchForm" class="demo-form-inline" size='mini'>
+    <el-form :model="searchForm"
+             :rules="rules"
+             prop="searchForm"
+             ref="searchForm"
+             :inline="true"
+             class="demo-form-inline"
+             size='mini'>
       <el-form-item>
         <order-add @queryOrder="queryOrder"></order-add>
       </el-form-item>
-      <el-form-item label="单号">
-        <el-input v-model="searchForm.orderId" placeholder="请输入订单号" clearable/>
+      <el-form-item label="单号" prop="orderId">
+        <el-input v-model.number="searchForm.orderId" placeholder="请输入订单号" clearable/>
       </el-form-item>
-      <el-form-item label="经销商">
+      <el-form-item label="经销商" prop="orderId">
         <el-input v-model="searchForm.brokerName" placeholder="请输入姓名" clearable/>
       </el-form-item>
       <el-form-item label="电话">
@@ -33,7 +39,7 @@
         </el-col>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" icon="el-icon-search" @click="queryOrder()">搜索</el-button>
+        <el-button type="primary" icon="el-icon-search" @click="queryOrder('searchForm')">搜索</el-button>
       </el-form-item>
     </el-form>
 
@@ -75,14 +81,14 @@
           <edit-order @queryOrder="queryOrder" :orderId="scope.row.orderId"></edit-order>
         </template>
       </el-table-column>
-      <el-table-column fixed="right" label="添加" width="50">
+      <el-table-column fixed="right" label="明细" width="50">
         <template slot-scope="scope">
           <edit-order-detail :orderId="scope.row.orderId"></edit-order-detail>
         </template>
       </el-table-column>
-      <el-table-column fixed="right" label="下载" width="50">
+      <el-table-column fixed="right" label="打印" width="50">
         <template slot-scope="scope">
-          <el-button @click="downLoadOrder(scope.row.orderId)" type="text" icon="el-icon-download"
+          <el-button @click="downLoadOrder(scope.row.orderId)" type="text" icon="el-icon-printer"
                      size="small"></el-button>
         </template>
       </el-table-column>
@@ -132,7 +138,12 @@
           pageNo: 1,
           pageSize: 10
         },
-        orderList: []
+        orderList: [],
+        rules: {
+          orderId: [
+            {required: false, type: 'number', message: '订单号只能输入数字', trigger: 'blur'}
+          ]
+        }
       }
     },
     mounted: function () {
@@ -143,8 +154,7 @@
         this.searchForm.pageSize = val;
         this.queryOrder();
       },
-      queryOrder: function () {
-
+      queryOrder() {
         this.$post('/order/query', this.searchForm).then((response) => {
           if (response.code == 1) {
             this.page.total = response.data.total;
@@ -178,7 +188,7 @@
       },
       downLoadOrder(orderNum) {
         // window.location.href = "http://39.105.2.84:6060/order/download?orderId=" + orderNum;
-        window.location.href = "http://127.0.0.1:6060/order/download?orderId=" + orderNum;
+        window.location.href = "http://localhost:6060/order/download?orderId=" + orderNum;
       },
       dateFormatter(row, column) {
         const date = new Date(row[column.property])
