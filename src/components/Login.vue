@@ -54,9 +54,11 @@
           } else {
             this.$post('/user/login', this.loginForm).then((response) => {
               if (response.code == 1) {
-                this.loginForm.userId = response.data.userId;
-                this.loginForm.name = response.data.userName;
-                this.$store.commit("login", this.loginForm);
+                // this.loginForm.userId = response.data.userId;
+                // this.loginForm.name = response.data.userName;
+                // this.$store.commit("login", this.loginForm);
+                // localStorage.setItem("name",response.data.userName);
+                this.$store.commit("setLocal","name",response.data.userName);
                 this.$router.push({path: '/home'});
               }
             })

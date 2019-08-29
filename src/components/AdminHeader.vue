@@ -33,7 +33,8 @@
 	export default {
     data() {
       return {
-		name:this.$store.state.currentUser.name,
+		// name:this.$store.state.currentUser.name,
+		name:localStorage.getItem("name"),
 		menuList:[
 			{menuUrl:"/order",menuName:"订单中心",icon:"el-icon-document"},
       {menuUrl:"/broker",menuName:"经销商",icon:"el-icon-phone"}	,

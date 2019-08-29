@@ -35,6 +35,12 @@ export default new Vuex.Store({
       state.currentUser.phone = form.phone;
       state.currentUser.password = form.password;
       state.currentUser.remember = form.remember;
+    },
+    setLocal(key,value){
+      return localStorage.setItem(key,value);
+    },
+    getLocal(key){
+      return localStorage.getItem(key);
     }
   }
 });
