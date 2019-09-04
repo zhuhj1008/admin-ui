@@ -8,10 +8,7 @@ export default new Vuex.Store({
     serverUrl: 'http://39.105.2.84:6060',
     currentUser: {
       userId: '',
-      name: '',
-      phone: '15175225612',
-      password: '',
-      remember: true
+      name: ''
     },
     order: {
       orderStatus: [
@@ -29,15 +26,8 @@ export default new Vuex.Store({
     }
   },
   mutations: {
-    login: (state, form) => {
-      state.currentUser.userId = form.userId;
-      state.currentUser.name = form.name;
-      state.currentUser.phone = form.phone;
-      state.currentUser.password = form.password;
-      state.currentUser.remember = form.remember;
-    },
-    setLocal(key,value){
-      return localStorage.setItem(key,value);
+    setLocal(state,param){
+      return localStorage.setItem(param.key,param.value);
     },
     getLocal(key){
       return localStorage.getItem(key);

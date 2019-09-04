@@ -32,9 +32,9 @@
     data() {
       return {
         loginForm: {
-          phone: this.$store.state.currentUser.phone,
-          password: this.$store.state.currentUser.password,
-          remember: this.$store.state.currentUser.remember,
+          phone:'',
+          password:'',
+          remember:''
         },
         rules: {
           phone: [
@@ -54,12 +54,10 @@
           } else {
             this.$post('/user/login', this.loginForm).then((response) => {
               if (response.code == 1) {
-                // this.loginForm.userId = response.data.userId;
-                // this.loginForm.name = response.data.userName;
-                // this.$store.commit("login", this.loginForm);
-                // localStorage.setItem("name",response.data.userName);
-                this.$store.commit("setLocal","name",response.data.userName);
-                this.$router.push({path: '/home'});
+                localStorage.setItem("name",response.data.userName);
+                localStorage.setItem("userId",response.data.userId);
+                localStorage.setItem("token",response.data.token)
+                this.$router.push({path: '/order'});
               }
             })
           }
