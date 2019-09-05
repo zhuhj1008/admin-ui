@@ -44,7 +44,7 @@
     </el-form>
 
     <!--表格 -->
-    <el-table :data="orderList" style="width: 100%" size='mini'>
+    <el-table :data="orderList" style="width: 100%" :row-class-name="tableRowClassName" size='mini'>
       <el-table-column type="expand">
         <template slot-scope="props">
           <el-form label-position="left" inline class="demo-table-expand">
@@ -200,6 +200,16 @@
         const s = date.getSeconds();*/
         return Y + M + D;
       },
+      tableRowClassName({row, rowIndex}) {
+        if (row.orderStatus === '新订单') {
+          return 'new_order';
+        } else if (row.orderStatus === '已付款') {
+          return 'payment_order';
+        } else if (row.orderStatus === '已完成') {
+          return 'complete_order';
+        }
+        return '';
+      }
     },
     components: {
       "order-add": OrderAdd,
@@ -223,5 +233,16 @@
     margin-right: 0;
     margin-bottom: 0;
     width: 50%;
+  }
+
+  /*颜色*/
+  /*.el-table .new_order {*/
+    /*background: #7BBDE6;*/
+  /*}*/
+  /*.el-table .payment_order {*/
+    /*background: #C79DE7;*/
+  /*}*/
+  .el-table .complete_order {
+    background: #BAF4E6;
   }
 </style>

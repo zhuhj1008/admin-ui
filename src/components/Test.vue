@@ -8,6 +8,13 @@
       <el-form-item  label="单号">
         <el-button @click="aaa()" type="text" icon="el-icon-delete" size="small"></el-button>
       </el-form-item>
+
+      <el-form-item label="状态" style="width:240px" v-model="selected">
+        <el-select v-model="selected" placeholder="">
+          <el-option v-for="item in orderStatus" :key="item.id" :label="item.status"
+                     :value="item.id"></el-option>
+        </el-select>
+      </el-form-item>
     </el-form>
 
     <el-upload
@@ -37,6 +44,8 @@
     props: {},
     data(){
       return {
+        orderStatus: this.$store.state.order.orderStatus,
+        selected:'新订单',
         imageName:'',
         imageUrl:'',
         // region: 'oss-cn-beijing',

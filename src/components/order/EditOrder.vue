@@ -6,7 +6,7 @@
       <el-form :model="form" :inline="true" size="mini">
         <div>
           <el-form-item>
-              <el-radio v-for="item in orderType"  :key="item.id" v-model="form.orderType" :label="item.id" border>{{item.text}}</el-radio>
+              <el-radio v-for="item in typeArr"  :key="item.id" v-model="form.orderType" :label="item.id" border>{{item.text}}</el-radio>
           </el-form-item>
         </div>
 
@@ -24,8 +24,8 @@
         </el-form-item>
         <el-form-item label="状态" style="width:240px" v-model="form.orderStatus">
           <el-select v-model="form.orderStatus" placeholder="">
-            <el-option v-for="item in orderStatus" :key="item.id" :label="item.status"
-                       :value="item.id"></el-option>
+            <el-option v-for="item in statusArr" :key="item.id" :label="item.status"
+                       :value="item.status"></el-option>
           </el-select>
         </el-form-item>
 
@@ -68,10 +68,11 @@
       return {
 
         dialogFormVisible: false,
-        orderStatus: this.$store.state.order.orderStatus,
-        orderType: this.$store.state.order.orderType,
+        statusArr: this.$store.state.order.orderStatus,
+        typeArr: this.$store.state.order.orderType,
         suggestBroker:[],
         form: {
+          selected:'1',
           orderId: '',
           orderType: '',
           orderStatus: '',
@@ -94,6 +95,7 @@
         this.$post("/order/queryById", param).then((response) => {
           if (response.code == 1) {
             this.form = response.data;
+            console.log("aaa"+JSON.stringify(this.form));
           }
         });
       },
