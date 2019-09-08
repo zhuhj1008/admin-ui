@@ -44,7 +44,8 @@
                        :http-request="upload"
                        :on-success="uploadSuccess"
                        :headers="uploadHeaders"
-                       :file-list="form.smallPictures">
+                       :file-list="form.picture"
+                       :limit="1">
               <i class="el-icon-upload"></i>
               <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
               <div class="el-upload__text">小图只能上传一个</div>
@@ -61,11 +62,13 @@
 
           <el-form-item label="大图" prop="productCode">
             <el-upload class="upload-demo" drag action="https://jsonplaceholder.typicode.com/posts/"
-                       list-type="picture" multiple>
+                       list-type="picture"
+                       :file-list="form.smallPictures"
+                       :limit="10">
               <i class="el-icon-upload"></i>
               <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
               <div class="el-upload__text">大图能上传多个</div>
-              <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
+              <!--<div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>-->
             </el-upload>
           </el-form-item>
         </div>
@@ -91,10 +94,10 @@
           productName: '',
           productType: [],
           productCode: '',
-          picture: '',
           book: '',
           minPrice: '',
           maxPrice: '',
+          picture: [],
           smallPictures: [],
         },
         uploadHeaders: {
@@ -119,6 +122,9 @@
           }
         });
       },
+      uploadPicture(){
+        const result = upload();
+      },
       async upload(option) {
         try {
           let vm = this;
@@ -135,6 +141,7 @@
             }
           }).then(({res}) => {
             if (res.statusCode === 200) {
+              console.log("res.requestUrls:" + res.requestUrls);
               return res.requestUrls
             } else {
               vm.disabled = false;
@@ -150,12 +157,14 @@
           option.onError('上传失败');
         }
       },
-      uploadSuccess: function () {
+      uploadSuccess: function (response, file, fileList) {
         // this.$notify({
         //   type: 'info',
         //   message: '上传成功'
         // });
-        console.log("上传成功：" + JSON.stringify(this.form.smallPictures))
+        console.log("上传成功：" + JSON.stringify(response));
+        console.log("上传成功：" + JSON.stringify(file));
+        console.log("上传成功：" + JSON.stringify(fileList));
       },
       save: function () {
         console.log("productType" + JSON.stringify(this.form.productType[this.form.productType.length - 1]));
