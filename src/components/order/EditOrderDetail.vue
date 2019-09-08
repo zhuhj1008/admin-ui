@@ -11,10 +11,10 @@
       <el-form :inline="true" :model="{}" class="demo-form-inline" size='mini' disabled>
         <div>
           <el-form-item>
-            <el-input placeholder="名称" class="el-select_box input-order-md"></el-input>
+            <el-input placeholder="名称" class="el-select_box input-order-sm"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-input placeholder="颜色" class="el-select_box input-order-sm"></el-input>
+            <el-input placeholder="颜色" class="el-select_box input-order-md"></el-input>
           </el-form-item>
           <el-form-item>
             <el-input placeholder="线条" class="el-select_box input-order-md"></el-input>
@@ -44,13 +44,23 @@
         <div class="moreRules">
           <div class="moreRulesIn" v-for="(item, index) in order.orderDetails" :key="item.key">
             <el-form-item label="" :prop="'orderDetails.' + index +'.name'">
-              <el-input v-model="item.productName" placeholder="名称" class="el-select_box input-order-md"></el-input>
+              <!--<el-input v-model="item.productName" placeholder="名称" class="el-select_box input-order-md"></el-input>-->
+              <el-select v-model="item.productName" placeholder="请选择" class="el-select_box input-order-sm">
+                <el-option v-for="item in nameOptions" :key="item" :label="item" :value="item"></el-option>
+              </el-select>
+
             </el-form-item>
             <el-form-item label="" :prop="'orderDetails.'+ index +'.color'">
-              <el-input v-model="item.color" placeholder="颜色" class="el-select_box input-order-sm"></el-input>
+              <!--<el-input v-model="item.color" placeholder="颜色" class="el-select_box input-order-sm"></el-input>-->
+              <el-select v-model="item.color" placeholder="请选择" class="el-select_box input-order-md">
+                <el-option v-for="item in colorOptions" :key="item" :label="item" :value="item"></el-option>
+              </el-select>
             </el-form-item>
             <el-form-item label="" :prop="'orderDetails.'+ index +'.stripe'">
-              <el-input v-model="item.stripe" placeholder="线条" class="el-select_box input-order-md"></el-input>
+              <!--<el-input v-model="item.stripe" placeholder="线条" class="el-select_box input-order-md"></el-input>-->
+              <el-select v-model="item.stripe" placeholder="请选择" class="el-select_box input-order-md">
+                <el-option v-for="item in stripeOptions" :key="item" :label="item" :value="item"></el-option>
+              </el-select>
             </el-form-item>
             <el-form-item label="" :prop="'orderDetails.'+ index +'.hight'">
               <el-input v-model="item.height" placeholder="高" class="el-select_box input-order-sm"></el-input>
@@ -92,6 +102,9 @@
     data() {
       return {
         dialogFormVisible: false,
+        nameOptions: ['门', '口'],
+        colorOptions: ['白色', '浅灰色', '黑胡桃', '土豪金', '棕色', '深褐色'],
+        stripeOptions: ['斜纹', '横纹', '树纹'],
         order: {
           orderDetails: [],
         }

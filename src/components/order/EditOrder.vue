@@ -25,7 +25,7 @@
         <el-form-item label="状态" style="width:240px" v-model="form.orderStatus">
           <el-select v-model="form.orderStatus" placeholder="">
             <el-option v-for="item in statusArr" :key="item.id" :label="item.status"
-                       :value="item.status"></el-option>
+                       :value="item.id"></el-option>
           </el-select>
         </el-form-item>
 
@@ -35,9 +35,6 @@
           <el-autocomplete v-model="form.brokerName"
                            :fetch-suggestions="queryBroker"
                            style="width:200px"></el-autocomplete>
-        </el-form-item>
-        <el-form-item label="电话">
-          <el-input v-model="form.brokerPhone" autocomplete="off" style="width:163px" clearable></el-input>
         </el-form-item>
         <el-form-item label="客户">
           <el-input v-model="form.customerName" autocomplete="off" style="width:200px" clearable></el-input>
@@ -77,7 +74,6 @@
           orderType: '',
           orderStatus: '',
           brokerName: '',
-          brokerPhone: '',
           customerName: '',
           customerPhone: '',
           customerAddress: '',

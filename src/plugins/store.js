@@ -12,10 +12,12 @@ export default new Vuex.Store({
     },
     order: {
       orderStatus: [
-        // {"id": null, "status": "全部"},
         {"id": 1, "status": "新订单"},
-        {"id": 2, "status": "已付款"},
-        {"id": 3, "status": "已完成"}
+        {"id": 2, "status": "预付款"},
+        {"id": 3, "status": "生产中"},
+        {"id": 4, "status": "运输中"},
+        {"id": 5, "status": "安装中"},
+        {"id": 6, "status": "已完成"}
       ],
       orderType: [
         {"id": 1, "text": "实木复合门"},

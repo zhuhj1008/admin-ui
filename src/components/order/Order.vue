@@ -50,6 +50,7 @@
           <el-form label-position="left" inline class="demo-table-expand">
             <el-form-item label="订单类型">
               <span>{{ props.row.orderType }}</span>
+              <!--<span>formatOrderStatus(props.row.orderType)</span>-->
             </el-form-item>
             <el-form-item label="实收总额">
               <span>{{ props.row.actualAmount }}</span>
@@ -72,7 +73,7 @@
       <el-table-column label="订单号" prop="orderId"></el-table-column>
       <el-table-column label="经销商" prop="brokerName"></el-table-column>
       <el-table-column label="客户" prop="customerName"></el-table-column>
-      <el-table-column label="订单状态" prop="orderStatus"></el-table-column>
+      <el-table-column label="订单状态" prop="orderStatus" :formatter="orderStatusFormatter"></el-table-column>
       <el-table-column label="订单总额" prop="totalAmount"></el-table-column>
       <el-table-column label="订单日期" prop="createTime" :formatter="dateFormatter"></el-table-column>
       <el-table-column label="交付日期" prop="deliveryTime" :formatter="dateFormatter"></el-table-column>
@@ -199,6 +200,15 @@
         const m = date.getMinutes() + ':'
         const s = date.getSeconds();*/
         return Y + M + D;
+      },
+      orderStatusFormatter(row, column){
+        const statusId = row[column.property];
+        for (let status of this.orderStatus){
+          if(status.id == statusId){
+            return status.status;
+          }
+        }
+        return null;
       },
       tableRowClassName({row, rowIndex}) {
         if (row.orderStatus === '新订单') {
