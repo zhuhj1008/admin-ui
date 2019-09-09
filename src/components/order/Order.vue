@@ -14,7 +14,7 @@
       <el-form-item label="单号" prop="orderId">
         <el-input v-model.number="searchForm.orderId" placeholder="请输入订单号" clearable/>
       </el-form-item>
-      <el-form-item label="经销商" prop="orderId">
+      <el-form-item label="经销商" prop="brokerName">
         <el-input v-model="searchForm.brokerName" placeholder="请输入姓名" clearable/>
       </el-form-item>
       <el-form-item label="电话">
