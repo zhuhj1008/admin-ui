@@ -56,7 +56,7 @@
               if (response.code == 1) {
                 localStorage.setItem("name",response.data.userName);
                 localStorage.setItem("userId",response.data.userId);
-                localStorage.setItem("token",response.data.token)
+                localStorage.setItem("signature",response.data.signature)
                 this.$router.push({path: '/order'});
               }
             })
