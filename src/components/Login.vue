@@ -32,9 +32,9 @@
     data() {
       return {
         loginForm: {
-          phone:'',
-          password:'',
-          remember:''
+          phone: '',
+          password: '',
+          remember: ''
         },
         rules: {
           phone: [
@@ -54,15 +54,19 @@
           } else {
             this.$post('/user/login', this.loginForm).then((response) => {
               if (response.code == 1) {
-                localStorage.setItem("name",response.data.userName);
-                localStorage.setItem("userId",response.data.userId);
-                localStorage.setItem("signature",response.data.signature)
+                localStorage.setItem("name", response.data.userName);
+                localStorage.setItem("userId", response.data.userId);
+                localStorage.setItem("signature", response.data.signature);
+
+                localStorage.setItem("colors", response.data.colors);
+                localStorage.setItem("stripes", response.data.stripes);
+                localStorage.setItem("orderTypes", response.data.orderTypes);
+                localStorage.setItem("productTypes", response.data.productTypes);
                 this.$router.push({path: '/order'});
               }
             })
           }
         });
-
       }
     }
   }

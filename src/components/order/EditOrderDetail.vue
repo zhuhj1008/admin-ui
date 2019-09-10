@@ -102,9 +102,9 @@
     data() {
       return {
         dialogFormVisible: false,
-        nameOptions: ['门', '口'],
-        colorOptions: ['白色', '浅灰色', '黑胡桃', '土豪金', '棕色', '深褐色'],
-        stripeOptions: ['斜纹', '横纹', '树纹'],
+        nameOptions: localStorage.getItem('productTypes').split(","),
+        colorOptions: localStorage.getItem('colors').split(","),
+        stripeOptions: localStorage.getItem("stripes").split(","),
         order: {
           orderDetails: [],
         }
@@ -165,6 +165,9 @@
         });
         return totalAmount;
       }
+    },
+    mounted: function () {
+
     }
   };
 </script>

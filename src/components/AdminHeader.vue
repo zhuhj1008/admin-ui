@@ -35,6 +35,7 @@
       return {
         name: localStorage.getItem("name"),
         menuList: [
+          {menuUrl: "/index", menuName: "首页"},
           {menuUrl: "/order", menuName: "订单中心"},
           {menuUrl: "/broker", menuName: "经销商"},
           {menuUrl:"/picture",menuName:"产品图册"},
