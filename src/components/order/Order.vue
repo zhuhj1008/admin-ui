@@ -215,7 +215,7 @@
           return 'new_order';
         } else if (row.orderStatus === '已付款') {
           return 'payment_order';
-        } else if (row.orderStatus === '已完成') {
+        } else if (row.orderStatus === 1) {
           return 'complete_order';
         }
         return '';

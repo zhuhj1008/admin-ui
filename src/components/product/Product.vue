@@ -50,7 +50,9 @@
     },
     methods: {
       loadProductMenu: function () {
-        this.$post("/product/queryType").then(response => {
+        const param = {};
+        param.userId = 1;
+        this.$post("/product/queryType",param).then(response => {
           if (response.code == 1) {
             this.productTypes = response.data;
           }

@@ -32,8 +32,9 @@ axios.interceptors.response.use(
     } else if (response.data.code == 3) {
       context.$alert(response.data.message, '提示', {
         showClose: false,//不显示右上角关闭符号
+      }).then(()=>{
+        window.location.href = '/login';
       });
-      window.location.href = '/login';
       // router.push({
       //   path: "/login",
       //   querry: {redirect: router.currentRoute.fullPath}//从哪个页面跳转
