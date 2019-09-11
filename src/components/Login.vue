@@ -62,7 +62,8 @@
                 localStorage.setItem("stripes", response.data.stripes);
                 localStorage.setItem("orderTypes", response.data.orderTypes);
                 localStorage.setItem("productTypes", response.data.productTypes);
-                this.$router.push({path: '/order'});
+                localStorage.setItem("regions", response.data.regions);
+                this.$router.push({path: '/index'});
               }
             })
           }

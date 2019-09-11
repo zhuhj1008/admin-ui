@@ -1,12 +1,29 @@
 <template>
   <div>
-    <el-button @click="dialogFormVisible = true,toEditOrder()" type="text" icon="el-icon-edit" size="mini"></el-button>
-    <el-dialog title="修改订单" :visible.sync="dialogFormVisible" width='55%' :show-close=false
-               :close-on-press-escape=false :close-on-click-modal="false" append-to-body>
-      <el-form :model="form" :inline="true" size="mini">
+
+    <el-button @click="dialogFormVisible = true,toEditOrder()"
+               type="text"
+               icon="el-icon-edit"
+               size="mini">
+    </el-button>
+
+    <el-dialog title="修改订单"
+               :visible.sync="dialogFormVisible"
+               width='55%'
+               :show-close=false
+               :close-on-press-escape=false
+               :close-on-click-modal="false"
+               append-to-body>
+
+      <el-form :model="form"
+               :inline="true"
+               size="mini">
+
         <div>
           <el-form-item>
-              <el-radio v-for="item in typeArr"  :key="item.id" v-model="form.orderType" :label="item.id" border>{{item.text}}</el-radio>
+            <el-radio v-model="form.orderType" v-for="item in orderTypes" :key="item" :label="item" border>
+              {{item}}
+            </el-radio>
           </el-form-item>
         </div>
 
@@ -24,17 +41,19 @@
         </el-form-item>
         <el-form-item label="状态" style="width:240px" v-model="form.orderStatus">
           <el-select v-model="form.orderStatus" placeholder="">
-            <el-option v-for="item in statusArr" :key="item.id" :label="item.status"
-                       :value="item.id"></el-option>
+            <el-option v-for="item in statusArr" :key="item.id" :label="item.status" :value="item.id"></el-option>
           </el-select>
         </el-form-item>
-
-
         <el-form-item label="经销">
-          <!--<el-input v-model="form.brokerName" autocomplete="off" style="width:200px" clearable></el-input>-->
           <el-autocomplete v-model="form.brokerName"
                            :fetch-suggestions="queryBroker"
                            style="width:200px"></el-autocomplete>
+        </el-form-item>
+        <el-form-item label="地区">
+          <el-select v-model="form.region" placeholder="">
+            <el-option v-for="item in regions" :key="item" :label="item"
+                       :value="item"></el-option>
+          </el-select>
         </el-form-item>
         <el-form-item label="客户">
           <el-input v-model="form.customerName" autocomplete="off" style="width:200px" clearable></el-input>
@@ -42,7 +61,6 @@
         <el-form-item label="电话">
           <el-input v-model="form.customerPhone" autocomplete="off" style="width:163px" clearable></el-input>
         </el-form-item>
-
         <el-form-item label="地址">
           <el-input v-model="form.customerAddress" autocomplete="off" style="width:416px" clearable></el-input>
         </el-form-item>
@@ -55,6 +73,7 @@
         <el-button @click="dialogFormVisible = false">取 消</el-button>
         <el-button type="primary" @click="dialogFormVisible = false,editOrder()">确 定</el-button>
       </div>
+
     </el-dialog>
   </div>
 </template>
@@ -63,17 +82,18 @@
   export default {
     data() {
       return {
-
         dialogFormVisible: false,
         statusArr: this.$store.state.order.orderStatus,
-        typeArr: this.$store.state.order.orderType,
-        suggestBroker:[],
+        orderTypes: localStorage.getItem("orderTypes").split(","),
+        regions: localStorage.getItem("regions").split(","),
+        suggestBroker: [],
         form: {
-          selected:'1',
+          selected: '1',
           orderId: '',
           orderType: '',
           orderStatus: '',
           brokerName: '',
+          region: '',
           customerName: '',
           customerPhone: '',
           customerAddress: '',
@@ -91,7 +111,7 @@
         this.$post("/order/queryById", param).then((response) => {
           if (response.code == 1) {
             this.form = response.data;
-            console.log("aaa"+JSON.stringify(this.form));
+            console.log("aaa" + JSON.stringify(this.form));
           }
         });
       },
@@ -101,7 +121,6 @@
         const results = queryString ? suggestBroker.filter(this.createFilter(queryString)) : suggestBroker;
         // 调用 callback 返回建议列表的数据
         cb(results);
-
       },
       createFilter(queryString) {
         return (broker) => {
@@ -141,5 +160,6 @@
   };
 </script>
 
-<style>
+<style scoped>
+
 </style>

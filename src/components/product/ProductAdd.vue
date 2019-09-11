@@ -51,13 +51,6 @@
               <div class="el-upload__text">小图只能上传一个</div>
             </el-upload>
 
-            <!--<el-upload class="upload-demo" drag
-                       list-type="picture" :data="smallPicture">
-              <i class="el-icon-upload"></i>
-              <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-              <div class="el-upload__text">小图只能上传一个</div>
-              <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
-            </el-upload>-->
           </el-form-item>
 
           <el-form-item label="大图" prop="productCode">
@@ -68,7 +61,7 @@
               <i class="el-icon-upload"></i>
               <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
               <div class="el-upload__text">大图能上传多个</div>
-              <!--<div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>-->
+              <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
             </el-upload>
           </el-form-item>
         </div>
@@ -79,6 +72,7 @@
         <el-button @click="dialogFormVisible = false">取 消</el-button>
         <el-button type="primary" @click="dialogFormVisible = false,save()">保 存</el-button>
       </div>
+
     </el-dialog>
   </div>
 </template>

@@ -1,6 +1,11 @@
 <template>
   <div class="config-main">
-    <el-tabs v-model="activeName" type="card" @tab-click="handleClick" :tab-position="tablePosition">
+
+    <el-tabs v-model="activeName"
+             type="card"
+             @tab-click="handleClick"
+             :tab-position="tablePosition">
+
       <!--订单分类-->
       <el-tab-pane label="订单分类" name="first">
         <div style="float: left">

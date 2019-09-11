@@ -1,10 +1,15 @@
 <template>
   <div>
     <el-button type="primary" icon="el-button-plus" @click="dialogFormVisible=true">添加</el-button>
-    <el-dialog title="添加代理商" :visible.sync="dialogFormVisible" :show-close=false
+    <el-dialog title="添加经销商" :visible.sync="dialogFormVisible" :show-close=false
                :close-on-press-escape=false :close-on-click-modal="false" append-to-body>
 
-      <el-form :model="brokerForm" :inline="true" size="mini" ref="brokerForm" prop="brokerForm" :rules="rules"
+      <el-form :inline="true"
+               :model="brokerForm"
+               :rules="rules"
+               size="mini"
+               ref="brokerForm"
+               prop="brokerForm"
                hide-required-asterisk>
         <el-form-item label="经销商" prop="brokerName">
           <el-input v-model="brokerForm.brokerName" style="width:150px" clearable></el-input>
@@ -31,8 +36,6 @@
     </el-dialog>
 
   </div>
-
-
 </template>
 
 <script>
@@ -41,11 +44,11 @@
       return {
         dialogFormVisible: false,
         brokerForm: {
-          brokerName: "",
-          contact: "",
+          brokerName: '',
+          contact: '',
           phone: '',
-          address: "",
-          remark: ""
+          address: '',
+          remark: ''
         },
         rules: {
           brokerName: [
@@ -80,11 +83,9 @@
         //清空验证结果
         this.$refs[formName].clearValidate();
         this.$refs[formName].validate((valid) => {
-          console.log("AAA" + valid);
           if (!valid) {
             return false;
           } else {
-            console.log("aaaaa")
             this.$post("/broker/save", this.brokerForm).then((response) => {
               //清空表单数据
               this.$refs[formName].resetFields();

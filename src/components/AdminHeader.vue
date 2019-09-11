@@ -2,7 +2,8 @@
   <div class="admin_header">
     <el-row>
       <el-col :span="4">
-        <a href="/home"><img src="../assets/Joe_logo.png" style="padding-left:8px;"></a>
+        <!--href="/home"-->
+        <a><img src="../assets/hongda.png" style="padding-left:8px;"></a>
       </el-col>
       <el-col :span="16">
         <el-menu

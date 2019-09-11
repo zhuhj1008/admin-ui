@@ -1,11 +1,27 @@
 <template>
   <div>
-    <el-button @click="dialogFormVisible=true,toEdit()" type="text" icon="el-icon-edit"
-               size="small"></el-button>
-    <el-dialog title="代理商信息" :visible.sync="dialogFormVisible" :show-close=false
-               :close-on-press-escape=false :close-on-click-modal="false" append-to-body>
 
-      <el-form :model="brokerForm" :inline="true" size="mini" ref="brokerForm" prop="brokerForm" :rules="rules" hide-required-asterisk>
+    <el-button @click="dialogFormVisible=true,toEdit()"
+               type="text"
+               icon="el-icon-edit"
+               size="small">
+    </el-button>
+
+    <el-dialog title="代理商信息"
+               :visible.sync="dialogFormVisible"
+               :show-close=false
+               :close-on-press-escape=false
+               :close-on-click-modal="false"
+               append-to-body>
+
+      <el-form :model="brokerForm"
+               :inline="true"
+               size="mini"
+               ref="brokerForm"
+               prop="brokerForm"
+               :rules="rules"
+               hide-required-asterisk>
+
         <el-form-item label="经销商" prop="brokerName">
           <el-input v-model="brokerForm.brokerName" style="width:150px" clearable></el-input>
         </el-form-item>
@@ -28,11 +44,10 @@
         <el-button @click="dialogFormVisible = false">取 消</el-button>
         <el-button type="primary" @click="dialogFormVisible = false,editSubmit()">保 存</el-button>
       </div>
+
     </el-dialog>
 
   </div>
-
-
 </template>
 
 <script>
@@ -41,11 +56,11 @@
       return {
         dialogFormVisible: false,
         brokerForm: {
-          brokerName: "",
-          contact: "",
-          phone: "",
-          address: "",
-          remark: ""
+          brokerName: '',
+          contact: '',
+          phone: '',
+          address: '',
+          remark: ''
         },
         rules: {
           brokerName: [

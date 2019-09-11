@@ -7,7 +7,9 @@
              ref="searchForm"
              :inline="true"
              class="demo-form-inline"
+             :loading="loading"
              size='mini'>
+
       <el-form-item>
         <order-add @queryOrder="queryOrder"></order-add>
       </el-form-item>
@@ -38,9 +40,11 @@
                           style="width: 100%;"></el-date-picker>
         </el-col>
       </el-form-item>
+
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" @click="queryOrder('searchForm')">搜索</el-button>
       </el-form-item>
+
     </el-form>
 
     <!--表格 -->
@@ -50,10 +54,9 @@
           <el-form label-position="left" inline class="demo-table-expand">
             <el-form-item label="订单类型">
               <span>{{ props.row.orderType }}</span>
-              <!--<span>formatOrderStatus(props.row.orderType)</span>-->
             </el-form-item>
-            <el-form-item label="实收总额">
-              <span>{{ props.row.actualAmount }}</span>
+            <el-form-item label="地区">
+              <span>{{ props.row.region }}</span>
             </el-form-item>
             <el-form-item label="经销商电话">
               <span>{{ props.row.brokerPhone }}</span>
@@ -69,6 +72,7 @@
             </el-form-item>
           </el-form>
         </template>
+
       </el-table-column>
       <el-table-column label="订单号" prop="orderId"></el-table-column>
       <el-table-column label="经销商" prop="brokerName"></el-table-column>
@@ -77,28 +81,33 @@
       <el-table-column label="订单总额" prop="totalAmount"></el-table-column>
       <el-table-column label="订单日期" prop="createTime" :formatter="dateFormatter"></el-table-column>
       <el-table-column label="交付日期" prop="deliveryTime" :formatter="dateFormatter"></el-table-column>
+
       <el-table-column fixed="right" label="修改" width="50">
         <template slot-scope="scope">
           <edit-order @queryOrder="queryOrder" :orderId="scope.row.orderId"></edit-order>
         </template>
       </el-table-column>
+
       <el-table-column fixed="right" label="明细" width="50">
         <template slot-scope="scope">
           <edit-order-detail :orderId="scope.row.orderId"></edit-order-detail>
         </template>
       </el-table-column>
+
       <el-table-column fixed="right" label="打印" width="50">
         <template slot-scope="scope">
           <el-button @click="downLoadOrder(scope.row.orderId)" type="text" icon="el-icon-printer"
                      size="small"></el-button>
         </template>
       </el-table-column>
+
       <el-table-column fixed="right" label="删除" width="50">
         <template slot-scope="scope">
           <el-button @click="deleteOrder(scope.row.orderId)" type="text" icon="el-icon-delete"
                      size="small"></el-button>
         </template>
       </el-table-column>
+
     </el-table>
 
     <!-- 分页 -->
@@ -125,6 +134,7 @@
   export default {
     data() {
       return {
+        loading: false,
         orderStatus: this.$store.state.order.orderStatus,
         page: {
           total: 400,
@@ -155,13 +165,15 @@
         this.searchForm.pageSize = val;
         this.queryOrder();
       },
-      queryOrder() {
+      queryOrder: function() {
+        this.loading = true;
         this.$post('/order/query', this.searchForm).then((response) => {
           if (response.code == 1) {
             this.page.total = response.data.total;
             this.orderList = response.data.contents;
           }
         });
+        this.loading = false;
       },
       deleteOrder: function (orderNum) {
         this.$confirm('此操作将删除该订单, 是否继续?', '提示', {
@@ -201,10 +213,10 @@
         const s = date.getSeconds();*/
         return Y + M + D;
       },
-      orderStatusFormatter(row, column){
+      orderStatusFormatter(row, column) {
         const statusId = row[column.property];
-        for (let status of this.orderStatus){
-          if(status.id == statusId){
+        for (let status of this.orderStatus) {
+          if (status.id == statusId) {
             return status.status;
           }
         }
@@ -247,10 +259,10 @@
 
   /*颜色*/
   /*.el-table .new_order {*/
-    /*background: #7BBDE6;*/
+  /*background: #7BBDE6;*/
   /*}*/
   /*.el-table .payment_order {*/
-    /*background: #C79DE7;*/
+  /*background: #C79DE7;*/
   /*}*/
   .el-table .complete_order {
     background: #BAF4E6;

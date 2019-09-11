@@ -1,10 +1,9 @@
 <template>
   <div>
     <el-container class="el-container-book">
+
       <el-aside class="el-aside-book" style="width: 200px; height: 700px">
-        <el-menu
-          default-active="2"
-          class="el-menu-vertical-demo">
+        <el-menu default-active="2" class="el-menu-vertical-demo">
           <el-submenu v-for="(type,index) in productTypes" :key="index" :index="type.value">
             <template slot="title"><span>{{type.label}}</span></template>
             <el-menu-item v-for="(subType,index2) in type.children" :key="index2" :index="subType.value"
@@ -14,6 +13,7 @@
           </el-submenu>
         </el-menu>
       </el-aside>
+
       <el-main class="el-main-book">
         <el-row>
           <!--新增-->
@@ -29,7 +29,9 @@
           </el-col>
         </el-row>
       </el-main>
+
     </el-container>
+
   </div>
 </template>
 
@@ -52,7 +54,7 @@
       loadProductMenu: function () {
         const param = {};
         param.userId = 1;
-        this.$post("/product/queryType",param).then(response => {
+        this.$post("/product/queryType", param).then(response => {
           if (response.code == 1) {
             this.productTypes = response.data;
           }
