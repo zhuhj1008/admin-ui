@@ -11,4 +11,5 @@ export default function Client(data) {
     stsToken: data.securityToken,
     bucket: data.bucket
   })
+
 }

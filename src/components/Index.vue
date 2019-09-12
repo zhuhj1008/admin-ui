@@ -74,7 +74,6 @@
           if (response.code == 1) {
             this.lineChartData.rows = JSON.parse(JSON.stringify(response.data)
               .replace(/month/g, '日期').replace(/total/g, '订单量').replace(/amount/g, '订单金额'));
-            console.log("折线图数据：" + JSON.stringify(this.lineChartData.rows));
           }
         })
       },
@@ -85,7 +84,6 @@
           if (response.code == 1) {
             this.ringChartData.rows = JSON.parse(JSON.stringify(response.data)
               .replace(/region/g, '地区').replace(/total/g, '订单量').replace(/amount/g, '订单金额'));
-            console.log("环形图数据：" + JSON.stringify(this.ringChartData.rows));
           }
         })
       }

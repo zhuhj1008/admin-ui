@@ -2,22 +2,25 @@
      
   <div>
     <el-card>
-      <img src="../../assets/product/product_add.svg" style="text-align:center; width: 60px; height: 170px">
+      <img src="../../assets/product/product_add.svg" @click="dialogFormVisible=true"
+           style="text-align:center; width: 60px; height: 40px">
       <div style="padding: 5px;">
-        <el-button type="text" class="error" @click="dialogFormVisible=true">添加</el-button>
       </div>
     </el-card>
-    <el-dialog title="新加产品" :visible.sync="dialogFormVisible" width='55%' :show-close=false
+    <el-dialog title="新加产品" :visible.sync="dialogFormVisible" width='70%' :show-close=false
                :close-on-press-escape=false :close-on-click-modal="false" append-to-body>
 
-      <el-form :model="form" :inline="true" size="mini" ref="form" prop="form">
+      <el-form :model="form"
+               :inline="true"
+               :rules="rules"
+               size="mini" ref="form" prop="form">
 
         <el-form-item label="名称" prop="productName">
           <el-input v-model="form.productName" autocomplete="off" style="width:200px" clearable></el-input>
         </el-form-item>
 
-        <el-form-item label="分类" prop="productType">
-          <el-cascader v-model="form.productType" :options="productTypes"></el-cascader>
+        <el-form-item label="分类" prop="productTypeArr">
+          <el-cascader v-model="form.productTypeArr" :options="productTypes"></el-cascader>
         </el-form-item>
 
         <el-form-item label="图册" prop="book">
@@ -28,23 +31,20 @@
           <el-input v-model="form.productCode" autocomplete="off" style="width:200px" clearable></el-input>
         </el-form-item>
 
-        <el-form-item label="价格">
-          <el-col :span="11.5">
-            <el-input v-model="form.minPrice" autocomplete="off" style="width:100px" clearable></el-input>
-          </el-col>
-          <el-col class="line" :span="1">~</el-col>
-          <el-col :span="11.5">
-            <el-input v-model="form.maxPrice" autocomplete="off" style="width:100px" clearable></el-input>
-          </el-col>
+        <el-form-item label="价格区间" prop="minPrice">
+          <el-input v-model="form.minPrice" autocomplete="off" style="width:100px" clearable></el-input>
+        </el-form-item>
+
+        <el-form-item label="~" prop="maxPrice">
+          <el-input v-model="form.maxPrice" autocomplete="off" style="width:100px" clearable></el-input>
         </el-form-item>
         <div>
-          <el-form-item label="小图" prop="productCode">
-            <el-upload class="upload-demo" drag list-type="picture"
-                       action=""
-                       :http-request="upload"
-                       :on-success="uploadSuccess"
+          <el-form-item label="小图" prop="tinyFigure">
+            <el-upload class="upload-demo" drag
+                       list-type="picture" action=""
+                       :http-request="uploadSmall"
                        :headers="uploadHeaders"
-                       :file-list="form.picture"
+                       :file-list="form.tinyFigure"
                        :limit="1">
               <i class="el-icon-upload"></i>
               <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
@@ -53,15 +53,17 @@
 
           </el-form-item>
 
-          <el-form-item label="大图" prop="productCode">
-            <el-upload class="upload-demo" drag action="https://jsonplaceholder.typicode.com/posts/"
-                       list-type="picture"
-                       :file-list="form.smallPictures"
+          <el-form-item label="大图" prop="detailFigure">
+            <el-upload class="upload-demo" drag
+                       list-type="picture" action=""
+                       :http-request="uploadPicture"
+                       :headers="uploadHeaders"
+                       :file-list="form.detailFigure"
                        :limit="10">
               <i class="el-icon-upload"></i>
               <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
               <div class="el-upload__text">大图能上传多个</div>
-              <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
+              <!--<div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>-->
             </el-upload>
           </el-form-item>
         </div>
@@ -70,7 +72,7 @@
 
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogFormVisible = false,save()">保 存</el-button>
+        <el-button type="primary" @click="save('form')">保 存</el-button>
       </div>
 
     </el-dialog>
@@ -86,13 +88,14 @@
         dialogFormVisible: false,
         form: {
           productName: '',
-          productType: [],
+          productTypeArr: [],
+          productType: '',
           productCode: '',
           book: '',
           minPrice: '',
           maxPrice: '',
-          picture: [],
-          smallPictures: [],
+          tinyFigure: [],
+          detailFigure: [],
         },
         uploadHeaders: {
           authorization: '*'
@@ -103,6 +106,13 @@
           accessKeyId: '',
           accessKeySecret: '',
           securityToken: ''
+        }, rules: {
+          productTypeArr: [
+            {required: true, message: '请选择分类', trigger: 'blur'}
+          ],
+          productCode: [
+            {required: true, message: '请输入产品编码', trigger: 'blur'}
+          ],
         }
       }
     },
@@ -116,53 +126,49 @@
           }
         });
       },
-      uploadPicture(){
-        const result = upload();
+      async uploadSmall(option) {
+        const client = Client(this.ossData), file = option.file;
+        const random_name = this.random_string(6) + '_' + new Date().getTime() + '.' + file.name.split('.').pop();
+        let result = await client.put(random_name, file);
+        let picture = {};
+        picture.name = result.name;
+        picture.url = result.url;
+        this.form.tinyFigure.push(picture);
       },
-      async upload(option) {
-        try {
-          let vm = this;
-          vm.disabled = true;
-          const client = Client(this.ossData), file = option.file;
-          //随机命名
-          const random_name = this.random_string(6) + '_' + new Date().getTime() + '.' + file.name.split('.').pop();
-          // 分片上传文件
-          await client.multipartUpload(random_name, file, {
-            progress: async function (p) {
-              let e = {};
-              e.percent = p * 100;
-              option.onProgress(e)
-            }
-          }).then(({res}) => {
-            if (res.statusCode === 200) {
-              console.log("res.requestUrls:" + res.requestUrls);
-              return res.requestUrls
+      async uploadPicture(option) {
+        const client = Client(this.ossData), file = option.file;
+        const random_name = this.random_string(6) + '_' + new Date().getTime() + '.' + file.name.split('.').pop();
+        let result = await client.put(random_name, file);
+        let picture = {};
+        picture.name = result.name;
+        picture.url = result.url;
+        this.form.detailFigure.push(picture);
+      },
+      save: function (form) {
+        this.$refs[form].validate((valid) => {
+            if (!valid) {
+              return false;
             } else {
-              vm.disabled = false;
-              option.onError('上传失败');
+              if (this.form.productTypeArr.length > 0) {
+                this.form.productType = this.form.productTypeArr[this.form.productTypeArr.length - 1];
+              }
+              this.$post("/product/save", this.form).then((response) => {
+                if (response.code == 1) {
+                  //关闭聊天框
+                  this.dialogFormVisible = false;
+                  //清空表单数据
+                  this.$refs[form].resetFields();
+                  //重新加载列表数据
+                  this.$emit('queryProduct');
+                  this.$notify({
+                    type: 'success',
+                    message: '保存成功!'
+                  });
+                }
+              });
             }
-          }).catch(error => {
-            vm.disabled = false;
-            option.onError('上传失败');
-          });
-        } catch (error) {
-          console.error(error);
-          this.disabled = false;
-          option.onError('上传失败');
-        }
-      },
-      uploadSuccess: function (response, file, fileList) {
-        // this.$notify({
-        //   type: 'info',
-        //   message: '上传成功'
-        // });
-        console.log("上传成功：" + JSON.stringify(response));
-        console.log("上传成功：" + JSON.stringify(file));
-        console.log("上传成功：" + JSON.stringify(fileList));
-      },
-      save: function () {
-        console.log("productType" + JSON.stringify(this.form.productType[this.form.productType.length - 1]));
-        console.log("picture" + JSON.stringify(this.form.picture))
+          }
+        );
       },
       // 随机生成文件名
       random_string(len) {

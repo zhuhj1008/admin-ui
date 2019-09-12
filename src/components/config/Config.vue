@@ -133,8 +133,7 @@
 
 <style>
   .config-main {
-    height: 700px;
-
+    min-height: 700px;
   }
 
   .el-tag + .el-tag {

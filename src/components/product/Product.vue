@@ -3,6 +3,7 @@
     <el-container class="el-container-book">
 
       <el-aside class="el-aside-book" style="width: 200px; height: 700px">
+        <product-add :productTypes="productTypes" @queryProduct="queryProduct"></product-add>
         <el-menu default-active="2" class="el-menu-vertical-demo">
           <el-submenu v-for="(type,index) in productTypes" :key="index" :index="type.value">
             <template slot="title"><span>{{type.label}}</span></template>
@@ -17,14 +18,14 @@
       <el-main class="el-main-book">
         <el-row>
           <!--新增-->
-          <el-col :span="4">
-            <product-add :productTypes="productTypes"></product-add>
-          </el-col>
-          <!--v-for="o in 25" :key="o"-->
           <el-col :span="4" v-for="(product,index) in productList" :key="index" :index="index">
             <el-card>
               <img :src="product.picture" style="text-align:center; width: 95px; height: 170px">
-              <product-edit :productId="product.productId" :productCode="product.productCode"></product-edit>
+              <product-edit :productId="product.productId"
+                            :productCode="product.productCode"
+                            @queryProduct="queryProduct">
+
+              </product-edit>
             </el-card>
           </el-col>
         </el-row>
@@ -52,9 +53,7 @@
     },
     methods: {
       loadProductMenu: function () {
-        const param = {};
-        param.userId = 1;
-        this.$post("/product/queryType", param).then(response => {
+        this.$post("/product/queryType").then(response => {
           if (response.code == 1) {
             this.productTypes = response.data;
           }
@@ -64,8 +63,9 @@
         console.log("查询产品，产品类型:" + val);
         const param = {};
         param.productType = val;
-        this.$post("/product/queryByType", param).then(response => {
+        this.$post("/product/queryProducts", param).then(response => {
           if (response.code == 1) {
+            console.log(JSON.stringify(response.data))
             this.productList = response.data;
           }
         })
@@ -74,15 +74,13 @@
         console.log("asas");
       }
     },
-    mounted: function () {
-      // this.queryOrder();
-    },
     components: {
       "product-add": ProductAdd,
       "product-edit": ProductEdit,
     },
     mounted: function () {
       this.loadProductMenu();
+      this.queryProduct();
     },
   }
 
