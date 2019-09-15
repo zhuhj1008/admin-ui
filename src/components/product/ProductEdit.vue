@@ -2,7 +2,7 @@
      
   <div>
     <div style="padding: 5px;">
-      <el-button type="text" class="error" @click="dialogFormVisible=true,toEditProduct">{{productCode}}</el-button>
+      <el-button type="text" class="error" @click="toEditProduct">{{productCode}}</el-button>
       <el-button type="text" class="error" @click="deleteProduct" style="float: right"><i class="el-icon-delete"></i>
       </el-button>
     </div>
@@ -114,14 +114,24 @@
           ],
           productCode: [
             {required: true, message: '请输入产品编码', trigger: 'blur'}
-          ],
+          ] ,
         }
       }
     },
 
     methods: {
       toEditProduct: function () {
-
+        this.dialogFormVisible=true;
+        console.log("qwd")
+        const param = {};
+        param.productId = this.productId;
+        this.$post("/product/query", param).then((response) => {
+          console.log("相应："+JSON.stringify(response));
+          if (response.code == 1) {
+            this.form = response.data;
+          }
+          console.log("表单："+JSON.stringify(this.form));
+        });
       },
       getOSSToken: function () {
         this.$post("/common/ossToken").then((response) => {
@@ -190,6 +200,7 @@
     props: [
       "productId",
       "productCode",
+      "productTypes"
     ]
   }
 </script>

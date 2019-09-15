@@ -4,6 +4,24 @@
 
       <el-aside class="el-aside-book" style="width: 200px; height: 700px">
         <product-add :productTypes="productTypes" @queryProduct="queryProduct"></product-add>
+
+        <el-form :model="searchForm"
+                 prop="searchForm"
+                 ref="searchForm"
+                 :inline="true"
+                 class="demo-form-inline"
+                 :loading="loading"
+                 size='mini'>
+          <el-form-item label="">
+            <el-input v-model.number="searchForm.productCode" placeholder="请输入产品编码" clearable/>
+          </el-form-item>
+
+          <el-form-item>
+            <el-button type="primary" icon="el-icon-search" @click="">搜索</el-button>
+          </el-form-item>
+
+        </el-form>
+
         <el-menu default-active="2" class="el-menu-vertical-demo">
           <el-submenu v-for="(type,index) in productTypes" :key="index" :index="type.value">
             <template slot="title"><span>{{type.label}}</span></template>
@@ -23,6 +41,7 @@
               <img :src="product.picture" style="text-align:center; width: 95px; height: 170px">
               <product-edit :productId="product.productId"
                             :productCode="product.productCode"
+                            :productTypes="productTypes"
                             @queryProduct="queryProduct">
 
               </product-edit>
