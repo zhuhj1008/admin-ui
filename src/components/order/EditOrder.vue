@@ -9,7 +9,7 @@
 
     <el-dialog title="修改订单"
                :visible.sync="dialogFormVisible"
-               width='55%'
+               width='60%'
                :show-close=false
                :close-on-press-escape=false
                :close-on-click-modal="false"

@@ -116,7 +116,7 @@
         });
       },
       cancel: function (formName) {
-        this.$confirm('此操作将不会保存订单信息, 是否继续?', '提示', {
+        this.$confirm('取消操作将不会保存订单信息, 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'

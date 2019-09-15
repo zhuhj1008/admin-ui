@@ -11,6 +11,7 @@
                :show-close=false
                :close-on-press-escape=false
                :close-on-click-modal="false"
+               width='55%'
                append-to-body>
 
       <el-form :model="form"

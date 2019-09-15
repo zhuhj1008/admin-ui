@@ -10,7 +10,6 @@
                  ref="searchForm"
                  :inline="true"
                  class="demo-form-inline"
-                 :loading="loading"
                  size='mini'>
           <el-form-item label="">
             <el-input v-model.number="searchForm.productCode" placeholder="请输入产品编码" clearable/>

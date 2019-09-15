@@ -7,7 +7,7 @@
       <div style="padding: 5px;">
       </div>
     </el-card>
-    <el-dialog title="新加产品" :visible.sync="dialogFormVisible" :show-close=false
+    <el-dialog title="新加产品" :visible.sync="dialogFormVisible" :show-close=false width='55%'
                :close-on-press-escape=false :close-on-click-modal="false" append-to-body>
 
       <el-form :model="form"
