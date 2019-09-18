@@ -19,8 +19,8 @@
           <el-input v-model="form.productName" autocomplete="off" style="width:200px" clearable></el-input>
         </el-form-item>
 
-        <el-form-item label="分类" prop="productTypeArr">
-          <el-cascader v-model="form.productTypeArr" :options="productTypes"></el-cascader>
+        <el-form-item label="分类" prop="productType">
+          <el-cascader v-model="form.productType" :options="productTypes"></el-cascader>
         </el-form-item>
 
         <el-form-item label="图册" prop="book">
@@ -88,8 +88,7 @@
         dialogFormVisible: false,
         form: {
           productName: '',
-          productTypeArr: [],
-          productType: '',
+          productType: [],
           productCode: '',
           book: '',
           minPrice: '',
@@ -107,7 +106,7 @@
           accessKeySecret: '',
           securityToken: ''
         }, rules: {
-          productTypeArr: [
+          productType: [
             {required: true, message: '请选择分类', trigger: 'blur'}
           ],
           productCode: [
@@ -145,13 +144,11 @@
         this.form.detailFigure.push(picture);
       },
       save: function (form) {
+        console.log(JSON.stringify(this.form));
         this.$refs[form].validate((valid) => {
             if (!valid) {
               return false;
             } else {
-              if (this.form.productTypeArr.length > 0) {
-                this.form.productType = this.form.productTypeArr[this.form.productTypeArr.length - 1];
-              }
               this.$post("/product/save", this.form).then((response) => {
                 if (response.code == 1) {
                   //关闭聊天框
