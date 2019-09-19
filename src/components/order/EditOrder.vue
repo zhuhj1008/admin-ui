@@ -111,7 +111,6 @@
         this.$post("/order/queryById", param).then((response) => {
           if (response.code == 1) {
             this.form = response.data;
-            console.log("aaa" + JSON.stringify(this.form));
           }
         });
       },
@@ -128,7 +127,6 @@
         };
       },
       editOrder: function () {
-        console.log('修改订单' + this.orderId);
         this.$post("/order/update", this.form).then((response) => {
           if (response.code == 1) {
             //重新加载列表数据
@@ -144,7 +142,6 @@
         this.$post("/broker/queryAllName").then(response => {
           if (response.code == 1) {
             const nameList = response.data;
-            console.log(JSON.stringify(nameList));
             for (const name of nameList) {
               const broker = {};
               broker.value = name;

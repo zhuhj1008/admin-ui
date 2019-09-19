@@ -3,7 +3,6 @@
 
     <el-tabs v-model="activeName"
              type="card"
-             @tab-click="handleClick"
              :tab-position="tablePosition">
 
       <!--订单分类-->
@@ -13,13 +12,13 @@
                   closable
                   type="success"
                   :disable-transitions="false"
-                  @close="handleClose(tag)">
+                  @close="deleteConfig(tag,'orderTypes')">
             {{tag}}
           </el-tag>
           <el-input class="input-new-tag" v-if="inputVisible" v-model="inputValue"
                     ref="saveTagInput" size="small"
-                    @keyup.enter.native="handleInputConfirm"
-                    @blur="handleInputConfirm">
+                    @keyup.enter.native="addConfigConfirm('orderTypes')"
+                    @blur="addConfigConfirm('orderTypes')">
           </el-input>
           <el-button v-else class="button-new-tag" size="medium" @click="showInput">+ 添加</el-button>
         </div>
@@ -32,13 +31,13 @@
                   closable
                   type="success"
                   :disable-transitions="false"
-                  @close="handleClose(tag)">
+                  @close="deleteConfig(tag,'productTypes')">
             {{tag}}
           </el-tag>
           <el-input class="input-new-tag" v-if="inputVisible" v-model="inputValue"
                     ref="saveTagInput" size="small"
-                    @keyup.enter.native="handleInputConfirm"
-                    @blur="handleInputConfirm">
+                    @keyup.enter.native="addConfigConfirm('productTypes')"
+                    @blur="addConfigConfirm('productTypes')">
           </el-input>
           <el-button v-else class="button-new-tag" size="small" @click="showInput">+ 添加</el-button>
         </div>
@@ -53,13 +52,13 @@
                   closable
                   type="success"
                   :disable-transitions="false"
-                  @close="handleClose(tag)">
+                  @close="deleteConfig(tag,'colors')">
             {{tag}}
           </el-tag>
           <el-input class="input-new-tag" v-if="inputVisible" v-model="inputValue"
                     ref="saveTagInput" size="small"
-                    @keyup.enter.native="handleInputConfirm"
-                    @blur="handleInputConfirm">
+                    @keyup.enter.native="addConfigConfirm('colors')"
+                    @blur="addConfigConfirm('colors')">
           </el-input>
           <el-button v-else class="button-new-tag" size="small" @click="showInput">+ 添加</el-button>
         </div>
@@ -73,13 +72,13 @@
                   closable
                   type="success"
                   :disable-transitions="false"
-                  @close="handleClose(tag)">
+                  @close="deleteConfig(tag,'stripes')">
             {{tag}}
           </el-tag>
           <el-input class="input-new-tag" v-if="inputVisible" v-model="inputValue"
                     ref="saveTagInput" size="small"
-                    @keyup.enter.native="handleInputConfirm"
-                    @blur="handleInputConfirm">
+                    @keyup.enter.native="addConfigConfirm('stripes')"
+                    @blur="addConfigConfirm('stripes')">
           </el-input>
           <el-button v-else class="button-new-tag" size="small" @click="showInput">+ 添加</el-button>
         </div>
@@ -95,20 +94,16 @@
     data() {
       return {
         tablePosition: 'top',
-        orderTypes: ['实木复合门', '工艺贴皮门', '原木门', '钢木门'],
-        productTypes: ['木门', '色板', '配件'],
-        stripes: ['斜纹', '横纹', '原木纹'],
-        colors: ['黑胡桃', '哑光白', '棕色', '亮白'],
+        orderTypes: localStorage.getItem("orderTypes").split(","),
+        productTypes: localStorage.getItem("productTypes").split(","),
+        stripes: localStorage.getItem("stripes").split(","),
+        colors: localStorage.getItem("colors").split(","),
         inputVisible: false,
         inputValue: '',
         activeName: 'first'
       };
     },
     methods: {
-      handleClose(tag) {
-        this.orderTypes.splice(this.orderTypes.indexOf(tag), 1);
-      },
-
       showInput() {
         this.inputVisible = true;
         this.$nextTick(_ => {
@@ -116,16 +111,72 @@
         });
       },
 
-      handleInputConfirm() {
+      deleteConfig(tag, type) {
+
+        console.log("AAA"+JSON.stringify(this.orderTypes));
+        const param = {};
+        param.configKey = type;
+        if (type === 'orderTypes') {
+          this.orderTypes.splice(this.orderTypes.indexOf(tag), 1);
+          param.configValue = this.orderTypes;
+        } else if (type === 'productTypes') {
+          this.productTypes.splice(this.productTypes.indexOf(tag), 1);
+          param.configValue = this.productTypes;
+        } else if (type === 'colors') {
+          this.colors.splice(this.colors.indexOf(tag), 1);
+          param.configValue = this.colors;
+        } else if (type === 'stripes') {
+          this.stripes.splice(this.stripes.indexOf(tag), 1);
+          param.configValue = this.stripes;
+        }
+
+        localStorage.setItem(type, param.configValue);
+
+        this.$post("/common/updateConfig", param).then((response) => {
+          if (response.code == 1) {
+            this.$notify({
+              type: 'success',
+              message: '修改成功!'
+            });
+          }
+        });
+
+      },
+
+      addConfigConfirm(type) {
+
         let inputValue = this.inputValue;
         if (inputValue) {
-          this.orderTypes.push(inputValue);
+          const param = {};
+          param.configKey = type;
+          if (type === 'orderTypes') {
+            this.orderTypes.push(inputValue);
+            param.configValue = this.orderTypes;
+          } else if (type === 'productTypes') {
+            this.productTypes.push(inputValue);
+            param.configValue = this.productTypes;
+          } else if (type === 'colors') {
+            this.colors.push(inputValue);
+            param.configValue = this.colors;
+          } else if (type === 'stripes') {
+            this.stripes.push(inputValue);
+            param.configValue = this.stripes;
+          }
+
+          localStorage.setItem(type, param.configValue);
+
+          this.$post("/common/updateConfig", param).then((response) => {
+            if (response.code == 1) {
+              this.$notify({
+                type: 'success',
+                message: '修改成功!'
+              });
+            }
+          });
         }
+
         this.inputVisible = false;
         this.inputValue = '';
-      },
-      handleClick(tab, event) {
-        console.log(tab, event);
       }
     }
   }

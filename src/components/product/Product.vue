@@ -5,21 +5,21 @@
       <el-aside class="el-aside-book" style="width: 200px; height: 700px">
         <product-add :productTypes="productTypes" @queryProduct="queryProduct"></product-add>
 
-        <el-form :model="searchForm"
-                 prop="searchForm"
-                 ref="searchForm"
-                 :inline="true"
-                 class="demo-form-inline"
-                 size='mini'>
-          <el-form-item label="">
-            <el-input v-model.number="searchForm.productCode" placeholder="请输入产品编码" clearable/>
-          </el-form-item>
+        <!--<el-form :model="searchForm"-->
+        <!--prop="searchForm"-->
+        <!--ref="searchForm"-->
+        <!--:inline="true"-->
+        <!--class="demo-form-inline"-->
+        <!--size='mini'>-->
+        <!--<el-form-item label="">-->
+        <!--<el-input v-model.number="searchForm.productCode" placeholder="请输入产品编码" clearable/>-->
+        <!--</el-form-item>-->
 
-          <el-form-item>
-            <el-button type="primary" icon="el-icon-search" @click="">搜索</el-button>
-          </el-form-item>
+        <!--<el-form-item>-->
+        <!--<el-button type="primary" icon="el-icon-search" @click="">搜索</el-button>-->
+        <!--</el-form-item>-->
 
-        </el-form>
+        <!--</el-form>-->
 
         <el-menu default-active="2" class="el-menu-vertical-demo">
           <el-submenu v-for="(type,index) in productTypes" :key="index" :index="type.value">
@@ -63,7 +63,9 @@
     data() {
       return {
         searchForm: {
-          productCode: ''
+          productCode: '',
+          pageSize: 120,
+          pageNo: 1
         },
         productTypes: [],
         productList: []
@@ -78,9 +80,10 @@
         })
       },
       queryProduct: function (val) {
-        console.log("查询产品，产品类型:" + val);
         const param = {};
         param.productType = val;
+        param.pageSize = this.searchForm.pageSize;
+        param.pageNo = this.searchForm.pageNo;
         this.$post("/product/queryProducts", param).then(response => {
           if (response.code == 1) {
             console.log(JSON.stringify(response.data))
@@ -88,9 +91,7 @@
           }
         })
       },
-      queryDetail: function () {
-        console.log("asas");
-      }
+
     },
     components: {
       "product-add": ProductAdd,

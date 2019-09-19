@@ -23,8 +23,8 @@
           <el-input v-model="form.productName" autocomplete="off" style="width:200px" clearable></el-input>
         </el-form-item>
 
-        <el-form-item label="分类" prop="productTypeArr">
-          <el-cascader v-model="form.productTypeArr" :options="productTypes"></el-cascader>
+        <el-form-item label="分类" prop="productType">
+          <el-cascader v-model="form.productType" :options="productTypes"></el-cascader>
         </el-form-item>
 
         <el-form-item label="图册" prop="book">
@@ -75,7 +75,7 @@
 
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogFormVisible = false">保 存</el-button>
+        <el-button type="primary" @click="editProduct(),dialogFormVisible = false">保 存</el-button>
       </div>
 
     </el-dialog>
@@ -91,8 +91,7 @@
         dialogFormVisible: false,
         form: {
           productName: '',
-          productTypeArr: [],
-          productType: '',
+          productType: [],
           productCode: '',
           book: '',
           minPrice: '',
@@ -109,31 +108,42 @@
           accessKeyId: '',
           accessKeySecret: '',
           securityToken: ''
-        }, rules: {
-          productTypeArr: [
+        },
+        rules: {
+          productType: [
             {required: true, message: '请选择分类', trigger: 'blur'}
           ],
           productCode: [
             {required: true, message: '请输入产品编码', trigger: 'blur'}
-          ] ,
+          ],
         }
       }
     },
 
     methods: {
       toEditProduct: function () {
-        this.dialogFormVisible=true;
-        console.log("qwd")
+        this.dialogFormVisible = true;
         const param = {};
         param.productId = this.productId;
         this.$post("/product/query", param).then((response) => {
-          console.log("相应："+JSON.stringify(response));
           if (response.code == 1) {
             this.form = response.data;
           }
-          console.log("表单："+JSON.stringify(this.form));
         });
       },
+      editProduct: function () {
+        const param = this.form;
+        param.productId = this.productId;
+        this.$post("/product/update", param).then((response) => {
+          if (response.code == 1) {
+            this.$notify({
+              type: 'success',
+              message: '修改成功!'
+            });
+          }
+        });
+      },
+
       getOSSToken: function () {
         this.$post("/common/ossToken").then((response) => {
           if (response.code == 1) {
