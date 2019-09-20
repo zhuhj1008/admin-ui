@@ -1,10 +1,10 @@
 <template>
   <el-main>
-    <el-dropdown style="float: left">
+    <!-- 下拉列表是通过command传值的-->
+    <el-dropdown style="float: left" @command="queryData">
       <span class="el-dropdown-link">年限<i class="el-icon-arrow-down el-icon--right"></i></span>
       <el-dropdown-menu slot="dropdown">
-        <el-dropdown-item aria-selected="true">2019</el-dropdown-item>
-        <el-dropdown-item>2018</el-dropdown-item>
+        <el-dropdown-item v-for="year in years" :command=year>{{year}}</el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
 
@@ -40,6 +40,7 @@
     name: 'Index',
     data() {
       return {
+        years:[2018,2019],
         histogramChartData: {
           columns: ['日期', '直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎', '百度', '谷歌', '必应', '其他'],
           rows: [{
@@ -130,9 +131,9 @@
           // }
         },
         histogramChartMarkLine: {
-        //   data: [
-        //     [{type: 'min'}, {type: 'max'}]
-        //   ]
+          data: [
+            [{type: 'min'}, {type: 'max'}]
+          ]
         },
         lineChartData: {
           columns: ['日期', '订单量', '订单金额'],
@@ -146,6 +147,9 @@
           data: [{
             name: '最大',
             type: 'max'
+          },{
+            name: '最小',
+            type: 'min'
           }
           ]
         },
@@ -167,9 +171,14 @@
 
     },
     methods: {
-      queryLineData: function () {
+      queryData(year){
+        this.queryLineData(year);
+        this.queryRingData(year);
+        this.$message('数据查询完成' + year);
+      },
+      queryLineData: function (year) {
         const param = {};
-        param.years = 2019;
+        param.years = year;
         this.$post("/charts/line", param).then(response => {
           if (response.code == 1) {
             this.lineChartData.rows = JSON.parse(JSON.stringify(response.data)
@@ -177,9 +186,9 @@
           }
         })
       },
-      queryRingData: function () {
+      queryRingData: function (year) {
         const param = {};
-        param.years = 2019;
+        param.years = year;
         this.$post("/charts/ring", param).then(response => {
           if (response.code == 1) {
             this.ringChartData.rows = JSON.parse(JSON.stringify(response.data)
@@ -188,8 +197,10 @@
         })
       }
     }, mounted: function () {
-      this.queryLineData();
-      this.queryRingData();
+      //默认加载当前年份的数据
+      const currentYear = new Date().getFullYear();
+      this.queryLineData(currentYear);
+      this.queryRingData(currentYear);
     }
   }
 </script>
