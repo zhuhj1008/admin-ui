@@ -4,7 +4,7 @@
     <el-dropdown style="float: left" @command="queryData">
       <span class="el-dropdown-link">年限<i class="el-icon-arrow-down el-icon--right"></i></span>
       <el-dropdown-menu slot="dropdown">
-        <el-dropdown-item v-for="year in years" :command=year>{{year}}</el-dropdown-item>
+        <el-dropdown-item v-for="(year,index) in years" :command=year :key =index>{{year}}</el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
 

@@ -24,7 +24,7 @@ export default new Router({
     {
       path: '/home', component: Home,
       children: [
-        {path: '/', name: 'Index', component: Index, meta: {title: '首页'}},
+        // {path: '/', name: 'Index', component: Index, meta: {title: '首页'}},
         {path: '/index', name: 'Index', component: Index, meta: {title: '首页'}},
         {path: '/order', name: 'Order', component: Order, meta: {title: '订单'}},
         {path: '/product', name: 'Product', component: Product, meta: {title: '图册'}},
