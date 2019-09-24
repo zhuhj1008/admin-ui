@@ -48,7 +48,11 @@
     </el-form>
 
     <!--表格 -->
-    <el-table :data="orderList" style="width: 100%" :row-class-name="tableRowClassName" size='mini'>
+    <el-table :data="orderList"
+              highlight-current-row
+              style="width: 100%"
+              :row-class-name="tableRowClassName"
+              size='mini'>
       <el-table-column type="expand">
         <template slot-scope="props">
           <el-form label-position="left" inline class="demo-table-expand">
@@ -68,11 +72,11 @@
               <span>{{ props.row.customerAddress }}</span>
             </el-form-item>
             <el-form-item label="备注">
+              <i class="el-icon-time"></i>
               <span>{{ props.row.remark }}</span>
             </el-form-item>
           </el-form>
         </template>
-
       </el-table-column>
       <el-table-column label="订单号" prop="orderId"></el-table-column>
       <el-table-column label="经销商" prop="brokerName"></el-table-column>
@@ -165,7 +169,7 @@
         this.searchForm.pageSize = val;
         this.queryOrder();
       },
-      queryOrder: function() {
+      queryOrder: function () {
         this.loading = true;
         this.$post('/order/query', this.searchForm).then((response) => {
           if (response.code == 1) {
@@ -206,11 +210,8 @@
       dateFormatter(row, column) {
         const date = new Date(row[column.property])
         const Y = date.getFullYear() + '-'
-        const M = date.getMonth() + 1 + '-'
-        const D = date.getDate() + ' '
-        /*const h = date.getHours() + ':'
-        const m = date.getMinutes() + ':'
-        const s = date.getSeconds();*/
+        const M = ((date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)) + '-'
+        const D = date.getDate() < 10 ? '0' + date.getDate() : date.getDate();
         return Y + M + D;
       },
       orderStatusFormatter(row, column) {
@@ -264,7 +265,7 @@
   /*.el-table .payment_order {*/
   /*background: #C79DE7;*/
   /*}*/
-  .el-table .complete_order {
-    background: #BAF4E6;
-  }
+  /*.el-table .complete_order {*/
+  /*background: #BAF4E6;*/
+  /*}*/
 </style>
