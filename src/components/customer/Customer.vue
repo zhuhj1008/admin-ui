@@ -25,13 +25,13 @@
       </el-form-item>
 
       <el-form-item>
-        <el-button type="primary" icon="el-icon-search">搜索</el-button>
+        <el-button type="primary" icon="el-icon-search" @click="queryCustomerList">搜索</el-button>
       </el-form-item>
     </el-form>
 
     <el-table :data="tableData" style="width: 100%">
       <el-table-column prop="customerId" label="编号" width="180"></el-table-column>
-      <el-table-column prop="wxAccount" label="微信号" width="180"></el-table-column>
+      <el-table-column prop="wxAccount" label="微信" width="180"></el-table-column>
       <el-table-column prop="nickName" label="昵称"></el-table-column>
       <el-table-column prop="address" label="地址"></el-table-column>
       <el-table-column prop="phone" label="电话"></el-table-column>
@@ -46,6 +46,14 @@
         </template>
       </el-table-column>
       <el-table-column prop="remark" label="备注"></el-table-column>
+
+      <el-table-column fixed="right" label="修改" width="50">
+        <customer-edit></customer-edit>
+        <template slot-scope="scope">
+          <!--<edit-order @queryOrder="queryOrder" :orderId="scope.row.orderId"></edit-order>-->
+          <customer-edit :customerId="scope.row.customerId"></customer-edit>
+        </template>
+      </el-table-column>
     </el-table>
 
 
@@ -65,6 +73,9 @@
 </template>
 
 <script>
+
+  import CustomerEdit from '@/components/customer/CustomerEdit'
+
   export default {
     data() {
       return {
@@ -72,65 +83,55 @@
           wxAccount: '',
           phone: '',
           remark: '',
-          pageNo: 2,
+          pageNo: 1,
           pageSize: 10
         },
         page: {
           total: 50,
         },
-        tableData: [{
-          customerId: '1',
-          wxAccount: 'ada',
-          nickName: '王小虎',
-          phone: '11111111111',
-          enable: true,
-          address: '上海市普陀区金沙江路 1518 弄',
-          remark: '老二'
-        }, {
-          customerId: '2',
-          wxAccount: 'sfsd',
-          nickName: '王小虎',
-          phone: '11111111111',
-          enable: false,
-          address: '上海市普陀区金沙江路 1518 弄',
-          remark: '老二'
-        }, {
-          customerId: '3',
-          wxAccount: 'qwefds',
-          nickName: '王小虎',
-          phone: '11111111111',
-          enable: false,
-          address: '上海市普陀区金沙江路 1518 弄',
-          remark: '老二'
-        }, {
-          customerId: '4',
-          wxAccount: 'gdf',
-          nickName: '王小虎',
-          phone: '11111111111',
-          enable: true,
-          address: '上海市普陀区金沙江路 1518 弄',
-          remark: '老二'
-        }]
+        tableData: []
       }
     },
     methods: {
       queryCustomerList: function () {
-
-        this.$post("/customer/queryList",this.searchForm).then((response) => {
+        this.$post("/customer/queryList", this.searchForm).then((response) => {
           if (response.code == 1) {
-            this.tableData == response.data;
+            this.page.total = response.data.total;
+            this.tableData = response.data.contents;
+            console.log(JSON.stringify(this.tableData))
           }
+        }).catch(() => {
+          this.$message("加载数据失败");
         })
-
       },
 
-      changeSize: function () {
-
+      changeSize: function (val) {
+        this.searchForm.pageSize = val;
+        this.queryCustomerList();
       },
 
       changeStatus: function (customerId) {
-        console.log("修改状态：" + customerId);
+        const param = {};
+        param.customerId = customerId;
+        this.$post("/customer/changeEnable", param).then((response) => {
+          if (response.code === 1) {
+            this.$notify({
+              type: 'success',
+              message: '修改成功!'
+            });
+          }
+        }).catch(() => {
+          this.$message("修改状态失败");
+        });
+
       }
+    },
+
+    mounted: function () {
+     this.queryCustomerList();
+    },
+    components: {
+      "customer-edit": CustomerEdit,
     }
 
 
