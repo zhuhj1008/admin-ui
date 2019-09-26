@@ -13,7 +13,7 @@
       </el-form-item>
 
       <el-form-item>
-        <el-input v-model.number="searchForm.userName" placeholder="请输入用户姓名" clearable/>
+        <el-input v-model.number="searchForm.userName" placeholder="请输入微信号" clearable/>
       </el-form-item>
 
       <el-form-item>
@@ -21,15 +21,13 @@
       </el-form-item>
 
       <el-form-item>
-        <el-button type="primary" icon="el-icon-search" @click="queryCustomerList">搜索</el-button>
+        <el-button type="primary" icon="el-icon-search" @click="queryUserList">搜索</el-button>
       </el-form-item>
     </el-form>
 
     <el-table :data="tableData" style="width: 100%">
-      <el-table-column prop="customerId" label="编号" width="180"></el-table-column>
-      <el-table-column prop="wxAccount" label="微信" width="180"></el-table-column>
-      <el-table-column prop="nickName" label="昵称"></el-table-column>
-      <el-table-column prop="address" label="地址"></el-table-column>
+      <el-table-column prop="userId" label="编号" width="180"></el-table-column>
+      <el-table-column prop="userName" label="姓名" width="180"></el-table-column>
       <el-table-column prop="phone" label="电话"></el-table-column>
       <el-table-column prop="enable" label="有效">
         <template slot-scope="scope">
@@ -37,7 +35,7 @@
             v-model="scope.row.enable"
             active-color="#13ce66"
             inactive-color="#ff4949"
-            @change="changeStatus(scope.row.customerId)">
+            @change="changeStatus(scope.row.userId)">
           </el-switch>
         </template>
       </el-table-column>
@@ -47,7 +45,7 @@
         <customer-edit></customer-edit>
         <template slot-scope="scope">
           <!--<edit-order @queryOrder="queryOrder" :orderId="scope.row.orderId"></edit-order>-->
-          <customer-edit :customerId="scope.row.customerId"></customer-edit>
+          <user-edit :userId="scope.row.userId"></user-edit>
         </template>
       </el-table-column>
     </el-table>
@@ -62,7 +60,7 @@
                      :page-sizes="[10, 20, 50]"
                      :page-size="searchForm.pageSize"
                      @size-change="changeSize"
-                     @current-change="queryCustomerList">
+                     @current-change="queryUserList">
       </el-pagination>
     </div>
   </div>
@@ -70,7 +68,8 @@
 
 <script>
 
-  import CustomerEdit from '@/components/customer/CustomerEdit'
+  import UserEdit from '@/components/user/UserEdit'
+
 
   export default {
     data() {
@@ -88,8 +87,8 @@
       }
     },
     methods: {
-      queryCustomerList: function () {
-        this.$post("/customer/queryList", this.searchForm).then((response) => {
+      queryUserList: function () {
+        /*this.$post("/customer/queryList", this.searchForm).then((response) => {
           if (response.code == 1) {
             this.page.total = response.data.total;
             this.tableData = response.data.contents;
@@ -97,18 +96,18 @@
           }
         }).catch(() => {
           this.$message("加载数据失败");
-        })
+        })*/
       },
 
       changeSize: function (val) {
         this.searchForm.pageSize = val;
-        this.queryCustomerList();
+        this.queryUserList();
       },
 
-      changeStatus: function (customerId) {
+      changeStatus: function (userId) {
         const param = {};
-        param.customerId = customerId;
-        this.$post("/customer/changeEnable", param).then((response) => {
+        param.userId = userId;
+        /*this.$post("/customer/changeEnable", param).then((response) => {
           if (response.code === 1) {
             this.$notify({
               type: 'success',
@@ -117,16 +116,16 @@
           }
         }).catch(() => {
           this.$message("修改状态失败");
-        });
+        });*/
 
       }
     },
 
     mounted: function () {
-     this.queryCustomerList();
+      this.queryUserList();
     },
     components: {
-      "customer-edit": CustomerEdit,
+      "user-edit": UserEdit,
     }
 
 
