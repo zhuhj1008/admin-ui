@@ -130,7 +130,6 @@
         this.$post("/broker/queryAllName").then(response => {
           if (response.code == 1) {
             const nameList = response.data;
-            console.log(JSON.stringify(nameList));
             for (const name of nameList) {
               const broker = {};
               broker.value = name;

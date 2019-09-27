@@ -93,7 +93,6 @@
           if (response.code == 1) {
             this.page.total = response.data.total;
             this.tableData = response.data.contents;
-            console.log(JSON.stringify(this.tableData))
           }
         }).catch(() => {
           this.$message("加载数据失败");

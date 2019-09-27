@@ -86,7 +86,6 @@
         param.pageNo = this.searchForm.pageNo;
         this.$post("/product/queryProducts", param).then(response => {
           if (response.code == 1) {
-            console.log(JSON.stringify(response.data))
             this.productList = response.data;
           }
         })

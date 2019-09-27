@@ -14,19 +14,21 @@
           background-color="#ffcc00"
           text-color="#000000"
           active-text-color="#FFFFFF" router>
-          <template v-for="menu in menuList">
-            <el-menu-item :index="menu.menuUrl" router>
-              <!--<i :class="menu.icon"></i>-->
-              {{menu.menuName}}
+
+          <el-submenu v-for="menu in menuList" :key="menu.menuUrl" :index="menu.menuUrl" router>
+            <template slot="title">{{menu.menuName}}</template>
+            <el-menu-item v-for="subMenu in menu.children" :key="subMenu.menuUrl" :index="subMenu.menuUrl" router>
+              {{subMenu.menuName}}
             </el-menu-item>
-          </template>
+          </el-submenu>
 
         </el-menu>
       </el-col>
-      <el-col :span="4">欢迎你，{{name}}</el-col>
+      <el-col :span="3">欢迎你，{{name}} </el-col>
+      <el-col :span="1"><i class="el-icon-switch-button"></i>安全退出</el-col>
+
+
     </el-row>
-
-
   </div>
 </template>
 
@@ -36,20 +38,50 @@
       return {
         name: localStorage.getItem("name"),
         menuList: [
-          {menuUrl: "/index", menuName: "首页"},
-          {menuUrl: "/customer", menuName: "客户"},
-          {menuUrl: "/order", menuName: "订单中心"},
-          {menuUrl: "/broker", menuName: "经销商"},
-          {menuUrl: "/product", menuName: "产品"},
-          // {menuUrl:"/test",menuName:"调试"},
-          {menuUrl:"/config",menuName:"系统配置"},
+          {
+            menuUrl: "/2",
+            menuName: "用户中心",
+            children: [
+              {menuUrl: "/user", menuName: "用户"},
+              {menuUrl: "/customer", menuName: "客户"},
+            ]
+          },
+          {
+            menuUrl: "/3",
+            menuName: "订单中心",
+            children: [
+              {menuUrl: "/order", menuName: "订单"},
+              {menuUrl: "/broker", menuName: "经销商"},
+            ]
+          },
+          {
+            menuUrl: "/4",
+            menuName: "产品",
+            children: [
+              {menuUrl: "/product", menuName: "产品"},
+            ]
+          },
+          {
+            menuUrl: "/5",
+            menuName: "统计",
+            children: [
+              {menuUrl: "/index", menuName: "图表"}
+            ]
+          },
+          {
+            menuUrl: "/6",
+            menuName: "系统配置",
+            children: [
+              {menuUrl: "/config", menuName: "配置"},
+            ]
+          }
         ],
-        activeIndex: 'order',
+        activeIndex: 'index',
       };
     },
     methods: {
       handleSelect(key, keyPath) {
-        console.log(key, keyPath);
+        /*console.log(key, keyPath);*/
       }
     }
   }

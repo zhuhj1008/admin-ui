@@ -12,7 +12,6 @@
       :visible.sync="dialogFormVisible" width='55%' :show-close=false
       :close-on-press-escape=false :close-on-click-modal="false" append-to-body>
 
-
       <el-form
         :model="formData"
         prop="formData"
@@ -64,8 +63,7 @@
           phone: '',
           age: '',
           sex: '',
-          remark: '',
-          address: '',
+          remark: ''
         }
       }
     },
@@ -74,15 +72,14 @@
       toEditUser: function () {
 
         const param = {};
-        param.customerId = this.customerId;
-        /*this.$post("/customer/queryCustomer", param).then((response) => {
-          console.log(JSON.stringify(response))
+        param.userId = this.userId;
+        this.$post("/user/queryUser", param).then((response) => {
           if (response.code == 1) {
             this.formData = response.data;
           }
         }).catch(() => {
           this.$message("获取用户信息失败，请联系管理员。");
-        });*/
+        });
       },
 
       editUser: function () {

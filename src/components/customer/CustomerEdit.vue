@@ -90,7 +90,6 @@
         const param = {};
         param.customerId = this.customerId;
         this.$post("/customer/queryCustomer", param).then((response) => {
-          console.log(JSON.stringify(response))
           if (response.code == 1) {
             this.formData = response.data;
           }

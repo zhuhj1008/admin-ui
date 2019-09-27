@@ -73,7 +73,7 @@
     methods: {
       cancel: function (formName) {
         // //清空表单数据
-        // this.$refs[formName].resetFields();
+        this.$refs[formName].resetFields();
         //清空验证结果
         this.$refs[formName].clearValidate();
         //关闭dialog

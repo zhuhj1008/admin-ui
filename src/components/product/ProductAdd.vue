@@ -144,7 +144,6 @@
         this.form.detailFigure.push(picture);
       },
       save: function (form) {
-        console.log(JSON.stringify(this.form));
         this.$refs[form].validate((valid) => {
             if (!valid) {
               return false;

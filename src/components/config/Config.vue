@@ -112,8 +112,6 @@
       },
 
       deleteConfig(tag, type) {
-
-        console.log("AAA"+JSON.stringify(this.orderTypes));
         const param = {};
         param.configKey = type;
         if (type === 'orderTypes') {

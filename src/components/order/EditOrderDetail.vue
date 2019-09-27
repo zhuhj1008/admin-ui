@@ -159,7 +159,6 @@
         }
       },
       saveOrderDetail() {
-        console.log("保存订单：" + JSON.stringify(this.order.orderDetails));
         const param = {};
         param.orderId = this.orderId;
         param.details = this.order.orderDetails;
