@@ -9,7 +9,7 @@
       size='mini'>
 
       <el-form-item>
-        <user-add></user-add>
+        <user-add @queryUserList="queryUserList"></user-add>
       </el-form-item>
 
 
@@ -45,7 +45,7 @@
 
       <el-table-column fixed="right" label="修改" width="50">
         <template slot-scope="scope">
-          <user-edit :userId="scope.row.userId"></user-edit>
+          <user-edit :userId="scope.row.userId" @queryUserList="queryUserList"></user-edit>
         </template>
       </el-table-column>
 

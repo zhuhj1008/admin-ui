@@ -57,7 +57,6 @@
                 localStorage.setItem("name", response.data.userName);
                 localStorage.setItem("userId", response.data.userId);
                 localStorage.setItem("signature", response.data.signature);
-
                 localStorage.setItem("colors", response.data.colors);
                 localStorage.setItem("stripes", response.data.stripes);
                 localStorage.setItem("orderTypes", response.data.orderTypes);

@@ -9,9 +9,13 @@
 
         <div>
           <el-form-item prop="orderType">
-            <template v-for="type in orderType">
-              <el-radio v-model="orderForm.orderType" :label="type.id" border>{{type.text}}</el-radio>
-            </template>
+            <el-radio v-model="orderForm.orderType" v-for="item in orderTypes" :key="item" :label="item" border>
+              {{item}}
+            </el-radio>
+
+            <!--<template v-for="type in orderType">-->
+              <!--<el-radio v-model="orderForm.orderType" :label="type.id" border>{{type.text}}</el-radio>-->
+            <!--</template>-->
           </el-form-item>
         </div>
 
@@ -71,7 +75,7 @@
     data() {
       return {
         dialogFormVisible: false,
-        orderType: this.$store.state.order.orderType,
+        orderTypes: localStorage.getItem("orderTypes").split(","),
         regionArr: localStorage.getItem("regions").split(","),
         suggestBroker: [],
         orderForm: {

@@ -18,12 +18,6 @@ export default new Vuex.Store({
         {"id": 4, "status": "运输中"},
         {"id": 5, "status": "安装中"},
         {"id": 6, "status": "已完成"}
-      ],
-      orderType: [
-        {"id": 1, "text": "实木复合门"},
-        {"id": 2, "text": "工艺贴皮门"},
-        {"id": 3, "text": "原木门"},
-        {"id": 4, "text": "钢木门"}
       ]
     }
   },

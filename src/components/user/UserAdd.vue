@@ -14,8 +14,7 @@
         ref="formData"
         :rules="rules"
         :inline="true"
-        class="demo-form-inline"
-        size='mini'>
+        class="demo-form-inline">
 
         <el-form-item label="电话" prop="phone">
           <el-input v-model="formData.phone" autocomplete="off" style="width:130px"></el-input>
@@ -61,6 +60,7 @@
         formData: {
           userName: '',
           phone: '',
+          password:'',
           age: '',
           sex: '',
           remark: ''
@@ -87,8 +87,29 @@
         //关闭dialog
         this.dialogFormVisible = false;
       },
-      cancel: function (formData) {
-
+      saveUser: function (formData) {
+        this.$refs[formData].validate((valid) => {
+          if (!valid) {
+            return false;
+          } else {
+            this.$post("/user/saveUser", this.formData).then((response) => {
+              if (response.code == 1) {
+                this.$notify({
+                  type: 'success',
+                  message: '保存成功!'
+                });
+              }
+              // //清空表单数据
+              this.$refs[formData].resetFields();
+              //清空验证结果
+              this.$refs[formData].clearValidate();
+              //关闭dialog
+              this.dialogFormVisible = false;
+              //重新加载列表数据
+              this.$emit('queryUserList');
+            });
+          }
+        })
       }
 
 

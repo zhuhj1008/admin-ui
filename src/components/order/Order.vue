@@ -51,8 +51,7 @@
     <el-table :data="orderList"
               highlight-current-row
               style="width: 100%"
-              :row-class-name="tableRowClassName"
-              size='mini'>
+              :row-class-name="tableRowClassName">
       <el-table-column type="expand">
         <template slot-scope="props">
           <el-form label-position="left" inline class="demo-table-expand">
@@ -85,6 +84,12 @@
       <el-table-column label="订单总额" prop="totalAmount"></el-table-column>
       <el-table-column label="订单日期" prop="createTime" :formatter="dateFormatter"></el-table-column>
       <el-table-column label="交付日期" prop="deliveryTime" :formatter="dateFormatter"></el-table-column>
+
+      <el-table-column fixed="right" label="时间线" width="50">
+        <template slot-scope="scope">
+          <order-time-line :orderId="scope.row.orderId"></order-time-line>
+        </template>
+      </el-table-column>
 
       <el-table-column fixed="right" label="修改" width="50">
         <template slot-scope="scope">
@@ -134,6 +139,7 @@
   import OrderAdd from '@/components/order/OrderAdd'
   import EditOrder from '@/components/order/EditOrder'
   import EditOrderDetail from '@/components/order/EditOrderDetail'
+  import OrderTimeLine from '@/components/order/OrderTimeLine'
 
   export default {
     data() {
@@ -237,7 +243,8 @@
     components: {
       "order-add": OrderAdd,
       "edit-order": EditOrder,
-      "edit-order-detail": EditOrderDetail
+      "edit-order-detail": EditOrderDetail,
+      "order-time-line": OrderTimeLine
     }
   }
 </script>
