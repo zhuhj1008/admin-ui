@@ -1,12 +1,32 @@
 <template>
   <div>
-    <!--<el-drawer-->
-      <!--title="我是标题"-->
-      <!--:visible.sync="drawer"-->
-      <!--direction="rtl"-->
-      <!--:before-close="handleClose">-->
-      <!--<span>我</span>-->
-    <!--</el-drawer>-->
+    <el-popover
+      placement="top-start"
+      title="时间线"
+      width="200"
+      trigger="hover">
+
+      <div class="block">
+        <el-timeline>
+          <el-timeline-item
+            v-for="(activity, index) in activities"
+            :key="index"
+            :icon="activity.icon"
+            :type="activity.type"
+            :color="activity.color"
+            :size="activity.size"
+            :timestamp="activity.timestamp">
+            {{activity.content}}
+          </el-timeline-item>
+        </el-timeline>
+      </div>
+
+      <el-button slot="reference"
+                 icon="el-icon-time"
+                 type="text"
+                 size="mini">
+      </el-button>
+    </el-popover>
   </div>
 </template>
 
@@ -14,19 +34,45 @@
   export default {
     data() {
       return {
-        drawer: false,
-        direction: 'rtl',
+        dialogFormVisible: false,
+        activities: [
+          {
+            content: '新订单',
+            timestamp: '2018-04-12 20:46',
+            size: 'large',
+            type: 'primary',
+            icon: 'el-icon-more'
+          },
+          {
+            content: '生产中',
+            timestamp: '2018-04-12 20:46',
+            size: 'large',
+            type: 'primary',
+            icon: 'el-icon-more'
+          },
+          {
+            content: '安装中',
+            timestamp: '2018-04-12 20:46',
+            size: 'large',
+            type: 'primary',
+            icon: 'el-icon-more'
+          },
+          {
+            content: '已完成',
+            timestamp: '2018-04-12 20:46',
+            size: 'large',
+            type: 'primary',
+            icon: 'el-icon-more'
+          }
+        ]
+
       };
     },
     methods: {
-      handleClose(done) {
-        this.$confirm('确认关闭？')
-          .then(() => {
-            done();
-          })
-          .catch(_ => {
-          });
+      getTimeLine: function () {
+
       }
+
     }
   }
 </script>

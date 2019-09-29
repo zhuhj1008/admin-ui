@@ -71,7 +71,6 @@
               <span>{{ props.row.customerAddress }}</span>
             </el-form-item>
             <el-form-item label="备注">
-              <i class="el-icon-time"></i>
               <span>{{ props.row.remark }}</span>
             </el-form-item>
           </el-form>
@@ -85,7 +84,7 @@
       <el-table-column label="订单日期" prop="createTime" :formatter="dateFormatter"></el-table-column>
       <el-table-column label="交付日期" prop="deliveryTime" :formatter="dateFormatter"></el-table-column>
 
-      <el-table-column fixed="right" label="时间线" width="50">
+      <el-table-column fixed="right" label="时间线" width="100">
         <template slot-scope="scope">
           <order-time-line :orderId="scope.row.orderId"></order-time-line>
         </template>
