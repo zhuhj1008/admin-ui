@@ -3,7 +3,7 @@
 
     <el-button @click="dialogFormVisible = true,toEditCustomer()"
                type="text"
-               icon="el-icon-edit"
+               icon="iconfont icon-xiugaiyonghuxinxi"
                size="mini">
     </el-button>
 

@@ -9,7 +9,6 @@
              class="demo-form-inline"
              :loading="loading"
              size='mini'>
-
       <el-form-item>
         <order-add @queryOrder="queryOrder"></order-add>
       </el-form-item>
@@ -102,9 +101,9 @@
         </template>
       </el-table-column>
 
-      <el-table-column fixed="right" label="打印" width="50">
+      <el-table-column fixed="right" label="下载" width="50">
         <template slot-scope="scope">
-          <el-button @click="downLoadOrder(scope.row.orderId)" type="text" icon="el-icon-printer"
+          <el-button @click="downLoadOrder(scope.row.orderId)" type="text" icon="iconfont icon-shangchuan"
                      size="small"></el-button>
         </template>
       </el-table-column>

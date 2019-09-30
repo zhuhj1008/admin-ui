@@ -22,10 +22,11 @@
       </div>
 
       <el-button slot="reference"
-                 icon="el-icon-time"
+                 class="iconfont icon-shijian"
                  type="text"
                  size="mini">
       </el-button>
+
     </el-popover>
   </div>
 </template>
@@ -41,28 +42,35 @@
             timestamp: '2018-04-12 20:46',
             size: 'large',
             type: 'primary',
-            icon: 'el-icon-more'
+            icon: 'iconfont icon-icon02'
+          },
+          {
+            content: '已付款',
+            timestamp: '2018-04-12 20:46',
+            size: 'large',
+            type: 'primary',
+            icon: 'iconfont icon-yulebao'
           },
           {
             content: '生产中',
             timestamp: '2018-04-12 20:46',
             size: 'large',
             type: 'primary',
-            icon: 'el-icon-more'
+            icon: 'iconfont icon-shuju'
           },
           {
             content: '安装中',
-            timestamp: '2018-04-12 20:46',
+            timestamp: '',
             size: 'large',
             type: 'primary',
-            icon: 'el-icon-more'
+            icon: 'iconfont icon-anzhuangshigong-xianxing'
           },
           {
             content: '已完成',
             timestamp: '2018-04-12 20:46',
             size: 'large',
             type: 'primary',
-            icon: 'el-icon-more'
+            icon: 'iconfont icon-wancheng'
           }
         ]
 

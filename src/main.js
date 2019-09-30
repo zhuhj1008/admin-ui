@@ -7,6 +7,8 @@ import VCharts from 'v-charts'
 import '../theme/index.css'
 import {post} from './plugins/http.js'
 
+import "./assets/aliicon/iconfont.css"
+
 
 Vue.config.productionTip = false
 Vue.prototype.$post=post;

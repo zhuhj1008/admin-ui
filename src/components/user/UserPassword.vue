@@ -3,7 +3,7 @@
   <div>
 
     <el-button type="text"
-               icon="el-icon-setting"
+               icon="iconfont icon-dingbu_xiugaimima"
                size="mini"
                @click="dialogFormVisible=true">
     </el-button>
