@@ -29,16 +29,8 @@
           <el-input v-model="formData.phone" autocomplete="off" style="width:130px"></el-input>
         </el-form-item>
 
-        <el-form-item label="年龄" prop="age">
-          <el-input v-model="formData.age" autocomplete="off" style="width:130px"></el-input>
-        </el-form-item>
-
-        <el-form-item label="性别" prop="sex">
-          <el-input v-model="formData.sex" autocomplete="off" style="width:130px"></el-input>
-        </el-form-item>
-
         <el-form-item label="备注" prop="remark">
-          <el-input v-model="formData.remark" autocomplete="off" style="width:130px"></el-input>
+          <el-input v-model="formData.remark" autocomplete="off" style="width:330px"></el-input>
         </el-form-item>
 
       </el-form>
@@ -62,8 +54,6 @@
         formData: {
           userName: '',
           phone: '',
-          age: '',
-          sex: '',
           remark: ''
         },
         rules: {

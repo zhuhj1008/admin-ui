@@ -161,6 +161,7 @@
       saveOrderDetail() {
         const param = {};
         param.orderId = this.orderId;
+        param.totalAmount = this.getTotalAmount;
         param.details = this.order.orderDetails;
         this.$post("/order/saveDetail", param).then((response => {
           if (response.code == 1) {

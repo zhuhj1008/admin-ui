@@ -25,8 +25,7 @@
         </el-menu>
       </el-col>
       <el-col :span="3">欢迎你，{{name}} </el-col>
-      <el-col :span="1"><i class="el-icon-switch-button"></i>安全退出</el-col>
-
+      <el-col :span="1"><i class="iconfont icon-tuichu" @click="quit"></i>退出</el-col>
 
     </el-row>
   </div>
@@ -82,6 +81,9 @@
     methods: {
       handleSelect(key, keyPath) {
         /*console.log(key, keyPath);*/
+      },
+      quit:function () {
+        this.$router.push({ path: '/' })
       }
     }
   }

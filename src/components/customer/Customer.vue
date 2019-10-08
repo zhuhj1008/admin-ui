@@ -9,11 +9,7 @@
       size='mini'>
 
       <el-form-item>
-        <el-button type="primary" icon="el-icon-plus">添加</el-button>
-      </el-form-item>
-
-      <el-form-item>
-        <el-input v-model.number="searchForm.userName" placeholder="请输入用户姓名" clearable/>
+        <el-input v-model.number="searchForm.wxAccount" placeholder="请输入微信号" clearable/>
       </el-form-item>
 
       <el-form-item>
@@ -76,7 +72,7 @@
     data() {
       return {
         searchForm: {
-          userName: '',
+          wxAccount: '',
           phone: '',
           pageNo: 1,
           pageSize: 10

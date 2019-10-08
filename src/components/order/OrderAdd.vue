@@ -26,9 +26,9 @@
                               style="width: 160px;"></el-date-picker>
             </el-col>
           </el-form-item>
-          <el-form-item label="交付时间" prop="deliveryTime">
+          <el-form-item label="交付时间" prop="finishTime">
             <el-col :span="10">
-              <el-date-picker type="date" placeholder="开始日期" v-model="orderForm.deliveryTime"
+              <el-date-picker type="date" placeholder="开始日期" v-model="orderForm.finishTime"
                               style="width: 160px;"></el-date-picker>
             </el-col>
           </el-form-item>
@@ -88,7 +88,7 @@
           customerAddress: '',
           remark: '',
           createTime: new Date(),
-          deliveryTime: new Date()
+          finishTime: new Date()
         }
       }
     },
@@ -133,6 +133,7 @@
       loadBroker: function () {
         this.$post("/broker/queryAllName").then(response => {
           if (response.code == 1) {
+            this.suggestBroker = [];
             const nameList = response.data;
             for (const name of nameList) {
               const broker = {};

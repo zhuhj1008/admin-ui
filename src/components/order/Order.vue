@@ -28,7 +28,7 @@
           </template>
         </el-select>
       </el-form-item>
-      <el-form-item label="起止时间">
+      <el-form-item label="时间">
         <el-col :span="10">
           <el-date-picker type="date" placeholder="开始日期" v-model="searchForm.beginDate"
                           style="width: 100%;"></el-date-picker>
@@ -75,15 +75,22 @@
           </el-form>
         </template>
       </el-table-column>
-      <el-table-column label="订单号" prop="orderId"></el-table-column>
+      <el-table-column label="序号" prop="orderId"></el-table-column>
+      <el-table-column label="订单号" prop="orderNo"></el-table-column>
       <el-table-column label="经销商" prop="brokerName"></el-table-column>
-      <el-table-column label="客户" prop="customerName"></el-table-column>
+      <!--<el-table-column label="客户" prop="customerName"></el-table-column>-->
       <el-table-column label="订单状态" prop="orderStatus" :formatter="orderStatusFormatter"></el-table-column>
       <el-table-column label="订单总额" prop="totalAmount"></el-table-column>
-      <el-table-column label="订单日期" prop="createTime" :formatter="dateFormatter"></el-table-column>
-      <el-table-column label="交付日期" prop="deliveryTime" :formatter="dateFormatter"></el-table-column>
+      <!--<el-table-column label="订单日期" prop="createTime" :formatter="dateFormatter"></el-table-column>-->
+      <!--<el-table-column label="交付日期" prop="deliveryTime" :formatter="dateFormatter"></el-table-column>-->
 
-      <el-table-column fixed="right" label="时间线" width="100">
+      <el-table-column fixed="right" label="步骤" width="50">
+        <template slot-scope="scope">
+          <order-step @queryOrder="queryOrder" :orderId="scope.row.orderId"></order-step>
+        </template>
+      </el-table-column>
+
+      <el-table-column fixed="right" label="时间" width="50">
         <template slot-scope="scope">
           <order-time-line :orderId="scope.row.orderId"></order-time-line>
         </template>
@@ -138,6 +145,7 @@
   import EditOrder from '@/components/order/EditOrder'
   import EditOrderDetail from '@/components/order/EditOrderDetail'
   import OrderTimeLine from '@/components/order/OrderTimeLine'
+  import OrderStep from '@/components/order/OrderStep'
 
   export default {
     data() {
@@ -242,7 +250,8 @@
       "order-add": OrderAdd,
       "edit-order": EditOrder,
       "edit-order-detail": EditOrderDetail,
-      "order-time-line": OrderTimeLine
+      "order-time-line": OrderTimeLine,
+      "order-step": OrderStep,
     }
   }
 </script>

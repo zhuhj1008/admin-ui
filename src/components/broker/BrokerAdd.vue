@@ -1,6 +1,7 @@
 <template>
   <div>
-    <el-button type="primary" icon="el-button-plus" @click="dialogFormVisible=true">添加</el-button>
+    <el-button type="primary" icon="el-icon-plus" @click="dialogFormVisible=true">添加</el-button>
+
     <el-dialog title="添加经销商" :visible.sync="dialogFormVisible" :show-close=false
                :close-on-press-escape=false :close-on-click-modal="false" append-to-body>
 
@@ -20,9 +21,20 @@
         <el-form-item label="手机号" prop="phone">
           <el-input v-model="brokerForm.phone" style="width:150px" clearable></el-input>
         </el-form-item>
+
         <el-form-item label="地址" prop="address">
-          <el-input v-model="brokerForm.address" style="width:378px" clearable></el-input>
+          <el-select v-model="brokerForm.city" placeholder="" style="width:75px">
+            <el-option key="沧州" label="沧州" value="沧州"></el-option>
+            <el-option key="衡水" label="衡水" value="衡水"></el-option>
+          </el-select>
+          <el-select v-model="brokerForm.county" placeholder="" style="width:75px">
+            <el-option key="泊头" label="泊头" value="泊头"></el-option>
+            <el-option key="阜城" label="阜城" value="阜城"></el-option>
+          </el-select>
+          <el-input v-model="brokerForm.address" style="width:300px" clearable></el-input>
         </el-form-item>
+
+
         <el-form-item label="备注" prop="remark">
           <el-input v-model="brokerForm.remark" style="width:378px" clearable></el-input>
         </el-form-item>
@@ -47,6 +59,8 @@
           brokerName: '',
           contact: '',
           phone: '',
+          city:'',
+          county:'',
           address: '',
           remark: ''
         },

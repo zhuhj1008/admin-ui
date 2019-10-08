@@ -4,7 +4,7 @@
       placement="top-start"
       title="时间线"
       width="200"
-      trigger="hover">
+      trigger="click">
 
       <div class="block">
         <el-timeline>
@@ -12,11 +12,10 @@
             v-for="(activity, index) in activities"
             :key="index"
             :icon="activity.icon"
-            :type="activity.type"
-            :color="activity.color"
-            :size="activity.size"
-            :timestamp="activity.timestamp">
-            {{activity.content}}
+            type="primary"
+            size="large"
+            :timestamp="activity.date">
+            {{activity.node}}
           </el-timeline-item>
         </el-timeline>
       </div>
@@ -24,7 +23,8 @@
       <el-button slot="reference"
                  class="iconfont icon-shijian"
                  type="text"
-                 size="mini">
+                 size="mini"
+                 @click="getTimeLine">
       </el-button>
 
     </el-popover>
@@ -37,41 +37,11 @@
       return {
         dialogFormVisible: false,
         activities: [
-          {
-            content: '新订单',
-            timestamp: '2018-04-12 20:46',
-            size: 'large',
-            type: 'primary',
+          /*{
+            node: '新订单',
+            date: '2018-04-12',
             icon: 'iconfont icon-icon02'
-          },
-          {
-            content: '已付款',
-            timestamp: '2018-04-12 20:46',
-            size: 'large',
-            type: 'primary',
-            icon: 'iconfont icon-yulebao'
-          },
-          {
-            content: '生产中',
-            timestamp: '2018-04-12 20:46',
-            size: 'large',
-            type: 'primary',
-            icon: 'iconfont icon-shuju'
-          },
-          {
-            content: '安装中',
-            timestamp: '',
-            size: 'large',
-            type: 'primary',
-            icon: 'iconfont icon-anzhuangshigong-xianxing'
-          },
-          {
-            content: '已完成',
-            timestamp: '2018-04-12 20:46',
-            size: 'large',
-            type: 'primary',
-            icon: 'iconfont icon-wancheng'
-          }
+          }*/
         ]
 
       };
@@ -79,8 +49,36 @@
     methods: {
       getTimeLine: function () {
 
+        this.activities = [];
+        const param = {};
+        param.orderId = this.orderId;
+        this.$post("/order/timeLine", param).then((response) => {
+          if (response.code == 1) {
+            //时间数组（接口按照顺序返回的）
+            const timeArr = response.data;
+            //节点数组
+            const nodeArr = new Array("新订单", "已付款", "生产中", "运输中", "安装中", "已完成");
+            //图标数组
+            const iconArr = new Array("iconfont icon-icon02", "iconfont icon-yulebao", "iconfont icon-anquan", "iconfont icon-yunshuzhong", "iconfont icon-anzhuangshigong-xianxing", "iconfont icon-wancheng")
+
+            for (let i = 0; i < nodeArr.length; i++) {
+              let activity = {};
+              activity.node = nodeArr[i];
+              activity.date = timeArr[i];
+              activity.icon = iconArr[i];
+              this.activities.push(activity);
+            }
+          }
+        });
+
+
       }
 
+    },
+    props: [
+      "orderId"
+    ],
+    mounted: function () {
     }
   }
 </script>

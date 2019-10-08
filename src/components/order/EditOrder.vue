@@ -27,22 +27,17 @@
           </el-form-item>
         </div>
 
-        <el-form-item label="单号">
+        <el-form-item label="序号">
           <el-input v-model="form.orderId" autocomplete="off" style="width:130px" disabled></el-input>
         </el-form-item>
-        <el-form-item label="数量">
-          <el-input v-model="form.count" autocomplete="off" style="width:90px" disabled></el-input>
+        <el-form-item label="单号">
+          <el-input v-model="form.orderNo" autocomplete="off" style="width:200px" disabled></el-input>
         </el-form-item>
         <el-form-item label="总额">
           <el-input v-model="form.totalAmount" autocomplete="off" style="width:90px" disabled></el-input>
         </el-form-item>
         <el-form-item label="实收">
           <el-input v-model="form.actualAmount" autocomplete="off" style="width:170px" clearable></el-input>
-        </el-form-item>
-        <el-form-item label="状态" style="width:240px" v-model="form.orderStatus">
-          <el-select v-model="form.orderStatus" placeholder="">
-            <el-option v-for="item in statusArr" :key="item.id" :label="item.status" :value="item.id"></el-option>
-          </el-select>
         </el-form-item>
         <el-form-item label="经销">
           <el-autocomplete v-model="form.brokerName"
@@ -83,21 +78,19 @@
     data() {
       return {
         dialogFormVisible: false,
-        statusArr: this.$store.state.order.orderStatus,
         orderTypes: localStorage.getItem("orderTypes").split(","),
         regions: localStorage.getItem("regions").split(","),
         suggestBroker: [],
         form: {
           selected: '1',
           orderId: '',
+          orderNo: '',
           orderType: '',
-          orderStatus: '',
           brokerName: '',
           region: '',
           customerName: '',
           customerPhone: '',
           customerAddress: '',
-          count: '',
           totalAmount: '',
           actualAmount: '',
           remark: '',

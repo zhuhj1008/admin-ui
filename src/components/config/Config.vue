@@ -1,90 +1,33 @@
 <template>
   <div class="config-main">
-
-    <el-tabs v-model="activeName"
-             type="card"
-             :tab-position="tablePosition">
-
+    <el-row>
       <!--订单分类-->
-      <el-tab-pane label="订单分类" name="first">
-        <div style="float: left">
-          <el-tag :key="tag" v-for="tag in orderTypes"
-                  closable
-                  type="success"
-                  :disable-transitions="false"
-                  @close="deleteConfig(tag,'orderTypes')">
-            {{tag}}
-          </el-tag>
-          <el-input class="input-new-tag" v-if="inputVisible" v-model="inputValue"
-                    ref="saveTagInput" size="small"
-                    @keyup.enter.native="addConfigConfirm('orderTypes')"
-                    @blur="addConfigConfirm('orderTypes')">
-          </el-input>
-          <el-button v-else class="button-new-tag" size="medium" @click="showInput">+ 添加</el-button>
-        </div>
-      </el-tab-pane>
+      <el-col :span="8">
+        <el-card class="box-card">
 
-      <!--商品分类-->
-      <el-tab-pane label="商品分类" name="second">
-        <div style="float: left">
-          <el-tag :key="tag" v-for="tag in productTypes"
-                  closable
-                  type="success"
-                  :disable-transitions="false"
-                  @close="deleteConfig(tag,'productTypes')">
-            {{tag}}
-          </el-tag>
-          <el-input class="input-new-tag" v-if="inputVisible" v-model="inputValue"
-                    ref="saveTagInput" size="small"
-                    @keyup.enter.native="addConfigConfirm('productTypes')"
-                    @blur="addConfigConfirm('productTypes')">
-          </el-input>
-          <el-button v-else class="button-new-tag" size="small" @click="showInput">+ 添加</el-button>
-        </div>
-      </el-tab-pane>
+          <div slot="header" class="clearfix">
+            <span>订单分类</span>
+            <el-button style="float: right; padding: 3px 0" type="text">保存</el-button>
+          </div>
+
+          <div style="height: 150px">
+            <el-tag :key="tag" v-for="tag in orderTypes" closable
+                    :disable-transitions="false" @close="handleClose(tag,'orderTypes')" class="tag-item">
+              {{tag}}
+            </el-tag>
+
+            <el-input class="input-new-tag" v-if="inputVisible" v-model="inputValue" ref="saveTagInput"
+                      size="small" @keyup.enter.native="handleInputConfirm('orderTypes')" @blur="handleInputConfirm">
+            </el-input>
+
+            <el-button v-else class="button-new-tag" size="small" @click="showInput">+ 添加</el-button>
+          </div>
+
+        </el-card>
+      </el-col>
 
 
-      <!--颜色-->
-      <el-tab-pane label="颜色" name="third">
-
-        <div style="float: left">
-          <el-tag :key="tag" v-for="tag in colors"
-                  closable
-                  type="success"
-                  :disable-transitions="false"
-                  @close="deleteConfig(tag,'colors')">
-            {{tag}}
-          </el-tag>
-          <el-input class="input-new-tag" v-if="inputVisible" v-model="inputValue"
-                    ref="saveTagInput" size="small"
-                    @keyup.enter.native="addConfigConfirm('colors')"
-                    @blur="addConfigConfirm('colors')">
-          </el-input>
-          <el-button v-else class="button-new-tag" size="small" @click="showInput">+ 添加</el-button>
-        </div>
-      </el-tab-pane>
-
-
-      <!--花纹-->
-      <el-tab-pane label="花纹" name="fourth">
-        <div style="float: left">
-          <el-tag :key="tag" v-for="tag in stripes"
-                  closable
-                  type="success"
-                  :disable-transitions="false"
-                  @close="deleteConfig(tag,'stripes')">
-            {{tag}}
-          </el-tag>
-          <el-input class="input-new-tag" v-if="inputVisible" v-model="inputValue"
-                    ref="saveTagInput" size="small"
-                    @keyup.enter.native="addConfigConfirm('stripes')"
-                    @blur="addConfigConfirm('stripes')">
-          </el-input>
-          <el-button v-else class="button-new-tag" size="small" @click="showInput">+ 添加</el-button>
-        </div>
-      </el-tab-pane>
-    </el-tabs>
-
+    </el-row>
 
   </div>
 </template>
@@ -93,14 +36,14 @@
   export default {
     data() {
       return {
-        tablePosition: 'top',
         orderTypes: localStorage.getItem("orderTypes").split(","),
         productTypes: localStorage.getItem("productTypes").split(","),
         stripes: localStorage.getItem("stripes").split(","),
         colors: localStorage.getItem("colors").split(","),
+
+        dynamicTags: localStorage.getItem("colors").split(","),
         inputVisible: false,
-        inputValue: '',
-        activeName: 'first'
+        inputValue: ''
       };
     },
     methods: {
@@ -111,68 +54,17 @@
         });
       },
 
-      deleteConfig(tag, type) {
-        const param = {};
-        param.configKey = type;
-        if (type === 'orderTypes') {
-          this.orderTypes.splice(this.orderTypes.indexOf(tag), 1);
-          param.configValue = this.orderTypes;
-        } else if (type === 'productTypes') {
-          this.productTypes.splice(this.productTypes.indexOf(tag), 1);
-          param.configValue = this.productTypes;
-        } else if (type === 'colors') {
-          this.colors.splice(this.colors.indexOf(tag), 1);
-          param.configValue = this.colors;
-        } else if (type === 'stripes') {
-          this.stripes.splice(this.stripes.indexOf(tag), 1);
-          param.configValue = this.stripes;
-        }
-
-        localStorage.setItem(type, param.configValue);
-
-        this.$post("/common/updateConfig", param).then((response) => {
-          if (response.code == 1) {
-            this.$notify({
-              type: 'success',
-              message: '修改成功!'
-            });
-          }
-        });
-
+      //删除
+      handleClose(tag) {
+        this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
       },
 
-      addConfigConfirm(type) {
-
+      //添加
+      handleInputConfirm() {
         let inputValue = this.inputValue;
         if (inputValue) {
-          const param = {};
-          param.configKey = type;
-          if (type === 'orderTypes') {
-            this.orderTypes.push(inputValue);
-            param.configValue = this.orderTypes;
-          } else if (type === 'productTypes') {
-            this.productTypes.push(inputValue);
-            param.configValue = this.productTypes;
-          } else if (type === 'colors') {
-            this.colors.push(inputValue);
-            param.configValue = this.colors;
-          } else if (type === 'stripes') {
-            this.stripes.push(inputValue);
-            param.configValue = this.stripes;
-          }
-
-          localStorage.setItem(type, param.configValue);
-
-          this.$post("/common/updateConfig", param).then((response) => {
-            if (response.code == 1) {
-              this.$notify({
-                type: 'success',
-                message: '修改成功!'
-              });
-            }
-          });
+          this.dynamicTags.push(inputValue);
         }
-
         this.inputVisible = false;
         this.inputValue = '';
       }
@@ -189,6 +81,24 @@
     margin-left: 10px;
   }
 
+  .text {
+    font-size: 14px;
+  }
+
+  .clearfix:before,
+  .clearfix:after {
+    display: table;
+    content: "";
+  }
+
+  .clearfix:after {
+    clear: both
+  }
+
+  .box-card {
+    text-align: left;
+  }
+
   .button-new-tag {
     margin-left: 10px;
     height: 32px;
@@ -202,4 +112,9 @@
     margin-left: 10px;
     vertical-align: bottom;
   }
+
+  .tag-item {
+    margin-top: 5px;
+  }
 </style>
+

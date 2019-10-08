@@ -1,5 +1,6 @@
 <template>
   <div>
+
     <el-form
       :model="searchForm"
       prop="searchForm"
@@ -7,6 +8,7 @@
       :inline="true"
       class="demo-form-inline"
       size='mini'>
+
 
       <el-form-item>
         <user-add @queryUserList="queryUserList"></user-add>
