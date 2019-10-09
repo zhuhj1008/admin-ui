@@ -55,15 +55,23 @@
       },
 
       //删除
-      handleClose(tag) {
-        this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
+      handleClose(tag, configType) {
+        if (configType == 'orderTypes') {
+          this.orderTypes.splice(this.dynamicTags.indexOf(tag), 1);
+        }
+
+
       },
 
       //添加
-      handleInputConfirm() {
+      handleInputConfirm(configType) {
         let inputValue = this.inputValue;
         if (inputValue) {
-          this.dynamicTags.push(inputValue);
+
+          if (configType == 'orderTypes') {
+            this.orderTypes.push(inputValue);
+          }
+
         }
         this.inputVisible = false;
         this.inputValue = '';

@@ -52,19 +52,27 @@
           if (!valid) {
             return false;
           } else {
+            // 登陆接口
             this.$post('/user/login', this.loginForm).then((response) => {
               if (response.code == 1) {
                 localStorage.setItem("name", response.data.userName);
                 localStorage.setItem("userId", response.data.userId);
                 localStorage.setItem("signature", response.data.signature);
-                localStorage.setItem("colors", response.data.colors);
-                localStorage.setItem("stripes", response.data.stripes);
-                localStorage.setItem("orderTypes", response.data.orderTypes);
-                localStorage.setItem("productTypes", response.data.productTypes);
-                localStorage.setItem("regions", response.data.regions);
                 this.$router.push({path: '/index'});
               }
-            })
+            });
+
+          }
+        });
+
+        //加载系统配置接口
+        this.$post("/common/systemConfig").then((response) =>{
+          if (response.code == 1) {
+            localStorage.setItem("colors", response.data.colors);
+            localStorage.setItem("stripes", response.data.stripes);
+            localStorage.setItem("orderTypes", response.data.orderTypes);
+            localStorage.setItem("productTypes", response.data.productTypes);
+            localStorage.setItem("regions", response.data.regions);
           }
         });
       }

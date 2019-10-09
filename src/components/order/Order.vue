@@ -183,7 +183,7 @@
       },
       queryOrder: function () {
         this.loading = true;
-        this.$post('/order/query', this.searchForm).then((response) => {
+        this.$post('/order/queryList', this.searchForm).then((response) => {
           if (response.code == 1) {
             this.page.total = response.data.total;
             this.orderList = response.data.contents;

@@ -26,7 +26,7 @@
         </el-form-item>
 
         <el-form-item label="电话" prop="phone">
-          <el-input v-model="formData.phone" autocomplete="off" style="width:130px"></el-input>
+          <el-input v-model="formData.phone" autocomplete="off" style="width:130px" disabled></el-input>
         </el-form-item>
 
         <el-form-item label="备注" prop="remark">

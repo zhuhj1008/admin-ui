@@ -23,14 +23,14 @@
         </el-form-item>
 
         <el-form-item label="地址" prop="address">
-          <el-select v-model="brokerForm.city" placeholder="" style="width:75px">
+          <!--<el-select v-model="brokerForm.city" placeholder="" style="width:75px">
             <el-option key="沧州" label="沧州" value="沧州"></el-option>
             <el-option key="衡水" label="衡水" value="衡水"></el-option>
           </el-select>
           <el-select v-model="brokerForm.county" placeholder="" style="width:75px">
             <el-option key="泊头" label="泊头" value="泊头"></el-option>
             <el-option key="阜城" label="阜城" value="阜城"></el-option>
-          </el-select>
+          </el-select>-->
           <el-input v-model="brokerForm.address" style="width:300px" clearable></el-input>
         </el-form-item>
 
@@ -59,8 +59,8 @@
           brokerName: '',
           contact: '',
           phone: '',
-          city:'',
-          county:'',
+          city: '',
+          county: '',
           address: '',
           remark: ''
         },
