@@ -11,6 +11,7 @@ import Order from '@/components/order/Order'
 import Product from '@/components/product/Product'
 import Broker from '@/components/broker/Broker'
 import Config from '@/components/config/Config'
+import ConfigBak from '@/components/config/Config_Bak'
 
 
 Vue.use(Router)
@@ -28,7 +29,7 @@ export default new Router({
         // {path: '/', name: 'Index', component: Index, meta: {title: '首页'}},
         {path: '/index', name: 'Index', component: Index, meta: {title: '首页'}},
         {path: '/customer', name: 'Customer', component: Customer, meta: {title: '客户'}},
-        {path: '/user', name: 'User', component: User, meta: {title: '用户'}},
+        {path: '/user', name: 'User', component: User, meta: {title: '系统用户'}},
         {path: '/order', name: 'Order', component: Order, meta: {title: '订单'}},
         {path: '/product', name: 'Product', component: Product, meta: {title: '图册'}},
         {path: '/broker', name: 'Broker', component: Broker, meta: {title: '经销商'}},

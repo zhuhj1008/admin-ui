@@ -41,8 +41,8 @@
             menuUrl: "/2",
             menuName: "用户中心",
             children: [
-              {menuUrl: "/user", menuName: "用户"},
               {menuUrl: "/customer", menuName: "客户"},
+              {menuUrl: "/user", menuName: "系统用户"},
             ]
           },
           {
@@ -64,14 +64,16 @@
             menuUrl: "/5",
             menuName: "统计",
             children: [
-              {menuUrl: "/index", menuName: "图表"}
+              {menuUrl: "/index", menuName: "订单量图表"},
+              {menuUrl: "/index2", menuName: "经销商销售报表"},
+              {menuUrl: "/index3", menuName: "加工商生产报表"},
             ]
           },
           {
             menuUrl: "/6",
             menuName: "系统配置",
             children: [
-              {menuUrl: "/config", menuName: "配置"},
+              {menuUrl: "/config", menuName: "订单配置"},
             ]
           }
         ],

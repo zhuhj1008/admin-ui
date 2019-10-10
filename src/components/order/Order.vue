@@ -72,6 +72,9 @@
             <el-form-item label="备注">
               <span>{{ props.row.remark }}</span>
             </el-form-item>
+            <el-form-item label="生产商">
+              <span>{{ props.row.factory }}</span>
+            </el-form-item>
           </el-form>
         </template>
       </el-table-column>
@@ -98,13 +101,13 @@
 
       <el-table-column fixed="right" label="修改" width="50">
         <template slot-scope="scope">
-          <edit-order @queryOrder="queryOrder" :orderId="scope.row.orderId"></edit-order>
+          <order-edit @queryOrder="queryOrder" :orderId="scope.row.orderId"></order-edit>
         </template>
       </el-table-column>
 
       <el-table-column fixed="right" label="明细" width="50">
         <template slot-scope="scope">
-          <edit-order-detail :orderId="scope.row.orderId"></edit-order-detail>
+          <order-edit-detail :orderId="scope.row.orderId"></order-edit-detail>
         </template>
       </el-table-column>
 
@@ -142,10 +145,10 @@
 
 <script>
   import OrderAdd from '@/components/order/OrderAdd'
-  import EditOrder from '@/components/order/EditOrder'
-  import EditOrderDetail from '@/components/order/EditOrderDetail'
-  import OrderTimeLine from '@/components/order/OrderTimeLine'
+  import OrderEdit from '@/components/order/OrderEdit'
   import OrderStep from '@/components/order/OrderStep'
+  import OrderTimeLine from '@/components/order/OrderTimeLine'
+  import OrderEditDetail from '@/components/order/OrderEditDetail'
 
   export default {
     data() {
@@ -248,10 +251,10 @@
     },
     components: {
       "order-add": OrderAdd,
-      "edit-order": EditOrder,
-      "edit-order-detail": EditOrderDetail,
-      "order-time-line": OrderTimeLine,
+      "order-edit": OrderEdit,
       "order-step": OrderStep,
+      "order-time-line": OrderTimeLine,
+      "order-edit-detail": OrderEditDetail,
     }
   }
 </script>

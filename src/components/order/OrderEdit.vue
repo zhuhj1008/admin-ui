@@ -39,10 +39,16 @@
         <el-form-item label="实收">
           <el-input v-model="form.actualAmount" autocomplete="off" style="width:170px" clearable></el-input>
         </el-form-item>
-        <el-form-item label="经销">
+        <el-form-item label="经销商">
           <el-autocomplete v-model="form.brokerName"
                            :fetch-suggestions="queryBroker"
                            style="width:200px"></el-autocomplete>
+        </el-form-item>
+        <el-form-item label="生产商">
+          <el-select v-model="form.factory" placeholder="">
+            <el-option  label="木源门业" value="木源门业"></el-option>
+            <el-option  label="鸿达门业" value="鸿达门业"></el-option>
+          </el-select>
         </el-form-item>
         <el-form-item label="地区">
           <el-select v-model="form.region" placeholder="">
@@ -87,6 +93,7 @@
           orderNo: '',
           orderType: '',
           brokerName: '',
+          factory:'',
           region: '',
           customerName: '',
           customerPhone: '',

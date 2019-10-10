@@ -3,24 +3,100 @@
     <el-row>
       <!--订单分类-->
       <el-col :span="8">
-        <el-card class="box-card">
+        <el-card shadow="hover" class="box-card">
 
           <div slot="header" class="clearfix">
             <span>订单分类</span>
-            <el-button style="float: right; padding: 3px 0" type="text">保存</el-button>
+            <el-button style="float: right; padding: 3px 0" type="text" @click="submit1()">保存</el-button>
           </div>
 
           <div style="height: 150px">
             <el-tag :key="tag" v-for="tag in orderTypes" closable
-                    :disable-transitions="false" @close="handleClose(tag,'orderTypes')" class="tag-item">
+                    :disable-transitions="false" @close="handleClose1(tag)" class="tag-item">
               {{tag}}
             </el-tag>
 
-            <el-input class="input-new-tag" v-if="inputVisible" v-model="inputValue" ref="saveTagInput"
-                      size="small" @keyup.enter.native="handleInputConfirm('orderTypes')" @blur="handleInputConfirm">
+            <el-input class="input-new-tag" v-if="inputVisible1" v-model="inputValue" ref="saveTagInput1"
+                      size="small" @keyup.enter.native="handleInput1" @blur="handleInput1">
             </el-input>
 
-            <el-button v-else class="button-new-tag" size="small" @click="showInput">+ 添加</el-button>
+            <el-button v-else class="button-new-tag" size="small" @click="showInput1">+ 添加</el-button>
+          </div>
+
+        </el-card>
+      </el-col>
+
+
+      <!--产品分类-->
+      <el-col :span="8">
+        <el-card shadow="hover" class="box-card">
+
+          <div slot="header" class="clearfix">
+            <span>产品分类</span>
+            <el-button style="float: right; padding: 3px 0" type="text" @click="submit2()">保存</el-button>
+          </div>
+
+          <div style="height: 150px">
+            <el-tag :key="tag" v-for="tag in productTypes" closable
+                    :disable-transitions="false" @close="handleClose2(tag)" class="tag-item">
+              {{tag}}
+            </el-tag>
+
+            <el-input class="input-new-tag" v-if="inputVisible2" v-model="inputValue" ref="saveTagInput2"
+                      size="small" @keyup.enter.native="handleInput2" @blur="handleInput2">
+            </el-input>
+
+            <el-button v-else class="button-new-tag" size="small" @click="showInput2">+ 添加</el-button>
+          </div>
+
+        </el-card>
+      </el-col>
+
+      <!--条纹-->
+      <el-col :span="8">
+        <el-card shadow="hover" class="box-card">
+
+          <div slot="header" class="clearfix">
+            <span>条纹</span>
+            <el-button style="float: right; padding: 3px 0" type="text" @click="submit3()">保存</el-button>
+          </div>
+
+          <div style="height: 150px">
+            <el-tag :key="tag" v-for="tag in stripes" closable
+                    :disable-transitions="false" @close="handleClose3(tag)" class="tag-item">
+              {{tag}}
+            </el-tag>
+
+            <el-input class="input-new-tag" v-if="inputVisible3" v-model="inputValue" ref="saveTagInput3"
+                      size="small" @keyup.enter.native="handleInput3" @blur="handleInput3">
+            </el-input>
+
+            <el-button v-else class="button-new-tag" size="small" @click="showInput3">+ 添加</el-button>
+          </div>
+
+        </el-card>
+      </el-col>
+
+      <!--颜色-->
+      <el-col :span="8">
+        <el-card shadow="hover" class="box-card">
+
+          <div slot="header" class="clearfix">
+            <span>颜色</span>
+            <el-button style="float: right; padding: 3px 0" type="text" @click="submit4()">保存</el-button>
+          </div>
+
+          <div style="height: 150px">
+            <el-tag :key="tag" v-for="tag in colors" closable
+                    :disable-transitions="false" @close="handleClose4(tag)" class="tag-item">
+              {{tag}}
+            </el-tag>
+
+            <el-input class="input-new-tag" v-if="inputVisible4" v-model="inputValue" ref="saveTagInput4"
+                      size="small" @keyup.enter.native="handleInput4" @blur="handleInput4">
+            </el-input>
+
+            <el-button v-else class="button-new-tag" size="small" @click="showInput4">+ 添加</el-button>
           </div>
 
         </el-card>
@@ -40,41 +116,146 @@
         productTypes: localStorage.getItem("productTypes").split(","),
         stripes: localStorage.getItem("stripes").split(","),
         colors: localStorage.getItem("colors").split(","),
-
-        dynamicTags: localStorage.getItem("colors").split(","),
-        inputVisible: false,
+        inputVisible1: false,
+        inputVisible2: false,
+        inputVisible3: false,
+        inputVisible4: false,
         inputValue: ''
       };
     },
     methods: {
-      showInput() {
-        this.inputVisible = true;
+      showInput1() {
+        this.inputVisible1 = true;
         this.$nextTick(_ => {
-          this.$refs.saveTagInput.$refs.input.focus();
+          this.$refs.saveTagInput1.$refs.input.focus();
+        });
+      },
+      showInput2() {
+        this.inputVisible2 = true;
+        this.$nextTick(_ => {
+          this.$refs.saveTagInput2.$refs.input.focus();
+        });
+      },
+      showInput3() {
+        this.inputVisible3 = true;
+        this.$nextTick(_ => {
+          this.$refs.saveTagInput3.$refs.input.focus();
+        });
+      },
+      showInput4() {
+        this.inputVisible4 = true;
+        this.$nextTick(_ => {
+          this.$refs.saveTagInput4.$refs.input.focus();
         });
       },
 
       //删除
-      handleClose(tag, configType) {
-        if (configType == 'orderTypes') {
-          this.orderTypes.splice(this.dynamicTags.indexOf(tag), 1);
-        }
-
-
+      handleClose1(tag) {
+        this.orderTypes.splice(this.orderTypes.indexOf(tag), 1);
+      },
+      handleClose2(tag) {
+        this.productTypes.splice(this.productTypes.indexOf(tag), 1);
+      },
+      handleClose3(tag) {
+        this.stripes.splice(this.stripes.indexOf(tag), 1);
+      },
+      handleClose4(tag) {
+        this.colors.splice(this.colors.indexOf(tag), 1);
       },
 
       //添加
-      handleInputConfirm(configType) {
-        let inputValue = this.inputValue;
-        if (inputValue) {
-
-          if (configType == 'orderTypes') {
-            this.orderTypes.push(inputValue);
-          }
-
+      handleInput1() {
+        if (this.inputValue) {
+          this.orderTypes.push(this.inputValue);
         }
-        this.inputVisible = false;
+        this.inputVisible1 = false;
         this.inputValue = '';
+      },
+      handleInput2() {
+        if (this.inputValue) {
+          this.productTypes.push(this.inputValue);
+        }
+        this.inputVisible2 = false;
+        this.inputValue = '';
+      },
+      handleInput3() {
+        if (this.inputValue) {
+          this.stripes.push(this.inputValue);
+        }
+        this.inputVisible3 = false;
+        this.inputValue = '';
+      },
+      handleInput4() {
+        if (this.inputValue) {
+          this.colors.push(this.inputValue);
+        }
+        this.inputVisible4 = false;
+        this.inputValue = '';
+      },
+
+      submit1() {
+        const param = {};
+        param.configKey = 'orderTypes';
+        param.configValue = this.orderTypes;
+
+        localStorage.setItem(param.configKey, param.configValue);
+
+        this.$post("/common/updateConfig", param).then((response) => {
+          if (response.code == 1) {
+            this.$notify({
+              type: 'success',
+              message: '保存成功!'
+            });
+          }
+        });
+      },
+      submit2() {
+        const param = {};
+        param.configKey = 'productTypes';
+        param.configValue = this.productTypes;
+
+        localStorage.setItem(param.configKey, param.configValue);
+
+        this.$post("/common/updateConfig", param).then((response) => {
+          if (response.code == 1) {
+            this.$notify({
+              type: 'success',
+              message: '保存成功!'
+            });
+          }
+        });
+      },
+      submit3() {
+        const param = {};
+        param.configKey = 'stripes';
+        param.configValue = this.stripes;
+
+        localStorage.setItem(param.configKey, param.configValue);
+
+        this.$post("/common/updateConfig", param).then((response) => {
+          if (response.code == 1) {
+            this.$notify({
+              type: 'success',
+              message: '保存成功!'
+            });
+          }
+        });
+      },
+      submit4() {
+        const param = {};
+        param.configKey = 'colors';
+        param.configValue = this.colors;
+
+        localStorage.setItem(param.configKey, param.configValue);
+
+        this.$post("/common/updateConfig", param).then((response) => {
+          if (response.code == 1) {
+            this.$notify({
+              type: 'success',
+              message: '保存成功!'
+            });
+          }
+        });
       }
     }
   }
@@ -105,10 +286,12 @@
 
   .box-card {
     text-align: left;
+    margin: 4px;
   }
 
   .button-new-tag {
     margin-left: 10px;
+    margin-top: 10px;
     height: 32px;
     line-height: 30px;
     padding-top: 0;
@@ -122,7 +305,7 @@
   }
 
   .tag-item {
-    margin-top: 5px;
+    margin-top: 10px;
   }
 </style>
 
