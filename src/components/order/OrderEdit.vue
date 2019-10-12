@@ -141,6 +141,7 @@
       loadBroker: function () {
         this.$post("/broker/queryAllName").then(response => {
           if (response.code == 1) {
+            this.suggestBroker = [];
             const nameList = response.data;
             for (const name of nameList) {
               const broker = {};

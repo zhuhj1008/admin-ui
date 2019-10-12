@@ -65,8 +65,8 @@
             menuName: "统计",
             children: [
               {menuUrl: "/index", menuName: "订单量图表"},
-              {menuUrl: "/index2", menuName: "经销商销售报表"},
-              {menuUrl: "/index3", menuName: "加工商生产报表"},
+              /*{menuUrl: "/index2", menuName: "经销商销售报表"},
+              {menuUrl: "/index3", menuName: "加工商生产报表"},*/
             ]
           },
           {
