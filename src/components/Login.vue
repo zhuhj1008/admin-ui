@@ -58,7 +58,7 @@
                 localStorage.setItem("name", response.data.userName);
                 localStorage.setItem("userId", response.data.userId);
                 localStorage.setItem("signature", response.data.signature);
-                this.$router.push({path: '/index'});
+                this.$router.push({path: '/order'});
               }
             });
 
@@ -82,8 +82,11 @@
 
 <style scoped>
   .login-container {
+    position: fixed;
     width: 100%;
     height: 100%;
+    background-image: url(../assets/img/login-bg.jpg);
+    background-size: 100%;
   }
 
   .login-page {
