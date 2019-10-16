@@ -118,6 +118,12 @@
         </template>
       </el-table-column>
 
+      <el-table-column fixed="right" label="打印" width="50">
+        <template slot-scope="scope">
+          <order-print :orderId="scope.row.orderId"></order-print>
+        </template>
+      </el-table-column>
+
       <el-table-column fixed="right" label="删除" width="50">
         <template slot-scope="scope">
           <el-button @click="deleteOrder(scope.row.orderId)" type="text" icon="el-icon-delete"
@@ -147,6 +153,7 @@
   import OrderAdd from '@/components/order/OrderAdd'
   import OrderEdit from '@/components/order/OrderEdit'
   import OrderStep from '@/components/order/OrderStep'
+  import OrderPrint from '@/components/order/OrderPrint'
   import OrderTimeLine from '@/components/order/OrderTimeLine'
   import OrderEditDetail from '@/components/order/OrderEditDetail'
 
@@ -253,6 +260,7 @@
       "order-add": OrderAdd,
       "order-edit": OrderEdit,
       "order-step": OrderStep,
+      "order-print": OrderPrint,
       "order-time-line": OrderTimeLine,
       "order-edit-detail": OrderEditDetail,
     }

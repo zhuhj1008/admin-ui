@@ -28,6 +28,7 @@ export default new Router({
   routes: [
     {path: '/', redirect: '/login'},
     {path: '/login', name: 'Login', component: Login, meta: {title: '登陆'}},
+    {path: '/brokerCharts', name: 'brokerCharts', component: BrokerCharts, meta: {title: '登陆'}},
     {
       path: '/home', component: Home,
       children: [
@@ -38,8 +39,8 @@ export default new Router({
         {path: '/order', name: 'Order', component: Order, meta: {title: '订单'}},
         {path: '/broker', name: 'Broker', component: Broker, meta: {title: '经销商'}},
         {path: '/product', name: 'Product', component: Product, meta: {title: '图册'}},
-        {path: '/charts', name: 'Charts', component: Charts, meta: {title: '订单图表'}},
-        {path: '/brokerCharts', name: 'BrokerCharts', component: BrokerCharts, meta: {title: '经销商报表'}},
+        /*{path: '/charts', name: 'Charts', component: Charts, meta: {title: '订单图表'}},*/
+        {path: '/brokerCharts', name: 'BrokerCharts', target:"_blank",component: BrokerCharts, meta: {title: '经销商报表'}},
         {path: '/config', name: 'Config', component: Config, meta: {title: '配置'}}
       ]
     },
