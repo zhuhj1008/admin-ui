@@ -11,7 +11,7 @@
       title="我嵌套了表格!"
       :visible.sync="table"
       direction="rtl"
-      size="50%"
+      size="90%"
       append-to-body>
       <el-table :data="gridData">
         <el-table-column property="date" label="日期" width="150"></el-table-column>

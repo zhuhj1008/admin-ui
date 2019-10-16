@@ -1,0 +1,13 @@
+1.修改主题
+1）重命名 element-variables.scss 该文件
+2）安装工具
+$ npm i element-theme -g;
+$ npm i element-theme-chalk -D;
+
+3）初始化变量文件
+$ et -i
+执行完会新生成element-variables.scss 文件，修改里边内容
+4）编译主题
+$ et
+5）引入主题
+import '../theme/index.css'
