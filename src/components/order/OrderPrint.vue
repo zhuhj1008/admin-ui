@@ -66,14 +66,14 @@
             <el-row>五、本订单客户收到传真后，请确认尺寸、款式，如无误请签字回传。</el-row>
           </div>
           <el-row>
-            <el-col :span="16">&nbsp;</el-col>
-            <el-col :span="4">订货日期</el-col>
+            <!--<el-col :span="16">&nbsp;</el-col>-->
+            <el-col :offset=16 :span="4">订货日期</el-col>
             <el-col :span="4">交货日期</el-col>
           </el-row>
 
           <el-row>
-            <el-col :span="16">&nbsp;</el-col>
-            <el-col :span="4">送货地址：送货地址</el-col>
+            <!--<el-col :span="16">&nbsp;</el-col>-->
+            <el-col :offset=16 :span="4">送货地址：送货地址</el-col>
             <el-col :span="4">客户签字：</el-col>
           </el-row>
         </el-form>
