@@ -6,20 +6,15 @@
                size="mini">
     </el-button>
 
-    <el-scrollbar class="default-scrollbar" wrap-class="default-scrollbar__wrap" view-class="p20-scrollbar__view">
       <!--:show-close="false"-->
       <el-drawer
-        title=""
         :visible.sync="table"
         direction="rtl"
-        size="100%"
-        append-to-body>
+        size="100%">
 
-        <el-button @click="print()"
-                   type="text"
-                   icon="el-icon-edit"
-                   size="mini">
-        </el-button>
+        <div class="head_title" @click="print()">
+          鸿达公司订货单
+        </div>
 
         <!--抬头-->
 
@@ -32,18 +27,18 @@
 
 
         <el-table :data="formData.tableData" border style="width: 100%" size="mini">
-          <el-table-column prop="1" label="序号"></el-table-column>
-          <el-table-column prop="2" label="名称"></el-table-column>
-          <el-table-column prop="3" label="颜色"></el-table-column>
-          <el-table-column prop="4" label="线条"></el-table-column>
+          <el-table-column prop="1" label="序号" width=50></el-table-column>
+          <el-table-column prop="2" label="名称" width=120></el-table-column>
+          <el-table-column prop="3" label="颜色" width=120></el-table-column>
+          <el-table-column prop="4" label="线条" width=120></el-table-column>
           <el-table-column label="尺寸(mm)">
-            <el-table-column prop="5" label="长"></el-table-column>
-            <el-table-column prop="6" label="宽"></el-table-column>
-            <el-table-column prop="7" label="厚"></el-table-column>
+            <el-table-column prop="5" label="长" width=70></el-table-column>
+            <el-table-column prop="6" label="宽" width=70></el-table-column>
+            <el-table-column prop="7" label="厚" width=70></el-table-column>
           </el-table-column>
-          <el-table-column prop="8" label="数量"></el-table-column>
-          <el-table-column prop="9" label="单价"></el-table-column>
-          <el-table-column prop="10" label="金额"></el-table-column>
+          <el-table-column prop="8" label="数量" width=70></el-table-column>
+          <el-table-column prop="9" label="单价" width=70></el-table-column>
+          <el-table-column prop="10" label="金额" width=120></el-table-column>
           <el-table-column prop="11" label="备注"></el-table-column>
         </el-table>
 
@@ -79,9 +74,9 @@
         </el-form>
 
 
-      </el-drawer>
+      </el-drawer
+        title="鸿达公司订货单">
 
-    </el-scrollbar>
 
   </div>
 
@@ -96,10 +91,6 @@
         table: false,
         formData: {
           tableData: [
-            {"1": 1},
-            {"1": 1},
-            {"1": 1},
-            {"1": 1},
             {"1": 1},
             {"1": 1},
             {"1": 1},
@@ -127,5 +118,15 @@
 </script>
 
 <style scoped>
+
+  .head_title{
+    font-size: 40px;
+    text-align: center;
+  }
+
+  #head_title{
+    font-size: 40px;
+    text-align: center;
+  }
 
 </style>
