@@ -1,50 +1,78 @@
 <template>
   <div>
-    <el-card class="box-card">
+    <el-card>
 
-      <el-row class="demo-avatar demo-basic">
+      <el-row class="card-item">
 
-        <el-col :span="6">
-          <el-card class="sub-card">
-            <i class="el-icon-time"></i>
+        <el-col :span="5">
+          <el-card>
+            <i class="iconfont icon-icon02"></i>
             <el-divider direction="vertical"></el-divider>
             <span>新添加</span>
             <el-divider direction="vertical"></el-divider>
-            <span>22</span>
+            <span>5</span>
           </el-card>
         </el-col>
 
-        <el-col :span="6">
-          <el-card class="sub-card">
-            <i class="el-icon-time"></i>
+        <el-col :span="5" :offset="1">
+          <el-card>
+            <i class="iconfont icon-anquan"></i>
             <el-divider direction="vertical"></el-divider>
             <span>生产中</span>
             <el-divider direction="vertical"></el-divider>
-            <span>22</span>
+            <span>3</span>
           </el-card>
         </el-col>
 
-        <el-col :span="6">
-          <el-card class="sub-card">
-            <i class="el-icon-time"></i>
+        <el-col :span="5" :offset="2">
+          <el-card>
+            <i class="iconfont icon-yunshu"></i>
             <el-divider direction="vertical"></el-divider>
             <span>运输中</span>
             <el-divider direction="vertical"></el-divider>
-            <span>22</span>
+            <span>2</span>
           </el-card>
         </el-col>
 
-        <el-col :span="6">
-          <el-card class="sub-card">
-            <i class="el-icon-time"></i>
+        <el-col :span="5" :offset="1">
+          <el-card>
+            <i class="iconfont icon-yly_jiagong"></i>
             <el-divider direction="vertical"></el-divider>
             <span>安装中</span>
             <el-divider direction="vertical"></el-divider>
-            <span>22</span>
+            <span>2</span>
           </el-card>
         </el-col>
 
       </el-row>
+
+      <el-row class="card-item">
+        <el-card>
+          <el-table :data="orderData">
+            <el-table-column label="序号" prop="orderId"></el-table-column>
+            <el-table-column label="订单号" prop="orderNo"></el-table-column>
+            <el-table-column label="经销商" prop="brokerName"></el-table-column>
+            <el-table-column label="客户" prop="brokerName"></el-table-column>
+            <el-table-column label="地址" prop="brokerName"></el-table-column>
+          </el-table>
+        </el-card>
+      </el-row>
+
+      <el-row class="card-item">
+        <el-col :span="12">
+          <el-card>
+            <el-calendar v-model="value"></el-calendar>
+          </el-card>
+        </el-col>
+        <el-col :span="12">
+          <el-card>
+            待办事项
+          </el-card>
+        </el-col>
+
+      </el-row>
+
+
 
 
     </el-card>
@@ -54,23 +82,25 @@
 <script>
   export default {
     data() {
-      return {}
+      return {
+        value: new Date(),
+        orderData: [
+          {"orderId": 1},
+          {"orderId": 1},
+          {"orderId": 1},
+          {"orderId": 1},
+          {"orderId": 1},
+        ]
+      }
     }
   }
 </script>
 
 <style scoped>
-
-  .box-card {
-    text-align: left;
-    margin: 4px;
+  .card-item {
+    margin-top: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
   }
-
-  .sub-card{
-    /*text-align: center;*/
-    margin: 20px;
-    font-size: 25px;
-  }
-
 
 </style>
