@@ -8,7 +8,7 @@
 
         <div class="user-profile">
           <div class="box-center">
-            <el-avatar :size="200" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
+            <el-avatar :size="300" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
           </div>
           <div class="box-center">
             <div class="user-name text-center">朱鸿钧</div>
@@ -54,6 +54,7 @@
         </div>
 
       </el-card>
+
     </div>
 </template>
 
@@ -66,7 +67,7 @@
 <style lang="scss" scoped>
   .box-card {
     text-align: left;
-    margin: 4px;
+    margin: 10px;
   }
 
   .box-center {

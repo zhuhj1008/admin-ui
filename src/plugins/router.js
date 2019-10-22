@@ -30,10 +30,10 @@ export default new Router({
   routes: [
     {path: '/', redirect: '/login'},
     {path: '/login', name: 'Login', component: Login, meta: {title: '登陆'}},
-    {path: '/dashboard', name: 'Dashboard', component: Dashboard, meta: {title: '仪表盘'}},
     {
       path: '/home', component: Home,
       children: [
+        {path: '/dashboard', name: 'Dashboard', component: Dashboard, meta: {title: '主页'}},
         {path: '/customer', name: 'Customer', component: Customer, meta: {title: '客户'}},
         {path: '/user', name: 'User', component: User, meta: {title: '系统用户'}},
         {path: '/order', name: 'Order', component: Order, meta: {title: '订单'}},

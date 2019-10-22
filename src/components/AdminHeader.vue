@@ -38,6 +38,13 @@
         name: localStorage.getItem("name"),
         menuList: [
           {
+            menuUrl: "/1",
+            menuName: "主页",
+            children: [
+              {menuUrl: "/dashboard", menuName: "主页"},
+            ]
+          },
+          {
             menuUrl: "/2",
             menuName: "用户中心",
             children: [
