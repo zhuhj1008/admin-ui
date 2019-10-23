@@ -2,7 +2,7 @@
   <div>
     <el-button @click="toPrint()"
                type="text"
-               icon="el-icon-edit"
+               icon="el-icon-printer"
                size="mini">
     </el-button>
 

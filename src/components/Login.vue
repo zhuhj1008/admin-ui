@@ -58,7 +58,8 @@
                 localStorage.setItem("name", response.data.userName);
                 localStorage.setItem("userId", response.data.userId);
                 localStorage.setItem("signature", response.data.signature);
-                this.$router.push({path: '/order'});
+                //登陆成功跳转到首页
+                this.$router.push({path: '/dashboard'});
               }
             });
 

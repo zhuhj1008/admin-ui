@@ -16,7 +16,6 @@ import Broker from '@/components/broker/Broker'
 import Product from '@/components/product/Product'
 
 import Charts from '@/components/charts/Charts'
-import BrokerCharts from '@/components/charts/BrokerCharts'
 
 import Config from '@/components/config/Config'
 
@@ -40,7 +39,6 @@ export default new Router({
         {path: '/broker', name: 'Broker', component: Broker, meta: {title: '经销商'}},
         {path: '/product', name: 'Product', component: Product, meta: {title: '图册'}},
         {path: '/charts', name: 'Charts', component: Charts, meta: {title: '订单图表'}},
-        {path: '/brokerCharts', name: 'BrokerCharts', target:"_blank",component: BrokerCharts, meta: {title: '经销商报表'}},
         {path: '/config', name: 'Config', component: Config, meta: {title: '配置'}}
       ]
     },

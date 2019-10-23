@@ -2,8 +2,7 @@
   <div class="admin_header">
     <el-row>
       <el-col :span="4">
-        <!--href="/home"-->
-        <a><img src="../assets/hongda.png" style="padding-left:8px;"></a>
+        <a href="/dashboard"><img src="../assets/hongda.png" style="padding-left:8px;"></a>
       </el-col>
       <el-col :span="16">
         <el-menu
@@ -24,7 +23,7 @@
 
         </el-menu>
       </el-col>
-      <el-col :span="3">欢迎你，{{name}} </el-col>
+      <el-col :span="3">欢迎你，{{name}}</el-col>
       <el-col :span="1"><i class="iconfont icon-tuichu" @click="quit"></i>退出</el-col>
 
     </el-row>
@@ -91,8 +90,8 @@
       handleSelect(key, keyPath) {
         /*console.log(key, keyPath);*/
       },
-      quit:function () {
-        this.$router.push({ path: '/' })
+      quit: function () {
+        this.$router.push({path: '/'})
       }
     }
   }
