@@ -1,67 +1,86 @@
 <template>
-    <div>
-      <el-card class="box-card">
+  <div>
+    <el-card class="box-card">
 
-        <div slot="header" class="clearfix">
-          <span>个人中心</span>
+      <div slot="header" class="clearfix">
+        <span>个人中心</span>
+      </div>
+
+      <div class="user-profile">
+        <div class="box-center">
+          <el-avatar :size="300" :src="userCard.headPortrait"></el-avatar>
+        </div>
+        <div class="box-center">
+          <div class="user-name text-center">{{userCard.name}}</div>
+          <!--<div class="user-role text-center text-muted">更换头像</div>-->
+        </div>
+      </div>
+
+      <div class="user-bio">
+        <div class="user-education user-bio-section">
+          <div class="user-bio-section-header">
+            <i class="el-icon-time"></i>
+            <span>最近登录</span></div>
+          <div class="user-bio-section-body">
+            <div class="text-muted">{{userCard.lastLoginTime}}</div>
+          </div>
         </div>
 
-        <div class="user-profile">
-          <div class="box-center">
-            <el-avatar :size="300" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
-          </div>
-          <div class="box-center">
-            <div class="user-name text-center">朱鸿钧</div>
-            <!--<div class="user-role text-center text-muted">更换头像</div>-->
-          </div>
-        </div>
-
-        <div class="user-bio">
-          <div class="user-education user-bio-section">
-            <div class="user-bio-section-header">
-              <i class="el-icon-time"></i>
-              <span>最近登录</span></div>
-            <div class="user-bio-section-body">
-              <div class="text-muted">
-                JS in Computer Science from the University of Technology
-              </div>
+        <div class="user-skills user-bio-section">
+          <div class="user-bio-section-header">
+            <i class="el-icon-time"></i>
+            <span>Skills</span></div>
+          <div class="user-bio-section-body">
+            <div class="progress-item">
+              <span>Vue</span>
+              <el-progress :percentage="70"/>
             </div>
-          </div>
-
-          <div class="user-skills user-bio-section">
-            <div class="user-bio-section-header">
-              <i class="el-icon-time"></i>
-              <span>Skills</span></div>
-            <div class="user-bio-section-body">
-              <div class="progress-item">
-                <span>Vue</span>
-                <el-progress :percentage="70"/>
-              </div>
-              <div class="progress-item">
-                <span>JavaScript</span>
-                <el-progress :percentage="18"/>
-              </div>
-              <div class="progress-item">
-                <span>Css</span>
-                <el-progress :percentage="12"/>
-              </div>
-              <div class="progress-item">
-                <span>ESLint</span>
-                <el-progress :percentage="100" status="success"/>
-              </div>
+            <div class="progress-item">
+              <span>JavaScript</span>
+              <el-progress :percentage="18"/>
+            </div>
+            <div class="progress-item">
+              <span>Css</span>
+              <el-progress :percentage="12"/>
+            </div>
+            <div class="progress-item">
+              <span>ESLint</span>
+              <el-progress :percentage="100" status="success"/>
             </div>
           </div>
         </div>
+      </div>
 
-      </el-card>
+    </el-card>
 
-    </div>
+  </div>
 </template>
 
 <script>
-    export default {
+  export default {
+    data() {
+      return {
+        userCard: {
+          name: "",
+          headPortrait: "",
+          lastLoginTime: ""
+        }
+      }
+    },
+    methods: {
+      queryUserCard: function () {
+        this.$post("/dashboard/userCard").then((response) => {
+          if (response.code == 1) {
+            this.userCard = response.data;
+          }
+        })
+      }
+    },
+    mounted: function () {
+      this.queryUserCard();
+    },
 
-    }
+  }
 </script>
 
 <style lang="scss" scoped>

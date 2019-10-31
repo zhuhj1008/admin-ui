@@ -1,23 +1,34 @@
 <template>
-    <div>
-      <el-card class="box-card">
-        <div slot="header" class="clearfix">
-          <span>待办事项</span>
-        </div>
-        <el-row>1.aaa</el-row>
-        <el-row>2.bbb</el-row>
-        <el-row>3.ccc</el-row>
-        <el-row>4.ddd</el-row>
+  <div>
+    <el-card class="box-card">
+      <div slot="header" class="clearfix">
+        <span>待办事项</span>
+      </div>
+      1.aaa
+      <el-divider></el-divider>
+      2.bbb
+      <el-divider></el-divider>
+      3.ccc
+      <el-divider></el-divider>
+      4.ddd
+      <el-divider></el-divider>
+    </el-card>
 
-      </el-card>
-
-    </div>
+  </div>
 </template>
 
 <script>
-    export default {
-        name: "Task"
+  export default {
+    data() {
+      return {
+        taskList: [
+          '张三请吃饭',
+          '李四请喝酒',
+          '王老板'
+        ]
+      }
     }
+  }
 </script>
 
 <style scoped>
