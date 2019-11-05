@@ -11,6 +11,8 @@
     <el-scrollbar class="default-scrollbar" wrap-class="default-scrollbar__wrap" view-class="p20-scrollbar__view">
       <el-row :gutter="20">
         <el-col :span="12" class="echarts-item">
+          <div class="content-title">年度TOP10</div>
+          <ve-bar :data="chartData" :settings="chartSettings"></ve-bar>
         </el-col>
 
         <el-col :span="12" class="echarts-item">
@@ -40,7 +42,31 @@
     data() {
       return {
         years: [2018, 2019],
-
+        chartSettings:{
+          xAxisType: ['KMB', 'KMB'],
+          xAxisName: ['订单金额', '订单量'],
+          axisSite: {
+            top: ['订单金额']
+          },
+          stack: {
+            'xxx': ['订单金额', '订单量']
+          }
+        },
+        chartData: {
+          columns: ['经销商', '订单金额', '订单量'],
+          rows: [
+            {'经销商': '百家红', '订单金额': 1393, '订单量': 1},
+            {'经销商': '金满屋', '订单金额': 3530, '订单量': 3},
+            {'经销商': '红海', '订单金额': 2923, '订单量': 2},
+            {'经销商': '朱鸿钧', '订单金额': 1723, '订单量': 1},
+            {'经销商': '周冠一有限公司', '订单金额': 3792, '订单量': 3},
+            {'经销商': '陈', '订单金额': 4593, '订单量': 6},
+            {'经销商': '云', '订单金额': 4893, '订单量': 7},
+            {'经销商': '云', '订单金额': 4293, '订单量': 8},
+            {'经销商': '同', '订单金额': 5593, '订单量': 9},
+            {'经销商': '学', '订单金额': 2593, '订单量': 1},
+          ]
+        },
         lineChartData: {
           //维度和指标集合（第一个为维度-纵向，后边为指标-横向）
           columns: ['month', 'total', 'amount'],

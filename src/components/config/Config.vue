@@ -78,7 +78,7 @@
       </el-col>
 
       <!--颜色-->
-      <el-col :span="8">
+      <el-col :span="12">
         <el-card shadow="hover" class="box-card">
 
           <div slot="header" class="clearfix">
