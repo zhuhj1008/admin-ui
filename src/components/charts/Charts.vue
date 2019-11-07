@@ -12,7 +12,7 @@
       <el-row :gutter="20">
         <el-col :span="12" class="echarts-item">
           <div class="content-title">年度TOP10</div>
-          <ve-bar :data="chartData" :settings="chartSettings"></ve-bar>
+          <ve-bar :data="barChartData" :settings="barChartSettings"></ve-bar>
         </el-col>
 
         <el-col :span="12" class="echarts-item">
@@ -42,30 +42,30 @@
     data() {
       return {
         years: [2018, 2019],
-        chartSettings:{
+        barChartData: {
+          columns: ['brokerName', 'amount', 'total'],
+          rows: [
+            {'brokerName': '百家红', 'amount': 1393, 'total': 1},
+            {'brokerName': '金满屋', 'amount': 3530, 'total': 3},
+            {'brokerName': '红海', 'amount': 2923, 'total': 2},
+            {'brokerName': '朱鸿钧', 'amount': 1723, 'total': 1},
+            {'brokerName': '周冠一有限公司', 'amount': 3792, 'total': 3},
+            {'brokerName': '陈', 'amount': 4593, 'total': 6},
+            {'brokerName': '云', 'amount': 4893, 'total': 7},
+            {'brokerName': '云', 'amount': 4293, 'total': 8},
+            {'brokerName': '同', 'amount': 5593, 'total': 9},
+            {'brokerName': '学', 'amount': 2593, 'total': 1},
+          ]
+        },
+        barChartSettings:{
           xAxisType: ['KMB', 'KMB'],
-          xAxisName: ['订单金额', '订单量'],
+          xAxisName: ['amount', 'total'],
           axisSite: {
-            top: ['订单金额']
+            top: ['amount']
           },
           stack: {
-            'xxx': ['订单金额', '订单量']
+            'xxx': ['amount', 'total']
           }
-        },
-        chartData: {
-          columns: ['经销商', '订单金额', '订单量'],
-          rows: [
-            {'经销商': '百家红', '订单金额': 1393, '订单量': 1},
-            {'经销商': '金满屋', '订单金额': 3530, '订单量': 3},
-            {'经销商': '红海', '订单金额': 2923, '订单量': 2},
-            {'经销商': '朱鸿钧', '订单金额': 1723, '订单量': 1},
-            {'经销商': '周冠一有限公司', '订单金额': 3792, '订单量': 3},
-            {'经销商': '陈', '订单金额': 4593, '订单量': 6},
-            {'经销商': '云', '订单金额': 4893, '订单量': 7},
-            {'经销商': '云', '订单金额': 4293, '订单量': 8},
-            {'经销商': '同', '订单金额': 5593, '订单量': 9},
-            {'经销商': '学', '订单金额': 2593, '订单量': 1},
-          ]
         },
         lineChartData: {
           //维度和指标集合（第一个为维度-纵向，后边为指标-横向）
