@@ -16,15 +16,15 @@
         </el-col>
 
         <el-col :span="12" class="echarts-item">
+          <div class="content-title">地区订单占比</div>
+          <ve-ring :data="ringChartData" :settings="ringChartSettings"></ve-ring>
+        </el-col>
+
+        <el-col :span="12" class="echarts-item">
           <div class="content-title">订单年度走势</div>
           <ve-line :data="lineChartData"
                    :settings="lineChartSettings"
                    :mark-point="lineChartMarkPoint"></ve-line>
-        </el-col>
-
-        <el-col :span="12" class="echarts-item">
-          <div class="content-title">地区订单占比</div>
-          <ve-ring :data="ringChartData" :settings="ringChartSettings"></ve-ring>
         </el-col>
 
         <el-col :span="12" class="echarts-item">
@@ -43,29 +43,26 @@
       return {
         years: [2018, 2019],
         barChartData: {
-          columns: ['brokerName', 'amount', 'total'],
-          rows: [
-            {'brokerName': '百家红', 'amount': 1393, 'total': 1},
-            {'brokerName': '金满屋', 'amount': 3530, 'total': 3},
-            {'brokerName': '红海', 'amount': 2923, 'total': 2},
-            {'brokerName': '朱鸿钧', 'amount': 1723, 'total': 1},
-            {'brokerName': '周冠一有限公司', 'amount': 3792, 'total': 3},
-            {'brokerName': '陈', 'amount': 4593, 'total': 6},
-            {'brokerName': '云', 'amount': 4893, 'total': 7},
-            {'brokerName': '云', 'amount': 4293, 'total': 8},
-            {'brokerName': '同', 'amount': 5593, 'total': 9},
-            {'brokerName': '学', 'amount': 2593, 'total': 1},
-          ]
+          columns: ['brokerName', 'amount', 'total', 'proportion'],
+          rows: []
         },
-        barChartSettings:{
-          xAxisType: ['KMB', 'KMB'],
-          xAxisName: ['amount', 'total'],
-          axisSite: {
-            top: ['amount']
+        barChartSettings: {
+          //别名
+          labelMap: {
+            "brokerName": "经销商",
+            "amount": "订单金额",
+            "total": "订单量",
+            "proportion": "金额占比",
           },
+          //排序规则
+          dataOrder: {
+            label: 'amount',
+            order: 'desc'
+          },
+          //合并
           stack: {
-            'xxx': ['amount', 'total']
-          }
+            'xxx': ['amount', 'total', 'proportion']
+          },
         },
         lineChartData: {
           //维度和指标集合（第一个为维度-纵向，后边为指标-横向）
@@ -107,14 +104,21 @@
         }
       }
     },
-    created: function () {
-
-    },
     methods: {
       queryData(year) {
         this.queryLineData(year);
         this.queryRingData(year);
+        this.queryBarData(year);
         this.$message('数据查询完成' + year);
+      },
+      queryBarData: function (year) {
+        const param = {};
+        param.years = year;
+        this.$post("/charts/bar", param).then(response => {
+          if (response.code == 1) {
+            this.barChartData.rows = response.data;
+          }
+        })
       },
       queryLineData: function (year) {
         const param = {};
@@ -135,11 +139,13 @@
           }
         })
       }
-    }, mounted: function () {
+    },
+    mounted: function () {
       //默认加载当前年份的数据
       const currentYear = new Date().getFullYear();
       this.queryLineData(currentYear);
       this.queryRingData(currentYear);
+      this.queryBarData(currentYear);
     }
   }
 </script>
