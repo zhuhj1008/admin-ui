@@ -34,13 +34,13 @@
             <el-input placeholder="线条" class="el-select_box input-order-md"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-input placeholder="长" class="el-select_box input-order-sm"></el-input>
+            <el-input placeholder="高" class="el-select_box input-order-sm"></el-input>
           </el-form-item>
           <el-form-item>
             <el-input placeholder="宽" class="el-select_box input-order-sm"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-input placeholder="高" class="el-select_box input-order-sm"></el-input>
+            <el-input placeholder="厚" class="el-select_box input-order-sm"></el-input>
           </el-form-item>
           <el-form-item>
             <el-input placeholder="数量" class="el-select_box input-order-sm"></el-input>
@@ -165,6 +165,7 @@
         param.details = this.order.orderDetails;
         this.$post("/order/saveDetail", param).then((response => {
           if (response.code == 1) {
+            this.$emit('queryOrder');
             this.$notify({
               type: 'success',
               message: '保存成功!'

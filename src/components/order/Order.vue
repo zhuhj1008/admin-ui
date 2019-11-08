@@ -107,7 +107,7 @@
 
       <el-table-column fixed="right" label="明细" width="50">
         <template slot-scope="scope">
-          <order-edit-detail :orderId="scope.row.orderId"></order-edit-detail>
+          <order-edit-detail @queryOrder="queryOrder" :orderId="scope.row.orderId"></order-edit-detail>
         </template>
       </el-table-column>
 
