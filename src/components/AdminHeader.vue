@@ -35,64 +35,36 @@
     data() {
       return {
         name: localStorage.getItem("name"),
-        menuList: [
-          {
-            menuUrl: "/1",
-            menuName: "主页",
-            children: [
-              {menuUrl: "/dashboard", menuName: "主页"},
-            ]
-          },
-          {
-            menuUrl: "/2",
-            menuName: "用户中心",
-            children: [
-              {menuUrl: "/customer", menuName: "客户"},
-              {menuUrl: "/user", menuName: "系统用户"},
-            ]
-          },
-          {
-            menuUrl: "/3",
-            menuName: "订单中心",
-            children: [
-              {menuUrl: "/order", menuName: "订单"},
-              {menuUrl: "/broker", menuName: "经销商"},
-            ]
-          },
-          {
-            menuUrl: "/4",
-            menuName: "产品",
-            children: [
-              {menuUrl: "/product", menuName: "产品"},
-            ]
-          },
-          {
-            menuUrl: "/5",
-            menuName: "统计",
-            children: [
-              {menuUrl: "/charts", menuName: "订单量图表"},
-              /*{menuUrl: "/brokerCharts", menuName: "经销商销售报表"},*/
-              /*{menuUrl: "/index3", menuName: "加工商生产报表"},*/
-            ]
-          },
-          {
-            menuUrl: "/6",
-            menuName: "系统配置",
-            children: [
-              {menuUrl: "/config", menuName: "订单配置"},
-            ]
-          }
-        ],
+        menuList: [],
         activeIndex: 'index',
       };
     },
+
+    mounted: function () {
+      this.queryMenu();
+    },
+
     methods: {
+
+      //菜单
+      queryMenu: function () {
+        this.$post("/common/systemMenu").then((response) => {
+          if (response.code == 1) {
+            this.menuList = response.data;
+          }
+        })
+      },
+
+      //点击菜单
       handleSelect(key, keyPath) {
         /*console.log(key, keyPath);*/
       },
+
+      //登出
       quit: function () {
         this.$router.push({path: '/'})
       }
+
     }
   }
 </script>
