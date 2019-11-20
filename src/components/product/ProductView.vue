@@ -1,12 +1,10 @@
 <template>
   <div>
-    <!--<el-button type="text" class="error" @click="drawer=true" style="float: right">预览</el-button>-->
+    <el-button type="text"  @click="drawer=true" style="float: right"> <i class="el-icon-view"></i></el-button>
     <el-drawer
       title="我是标题"
-      :visible.sync="drawer1"
+      :visible.sync="drawer"
       direction="rtl">
-
-
 
 
     </el-drawer>
@@ -17,15 +15,10 @@
   export default {
     data() {
       return {
-        drawer1:this.drawer,
-        form:{
-
-        }
+        drawer: false,
+        form: {}
       };
-    },
-    props: [
-      "drawer",
-    ]
+    }
   }
 </script>
 

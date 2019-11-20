@@ -3,8 +3,6 @@
   <div>
     <div style="padding: 5px;">
       <el-button type="text" class="error" @click="toEditProduct">{{productCode}}</el-button>
-      <el-button type="text" class="error" @click="deleteProduct" style="float: right"><i class="el-icon-delete"></i>
-      </el-button>
     </div>
     <el-dialog title="产品详情"
                :visible.sync="dialogFormVisible"
@@ -170,30 +168,6 @@
         picture.name = result.name;
         picture.url = result.url;
         this.form.detailFigure.push(picture);
-      },
-      deleteProduct: function () {
-        this.$confirm('此操作将删除该商品, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          const param = {};
-          param.productId = this.productId;
-          this.$post("/product/remove", param).then((response) => {
-            if (response.code == 1) {
-              this.$emit('queryProduct');
-              this.$notify({
-                type: 'success',
-                message: '删除成功!'
-              });
-            }
-          });
-        }).catch(() => {
-          this.$notify({
-            type: 'info',
-            message: '已取消删除'
-          });
-        });
       },
       // 随机生成文件名
       random_string(len) {

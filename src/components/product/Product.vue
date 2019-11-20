@@ -31,17 +31,32 @@
 
     </el-form>
 
-    <el-col :span="4" v-for="(product,index) in productList" :key="index" :index="index">
-      <el-card>
-        <img :src="product.picture" style="text-align:center; width: 95px; height: 170px">
-        <product-edit :productId="product.productId"
-                      :productCode="product.productCode"
-                      :productTypes="productTypes"
-                      @queryProduct="queryProduct">
-        </product-edit>
-        <product-view></product-view>
-      </el-card>
-    </el-col>
+
+    <template v-for="product in productList">
+
+      <el-col :span="4" class="card-box">
+        <el-card>
+          <img :src="product.picture" style="text-align:center; width: 95px; height: 170px">
+
+          <!--编辑产品-->
+          <product-edit :productId="product.productId"
+                        :productCode="product.productCode"
+                        :productTypes="productTypes"
+                        @queryProduct="queryProduct">
+          </product-edit>
+
+          <!--删除产品-->
+          <el-button type="text" @click="deleteProduct(product.productId)" style="float: right">
+            <i class="el-icon-delete"></i>
+          </el-button>
+
+          <!--产品预览-->
+          <product-view></product-view>
+
+        </el-card>
+      </el-col>
+
+    </template>
 
   </div>
 </template>
@@ -67,9 +82,6 @@
       }
     },
     methods: {
-      openDrawer: function(){
-        this.drawer = true
-      },
       queryProduct: function (val) {
         const param = {};
         param.productType = val;
@@ -80,6 +92,30 @@
             this.productList = response.data;
           }
         })
+      },
+      deleteProduct: function (val) {
+        this.$confirm('此操作将删除该商品, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          const param = {};
+          param.productId = val;
+          this.$post("/product/remove", param).then((response) => {
+            if (response.code == 1) {
+              this.$emit('queryProduct');
+              this.$notify({
+                type: 'success',
+                message: '删除成功!'
+              });
+            }
+          });
+        }).catch(() => {
+          this.$notify({
+            type: 'info',
+            message: '已取消删除'
+          });
+        });
       },
 
     },
@@ -96,22 +132,10 @@
 </script>
 
 <style scope>
-  .el-aside-book {
-    background-color: #FFFFFF;
-    color: #333;
-    text-align: center;
-    line-height: 10px;
+  .card-box {
+    margin: 30px;
+    padding-left: 50px;
+    padding-right: 50px;
   }
-
-  .el-main-book {
-    background-color: #E9EEF3;
-    color: #333;
-    text-align: center;
-    /*line-height: 500px;*/
-  }
-
-  /*.el-container-book {*/
-  /*margin-bottom: 10px;*/
-  /*}*/
 
 </style>

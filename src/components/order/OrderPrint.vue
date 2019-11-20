@@ -74,8 +74,7 @@
         </el-form>
 
 
-      </el-drawer
-        title="鸿达公司订货单">
+      </el-drawer>
 
 
   </div>
