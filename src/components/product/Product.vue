@@ -38,8 +38,8 @@
                       :productCode="product.productCode"
                       :productTypes="productTypes"
                       @queryProduct="queryProduct">
-
         </product-edit>
+        <product-view></product-view>
       </el-card>
     </el-col>
 
@@ -50,11 +50,13 @@
 
   import ProductAdd from '@/components/product/ProductAdd'
   import ProductEdit from '@/components/product/ProductEdit'
+  import ProductView from '@/components/product/ProductView'
 
   export default {
     data() {
       return {
         productTypes: ['a', 'b', 'c'],
+        drawer: false,
         searchForm: {
           productCode: '',
           productType: '',
@@ -65,6 +67,9 @@
       }
     },
     methods: {
+      openDrawer: function(){
+        this.drawer = true
+      },
       queryProduct: function (val) {
         const param = {};
         param.productType = val;
@@ -81,6 +86,7 @@
     components: {
       "product-add": ProductAdd,
       "product-edit": ProductEdit,
+      "product-view": ProductView,
     },
     mounted: function () {
       this.queryProduct();
