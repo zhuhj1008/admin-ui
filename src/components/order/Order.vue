@@ -141,7 +141,7 @@
                      :current-page.sync="searchForm.pageNo"
                      :page-sizes="[10, 20, 50]"
                      :page-size="searchForm.pageSize"
-                     @size-change=" changeSize"
+                     @size-change="changeSize"
                      @current-change="queryOrder()">
       </el-pagination>
     </div>
@@ -163,7 +163,7 @@
         loading: false,
         orderStatus: this.$store.state.order.orderStatus,
         page: {
-          total: 400,
+          total: 0,
         },
         searchForm: {
           orderId: '',

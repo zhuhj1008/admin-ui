@@ -31,32 +31,61 @@
 
     </el-form>
 
+    <el-row>
+      <!--4 1 4 1 4 1 4 1 4 = 24-->
+      <template v-for="(product,index) in productList">
 
-    <template v-for="product in productList">
+        <!--4-->
+        <el-col :span="4" class="card-box">
+          <el-card>
 
-      <el-col :span="4" class="card-box">
-        <el-card>
-          <img :src="product.picture" style="text-align:center; width: 95px; height: 170px">
+            <img :src="product.picture" style="text-align:center; width: 95px; height: 170px">
 
-          <!--编辑产品-->
-          <product-edit :productId="product.productId"
-                        :productCode="product.productCode"
-                        :productTypes="productTypes"
-                        @queryProduct="queryProduct">
-          </product-edit>
+            <!--编辑产品-->
+            <product-edit :productId="product.productId"
+                          :productCode="product.productCode"
+                          :productTypes="productTypes"
+                          @queryProduct="queryProduct">
+            </product-edit>
 
-          <!--删除产品-->
-          <el-button type="text" @click="deleteProduct(product.productId)" style="float: right">
-            <i class="el-icon-delete"></i>
-          </el-button>
+            <!--删除产品-->
+            <el-button type="text"
+                       @click="deleteProduct(product.productId,index)"
+                       style="float: right">
+              <i class="el-icon-delete"></i>
+            </el-button>
 
-          <!--产品预览-->
-          <product-view></product-view>
+            <!--产品预览-->
+            <product-view :productId="product.productId">
 
-        </el-card>
+            </product-view>
+
+          </el-card>
+        </el-col>
+
+        <!--1-->
+        <el-col :span="1" v-if="index%5 < 4">
+          <el-divider direction="vertical"></el-divider>
+        </el-col>
+
+      </template>
+    </el-row>
+
+    <!-- 分页 -->
+    <el-row>
+      <el-col :push="16" :span="8">
+        <el-pagination background small
+                       layout=" total, sizes, prev, pager, next, jumper"
+                       :total="page.total"
+                       :current-page.sync="searchForm.pageNo"
+                       :page-sizes="[5, 10, 20, 50]"
+                       :page-size="searchForm.pageSize"
+                       @size-change="changeSize"
+                       @current-change="queryProduct()">
+        </el-pagination>
       </el-col>
+    </el-row>
 
-    </template>
 
   </div>
 </template>
@@ -75,23 +104,28 @@
         searchForm: {
           productCode: '',
           productType: '',
-          pageSize: 120,
+          pageSize: 5,
           pageNo: 1
+        },
+        page: {
+          total: 10
         },
         productList: []
       }
     },
     methods: {
-      queryProduct: function (val) {
-        const param = {};
-        param.productType = val;
-        param.pageSize = this.searchForm.pageSize;
-        param.pageNo = this.searchForm.pageNo;
-        this.$post("/product/queryProducts", param).then(response => {
+      queryProduct: function () {
+        this.$post("/product/queryProducts", this.searchForm).then(response => {
           if (response.code == 1) {
-            this.productList = response.data;
+            console.log(JSON.stringify(response));
+            this.productList = response.data.contents;
+            this.page.total = response.data.total;
           }
         })
+      },
+      changeSize: function (val) {
+        this.searchForm.pageSize = val;
+        this.queryProduct();
       },
       deleteProduct: function (val) {
         this.$confirm('此操作将删除该商品, 是否继续?', '提示', {
@@ -133,9 +167,8 @@
 
 <style scope>
   .card-box {
-    margin: 30px;
-    padding-left: 50px;
-    padding-right: 50px;
+    /*margin: 30px;*/
+    padding: 20px 30px 20px 30px;
   }
 
 </style>
