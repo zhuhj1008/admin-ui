@@ -6,6 +6,8 @@
       :visible.sync="drawer"
       direction="rtl">
 
+      <div></div>
+
       <!--走马灯-->
       <div style="border: thick outset;">
         <el-carousel :interval="5000" arrow="always">
