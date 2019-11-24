@@ -117,7 +117,6 @@
       queryProduct: function () {
         this.$post("/product/queryProducts", this.searchForm).then(response => {
           if (response.code == 1) {
-            console.log(JSON.stringify(response));
             this.productList = response.data.contents;
             this.page.total = response.data.total;
           }

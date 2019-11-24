@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import ElementUI from 'element-ui'
 
 import Login from '@/components/Login'
+import Test from '@/components/Test'
 import Home from '@/components/Home'
 
 import Dashboard from '@/components/dashboard/Dashboard'
@@ -29,6 +30,7 @@ export default new Router({
   routes: [
     {path: '/', redirect: '/login'},
     {path: '/login', name: 'Login', component: Login, meta: {title: '登陆'}},
+    {path: '/test', name: 'Test', component: Test, meta: {title: '测试'}},
     {
       path: '/home', component: Home,
       children: [
