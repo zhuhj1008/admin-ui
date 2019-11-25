@@ -1,18 +1,14 @@
 <template>
      
   <div>
-    <el-card>
-      <img src="../../assets/product/product_add.svg" @click="dialogFormVisible=true"
-           style="text-align:center; width: 60px; height: 40px">
-      <div style="padding: 5px;">
-      </div>
-    </el-card>
+    <el-button type="primary" icon="el-icon-plus" @click="dialogFormVisible=true,getOSSToken()">添加</el-button>
+
     <el-dialog title="新加产品" :visible.sync="dialogFormVisible" :show-close=false width='55%'
                :close-on-press-escape=false :close-on-click-modal="false" append-to-body>
 
       <el-form :model="form"
-               :inline="true"
                :rules="rules"
+               :inline="true"
                size="mini" ref="form" prop="form">
 
         <el-form-item label="名称" prop="productName">
@@ -20,7 +16,9 @@
         </el-form-item>
 
         <el-form-item label="分类" prop="productType">
-          <el-cascader v-model="form.productType" :options="productTypes"></el-cascader>
+          <el-select v-model="form.productType" placeholder="产品分类" clearable>
+            <el-option v-for="(type,index) in productTypes" :key=index :label="type" :value="type"></el-option>
+          </el-select>
         </el-form-item>
 
         <el-form-item label="图册" prop="book">
@@ -39,7 +37,7 @@
           <el-input v-model="form.maxPrice" autocomplete="off" style="width:100px" clearable></el-input>
         </el-form-item>
         <div>
-          <el-form-item label="小图" prop="tinyFigure">
+          <el-form-item label="轮播图" prop="tinyFigure">
             <el-upload class="upload-demo" drag
                        list-type="picture" action=""
                        :http-request="uploadSmall"
@@ -49,11 +47,12 @@
               <i class="el-icon-upload"></i>
               <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
               <div class="el-upload__text">小图只能上传一个</div>
+              <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
             </el-upload>
 
           </el-form-item>
 
-          <el-form-item label="大图" prop="detailFigure">
+          <el-form-item label="详情图" prop="detailFigure">
             <el-upload class="upload-demo" drag
                        list-type="picture" action=""
                        :http-request="uploadPicture"
@@ -63,7 +62,7 @@
               <i class="el-icon-upload"></i>
               <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
               <div class="el-upload__text">大图能上传多个</div>
-              <!--<div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>-->
+              <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
             </el-upload>
           </el-form-item>
         </div>
@@ -86,9 +85,10 @@
     data() {
       return {
         dialogFormVisible: false,
+        productTypes: localStorage.getItem("productTypes").split(","),
         form: {
           productName: '',
-          productType: [],
+          productType: '',
           productCode: '',
           book: '',
           minPrice: '',
@@ -105,7 +105,12 @@
           accessKeyId: '',
           accessKeySecret: '',
           securityToken: ''
-        }, rules: {
+        },
+
+        rules: {
+          productName: [
+            {required: true, message: '请输入名称', trigger: 'blur'}
+          ],
           productType: [
             {required: true, message: '请选择分类', trigger: 'blur'}
           ],
@@ -175,13 +180,7 @@
         }
         return pwd;
       }
-    },
-    created() {
-      this.getOSSToken();
-    },
-    props: [
-      "productTypes"
-    ]
+    }
   }
 </script>
 

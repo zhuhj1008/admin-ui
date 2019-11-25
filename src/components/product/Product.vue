@@ -8,7 +8,7 @@
              size='mini'>
 
       <el-form-item>
-        <el-button type="primary" icon="el-icon-plus" @click="">添加</el-button>
+        <product-add></product-add>
       </el-form-item>
 
       <el-form-item label="类别">
@@ -56,9 +56,7 @@
             </el-button>
 
             <!--产品预览-->
-            <product-view :productId="product.productId">
-
-            </product-view>
+            <product-view :productId="product.productId"></product-view>
 
           </el-card>
         </el-col>
@@ -78,7 +76,7 @@
                        layout=" total, sizes, prev, pager, next, jumper"
                        :total="page.total"
                        :current-page.sync="searchForm.pageNo"
-                       :page-sizes="[5, 10, 20, 50]"
+                       :page-sizes="[10, 20, 50]"
                        :page-size="searchForm.pageSize"
                        @size-change="changeSize"
                        @current-change="queryProduct()">
@@ -99,12 +97,11 @@
   export default {
     data() {
       return {
-        productTypes: ['a', 'b', 'c'],
-        drawer: false,
+        productTypes: localStorage.getItem("productTypes").split(","),
         searchForm: {
           productCode: '',
           productType: '',
-          pageSize: 5,
+          pageSize: 10,
           pageNo: 1
         },
         page: {
