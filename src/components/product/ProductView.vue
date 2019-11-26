@@ -21,29 +21,60 @@
         </el-carousel>
       </div>
 
+
       <!--价格-->
       <el-row class="product_price">
         <span>￥ {{productData.minPrice}} ~ {{productData.maxPrice}}</span>
       </el-row>
+
 
       <!--名称-->
       <el-row class="product_name">
         <span>{{productData.productName}}</span>
       </el-row>
 
+
       <!--标签-->
       <el-row>
         <el-tag v-for="(tag,index) in productData.productTags" type="success" :key="index">{{tag}}</el-tag>
       </el-row>
 
-      <!---->
-      <el-row>
 
-      </el-row>
+      <!--买家服务-->
+      <div>
 
-      <el-divider content-position="left">商品信息</el-divider>
+        <el-divider content-position="left">买家服务</el-divider>
+
+        <span><i class="iconfont icon-heshichicun"></i> &nbsp; 尺寸定制 &nbsp; </span>
+        <el-divider direction="vertical"></el-divider>
+        <span><i class="iconfont icon-juanchi"></i> &nbsp; 免费测量 &nbsp; </span>
+        <el-divider direction="vertical"></el-divider>
+        <span><i class="iconfont icon-jiaofuriqi"></i> &nbsp; 交期保障 &nbsp; </span>
+        <el-divider direction="vertical"></el-divider>
+        <span><i class="iconfont icon-yunshu"></i> &nbsp; 送货到家 &nbsp; </span>
+        <br>
+        <br>
+        <span><i class="iconfont icon-mianfeigenghuansunhuaijian"></i> &nbsp; 破损补寄 &nbsp; </span>
+        <el-divider direction="vertical"></el-divider>
+        <span><i class="iconfont icon-dianzuan"></i> &nbsp; 上门安装 &nbsp; </span>
+        <el-divider direction="vertical"></el-divider>
+        <span><i class="iconfont icon-zhibaojin"></i> &nbsp; 质保一年 &nbsp; </span>
+        <el-divider direction="vertical"></el-divider>
+      </div>
+
+
+      <div>
+        <el-divider content-position="left">商品信息</el-divider>
+        <el-row class="text item">型号：{{productData.productCode}}</el-row>
+        <el-row class="text item">计价单位：{{productData.unit}}</el-row>
+        <el-row class="text item">材质：{{productData.material}}</el-row>
+        <el-row class="text item">颜色：{{productData.color}}</el-row>
+        <el-row class="text item">饰面工艺：{{productData.technology}}</el-row>
+      </div>
+
 
       <!--详情图-->
+      <el-divider content-position="left">商品展示</el-divider>
       <el-image v-for="(url,index) in productData.detailUrls" :key="index" :src="url"></el-image>
 
     </el-dialog>
@@ -62,6 +93,10 @@
           maxPrice: '600',
           productName: '室内门 生态烤漆门 卧室门',
           productTags: ['环保', '静音', '黑胡桃'],
+          unit: '套',
+          material: '橡木',
+          color: '瓷白色',
+          technology: '免漆',
           carouselUrls: [
             'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg',
             'https://fuss10.elemecdn.com/1/34/19aa98b1fcb2781c4fba33d850549jpeg.jpeg',
@@ -79,7 +114,13 @@
     },
     methods: {
       toProductView: function () {
-
+        const param = {};
+        param.productId = this.productId;
+        this.$post("/product/query", param).then((response) => {
+          if (response.code == 1) {
+            // this.productData == response.data;
+          }
+        });
       }
     },
     props: [
@@ -94,9 +135,9 @@
   .product_price {
     color: red;
     font-weight: bold;
-    font-size: 150%;
+    font-size: 200%;
     font-family: sans-serif;
-    padding: 10px 0px 10px 10px;
+    padding-top: 20px;
   }
 
   .product_name {
@@ -104,10 +145,18 @@
     font-weight: bold;
     font-size: 150%;
     font-family: sans-serif;
-    padding: 10px 0px 10px 10px;
+    padding-top: 10px;
   }
 
   .el-tag + .el-tag {
-    margin-left: 10px;
+    margin: 20px 0px 20px 10px;
+  }
+
+  .text {
+    font-size: 14px;
+  }
+
+  .item {
+    margin-bottom: 18px;
   }
 </style>
