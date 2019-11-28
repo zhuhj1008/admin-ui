@@ -113,7 +113,7 @@
     methods: {
       queryProduct: function () {
         this.$post("/product/queryProducts", this.searchForm).then(response => {
-          if (response.code == 1) {
+          if (response.code === 1) {
             this.productList = response.data.contents;
             this.page.total = response.data.total;
           }
@@ -132,7 +132,7 @@
           const param = {};
           param.productId = val;
           this.$post("/product/remove", param).then((response) => {
-            if (response.code == 1) {
+            if (response.code === 1) {
               this.$emit('queryProduct');
               this.$notify({
                 type: 'success',
@@ -161,7 +161,7 @@
 
 </script>
 
-<style scope>
+<style>
   .card-box {
     /*margin: 30px;*/
     padding: 20px 30px 20px 30px;

@@ -42,7 +42,6 @@
 
       <!--买家服务-->
       <div>
-
         <el-divider content-position="left">买家服务</el-divider>
 
         <span><i class="iconfont icon-heshichicun"></i> &nbsp; 尺寸定制 &nbsp; </span>
@@ -52,29 +51,51 @@
         <span><i class="iconfont icon-jiaofuriqi"></i> &nbsp; 交期保障 &nbsp; </span>
         <el-divider direction="vertical"></el-divider>
         <span><i class="iconfont icon-yunshu"></i> &nbsp; 送货到家 &nbsp; </span>
-        <br>
-        <br>
+
+        <br><br>
+
         <span><i class="iconfont icon-mianfeigenghuansunhuaijian"></i> &nbsp; 破损补寄 &nbsp; </span>
         <el-divider direction="vertical"></el-divider>
         <span><i class="iconfont icon-dianzuan"></i> &nbsp; 上门安装 &nbsp; </span>
         <el-divider direction="vertical"></el-divider>
         <span><i class="iconfont icon-zhibaojin"></i> &nbsp; 质保一年 &nbsp; </span>
-        <el-divider direction="vertical"></el-divider>
       </div>
 
 
+      <!--商品信息-->
       <div>
         <el-divider content-position="left">商品信息</el-divider>
-        <el-row class="text item">型号：{{productData.productCode}}</el-row>
-        <el-row class="text item">计价单位：{{productData.unit}}</el-row>
-        <el-row class="text item">材质：{{productData.material}}</el-row>
-        <el-row class="text item">颜色：{{productData.color}}</el-row>
-        <el-row class="text item">饰面工艺：{{productData.technology}}</el-row>
+
+        <el-row>
+          <el-col :span="8">分类：{{productData.productCode}}</el-col>
+          <el-col :span="8">型号：{{productData.productCode}}</el-col>
+          <el-col :span="8">计价单位：{{productData.unit}}</el-col>
+        </el-row>
+        <br>
+
+        <el-row>
+          <el-col :span="8">材质：{{productData.material}}</el-col>
+          <el-col :span="8">颜色：{{productData.color}}</el-col>
+          <el-col :span="8">饰面工艺：{{productData.technology}}</el-col>
+        </el-row>
+        <br>
+
+        <el-row>
+          <el-col :span="8">尺寸：{{productData.size}}</el-col>
+          <el-col :span="8">毛重：{{productData.weight}}</el-col>
+          <el-col :span="8">生产周期：{{productData.timeLimit}}</el-col>
+        </el-row>
+        <br>
+
+        <el-row>
+          <el-col :span="8">包装清单：{{productData.packingList}}</el-col>
+        </el-row>
       </div>
 
 
       <!--详情图-->
       <el-divider content-position="left">商品展示</el-divider>
+
       <el-image v-for="(url,index) in productData.detailUrls" :key="index" :src="url"></el-image>
 
     </el-dialog>
@@ -97,6 +118,10 @@
           material: '橡木',
           color: '瓷白色',
           technology: '免漆',
+          size: '200*120*30',
+          weight: '30KG',
+          timeLimit: '25天',
+          packingList: '门 锁 合页',
           carouselUrls: [
             'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg',
             'https://fuss10.elemecdn.com/1/34/19aa98b1fcb2781c4fba33d850549jpeg.jpeg',
@@ -106,7 +131,7 @@
             'https://fuss10.elemecdn.com/9/bb/e27858e973f5d7d3904835f46abbdjpeg.jpeg',
             'https://fuss10.elemecdn.com/d/e6/c4d93a3805b3ce3f323f7974e6f78jpeg.jpeg',
             'https://fuss10.elemecdn.com/3/28/bbf893f792f03a54408b3b7a7ebf0jpeg.jpeg',
-            'https://fuss10.elemecdn.com/2/11/6535bcfb26e4c79b48ddde44f4b6fjpeg.jpeg'
+            'https://fuss10.elemecdn.com/2/11/6535bcfb26e4c79b48ddde44f4b6fjpeg.jpeg',
           ]
         },
 

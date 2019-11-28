@@ -21,6 +21,14 @@
           </el-select>
         </el-form-item>
 
+        <el-form-item label="价格区间" prop="minPrice">
+          <el-input v-model="form.minPrice" autocomplete="off" style="width:100px" clearable></el-input>
+        </el-form-item>
+
+        <el-form-item label="~" prop="maxPrice">
+          <el-input v-model="form.maxPrice" autocomplete="off" style="width:100px" clearable></el-input>
+        </el-form-item>
+
         <el-form-item label="图册" prop="book">
           <el-input v-model="form.book" autocomplete="off" style="width:200px" clearable></el-input>
         </el-form-item>
@@ -29,13 +37,38 @@
           <el-input v-model="form.productCode" autocomplete="off" style="width:200px" clearable></el-input>
         </el-form-item>
 
-        <el-form-item label="价格区间" prop="minPrice">
-          <el-input v-model="form.minPrice" autocomplete="off" style="width:100px" clearable></el-input>
+        <el-form-item label="计价单位" prop="unit">
+          <el-input v-model="form.unit" autocomplete="off" style="width:200px" clearable></el-input>
         </el-form-item>
 
-        <el-form-item label="~" prop="maxPrice">
-          <el-input v-model="form.maxPrice" autocomplete="off" style="width:100px" clearable></el-input>
+        <el-form-item label="材质" prop="material">
+          <el-input v-model="form.material" autocomplete="off" style="width:200px" clearable></el-input>
         </el-form-item>
+
+        <el-form-item label="颜色" prop="color">
+          <el-input v-model="form.color" autocomplete="off" style="width:200px" clearable></el-input>
+        </el-form-item>
+
+        <el-form-item label="饰面工艺" prop="technology">
+          <el-input v-model="form.technology" autocomplete="off" style="width:200px" clearable></el-input>
+        </el-form-item>
+
+        <el-form-item label="尺寸" prop="size">
+          <el-input v-model="form.size" autocomplete="off" style="width:200px" clearable></el-input>
+        </el-form-item>
+
+        <el-form-item label="毛重" prop="weight">
+          <el-input v-model="form.weight" autocomplete="off" style="width:200px" clearable></el-input>
+        </el-form-item>
+
+        <el-form-item label="生产周期" prop="timeLimit">
+          <el-input v-model="form.timeLimit" autocomplete="off" style="width:200px" clearable></el-input>
+        </el-form-item>
+
+        <el-form-item label="包装清单" prop="packingList">
+          <el-input v-model="form.packingList" autocomplete="off" style="width:200px" clearable></el-input>
+        </el-form-item>
+
         <div>
           <el-form-item label="轮播图" prop="tinyFigure">
             <el-upload class="upload-demo" drag
@@ -93,6 +126,14 @@
           book: '',
           minPrice: '',
           maxPrice: '',
+          unit: '',
+          material: '',
+          color: '',
+          technology: '',
+          size: '',
+          weight: '',
+          timeLimit: '',
+          packingList: '',
           tinyFigure: [],
           detailFigure: [],
         },
@@ -107,7 +148,7 @@
           securityToken: ''
         },
 
-        rules: {
+        /*rules: {
           productName: [
             {required: true, message: '请输入名称', trigger: 'blur'}
           ],
@@ -117,7 +158,7 @@
           productCode: [
             {required: true, message: '请输入产品编码', trigger: 'blur'}
           ],
-        }
+        }*/
       }
     },
     methods: {

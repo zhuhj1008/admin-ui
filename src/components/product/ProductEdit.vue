@@ -10,8 +10,8 @@
       </el-button>
     </div>
 
-    <!--信息编辑对话框-->
-    <el-dialog title="产品详情"
+    <!--编辑产品对话框-->
+    <el-dialog title="修改产品信息"
                :visible.sync="productDialog"
                :show-close=false
                :close-on-press-escape=false
@@ -36,6 +36,14 @@
           </el-select>
         </el-form-item>
 
+        <el-form-item label="价格区间" prop="minPrice">
+          <el-input v-model="productForm.minPrice" autocomplete="off" style="width:100px" clearable></el-input>
+        </el-form-item>
+
+        <el-form-item label="~" prop="maxPrice">
+          <el-input v-model="productForm.maxPrice" autocomplete="off" style="width:100px" clearable></el-input>
+        </el-form-item>
+
         <el-form-item label="图册" prop="book">
           <el-input v-model="productForm.book" autocomplete="off" style="width:200px" clearable></el-input>
         </el-form-item>
@@ -44,12 +52,36 @@
           <el-input v-model="productForm.productCode" autocomplete="off" style="width:200px" clearable></el-input>
         </el-form-item>
 
-        <el-form-item label="价格区间" prop="minPrice">
-          <el-input v-model="productForm.minPrice" autocomplete="off" style="width:100px" clearable></el-input>
+        <el-form-item label="计价单位" prop="unit">
+          <el-input v-model="productForm.unit" autocomplete="off" style="width:200px" clearable></el-input>
         </el-form-item>
 
-        <el-form-item label="~" prop="maxPrice">
-          <el-input v-model="productForm.maxPrice" autocomplete="off" style="width:100px" clearable></el-input>
+        <el-form-item label="材质" prop="material">
+          <el-input v-model="productForm.material" autocomplete="off" style="width:200px" clearable></el-input>
+        </el-form-item>
+
+        <el-form-item label="颜色" prop="color">
+          <el-input v-model="productForm.color" autocomplete="off" style="width:200px" clearable></el-input>
+        </el-form-item>
+
+        <el-form-item label="饰面工艺" prop="technology">
+          <el-input v-model="productForm.technology" autocomplete="off" style="width:200px" clearable></el-input>
+        </el-form-item>
+
+        <el-form-item label="尺寸" prop="size">
+          <el-input v-model="productForm.size" autocomplete="off" style="width:200px" clearable></el-input>
+        </el-form-item>
+
+        <el-form-item label="毛重" prop="weight">
+          <el-input v-model="productForm.weight" autocomplete="off" style="width:200px" clearable></el-input>
+        </el-form-item>
+
+        <el-form-item label="生产周期" prop="timeLimit">
+          <el-input v-model="productForm.timeLimit" autocomplete="off" style="width:200px" clearable></el-input>
+        </el-form-item>
+
+        <el-form-item label="包装清单" prop="packingList">
+          <el-input v-model="productForm.packingList" autocomplete="off" style="width:200px" clearable></el-input>
         </el-form-item>
 
       </el-form>
@@ -61,8 +93,8 @@
 
     </el-dialog>
 
-    <!--编辑图片-->
-    <el-dialog title="产品详情"
+    <!--编辑图片对话框-->
+    <el-dialog title="修改产品图片"
                :visible.sync="pictureDialog"
                :show-close=false
                :close-on-press-escape=false
@@ -129,6 +161,14 @@
           productType: '',
           productCode: '',
           book: '',
+          unit: '',
+          material: '',
+          color: '',
+          technology: '',
+          size: '',
+          weight: '',
+          timeLimit: '',
+          packingList: '',
           minPrice: '',
           maxPrice: ''
         },
