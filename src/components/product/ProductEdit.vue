@@ -26,17 +26,40 @@
                prop="productForm"
                size="mini">
 
+        <el-form-item label="上架" prop="shangJia">
+          <el-switch
+            v-model="productForm.show"
+            active-text="上架"
+            inactive-text="不上架">
+          </el-switch>
+        </el-form-item>
+        <br>
+
+        <el-divider content-position="left">商品信息</el-divider>
+
         <el-form-item label="名称" prop="productName">
           <el-input v-model="productForm.productName" autocomplete="off" style="width:200px" clearable></el-input>
         </el-form-item>
+        <br>
 
         <el-form-item label="分类" prop="productType">
           <el-select v-model="productForm.productType" placeholder="产品分类" clearable>
             <el-option v-for="(type,index) in productTypes" :key=index :label="type" :value="type"></el-option>
           </el-select>
         </el-form-item>
+        <br>
 
-        <el-form-item label="价格区间" prop="minPrice">
+        <el-form-item label="编码" prop="productCode">
+          <el-input v-model="productForm.productCode" autocomplete="off" style="width:200px" clearable></el-input>
+        </el-form-item>
+        <br>
+
+        <el-form-item label="计价单位" prop="unit">
+          <el-input v-model="productForm.unit" autocomplete="off" style="width:200px" clearable></el-input>
+        </el-form-item>
+        <br>
+
+        <el-form-item label="单价(元)" prop="minPrice">
           <el-input v-model="productForm.minPrice" autocomplete="off" style="width:100px" clearable></el-input>
         </el-form-item>
 
@@ -44,17 +67,8 @@
           <el-input v-model="productForm.maxPrice" autocomplete="off" style="width:100px" clearable></el-input>
         </el-form-item>
 
-        <el-form-item label="图册" prop="book">
-          <el-input v-model="productForm.book" autocomplete="off" style="width:200px" clearable></el-input>
-        </el-form-item>
 
-        <el-form-item label="编码" prop="productCode">
-          <el-input v-model="productForm.productCode" autocomplete="off" style="width:200px" clearable></el-input>
-        </el-form-item>
-
-        <el-form-item label="计价单位" prop="unit">
-          <el-input v-model="productForm.unit" autocomplete="off" style="width:200px" clearable></el-input>
-        </el-form-item>
+        <el-divider content-position="left">商品属性</el-divider>
 
         <el-form-item label="材质" prop="material">
           <el-input v-model="productForm.material" autocomplete="off" style="width:200px" clearable></el-input>
@@ -81,7 +95,7 @@
         </el-form-item>
 
         <el-form-item label="包装清单" prop="packingList">
-          <el-input v-model="productForm.packingList" autocomplete="off" style="width:200px" clearable></el-input>
+          <el-input v-model="productForm.packingList" autocomplete="off" style="width:300px" clearable></el-input>
         </el-form-item>
 
       </el-form>
@@ -157,6 +171,7 @@
         productDialog: false,
         pictureDialog: false,
         productForm: {
+          show:false,
           productName: '',
           productType: '',
           productCode: '',
@@ -246,15 +261,14 @@
         this.$post("/common/ossToken").then((response) => {
           if (response.code == 1) {
             this.ossData = response.data;
-            this.ossData.region = 'oss-cn-beijing';
-            this.ossData.bucket = 'joe-zhj';
+            console.log(JSON.stringify(this.ossData))
           }
         });
       },
       async uploadSmall(option) {
         const client = Client(this.ossData), file = option.file;
-        const random_name = this.random_string(6) + '_' + new Date().getTime() + '.' + file.name.split('.').pop();
-        let result = await client.put(random_name, file);
+        const pictureDir = "product/" + this.productId + "/small/" + file.name;
+        let result = await client.put(pictureDir, file);
         let picture = {};
         picture.name = result.name;
         picture.url = result.url;
@@ -262,21 +276,12 @@
       },
       async uploadPicture(option) {
         const client = Client(this.ossData), file = option.file;
-        const random_name = this.random_string(6) + '_' + new Date().getTime() + '.' + file.name.split('.').pop();
-        let result = await client.put(random_name, file);
+        const pictureDir = "product/" + this.productId + "/detail/" + file.name;
+        let result = await client.put(pictureDir, file);
         let picture = {};
         picture.name = result.name;
         picture.url = result.url;
         this.pictureForm.detailFigure.push(picture);
-      },
-      // 随机生成文件名
-      random_string(len) {
-        len = len || 32;
-        let chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz12345678', maxPos = chars.length, pwd = '';
-        for (let i = 0; i < len; i++) {
-          pwd += chars.charAt(Math.floor(Math.random() * maxPos));
-        }
-        return pwd;
       }
     },
     props: [
