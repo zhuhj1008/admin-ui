@@ -48,11 +48,9 @@
           <el-input v-model="form.minPrice" autocomplete="off" style="width:100px" clearable></el-input>
         </el-form-item>
 
-
         <el-form-item label="~" prop="maxPrice">
           <el-input v-model="form.maxPrice" autocomplete="off" style="width:100px" clearable></el-input>
         </el-form-item>
-
 
         <el-divider content-position="left">商品属性</el-divider>
 
@@ -80,8 +78,18 @@
           <el-input v-model="form.timeLimit" autocomplete="off" style="width:200px" clearable></el-input>
         </el-form-item>
 
+        <el-form-item label="标签" prop="tags">
+          <el-select v-model="form.tags" multiple placeholder="请选择" style="width:320px">
+            <el-option v-for="tag in tagOptions" :key="tag" :label="tag" :value="tag">
+            </el-option>
+          </el-select>
+        </el-form-item>
+
         <el-form-item label="包装清单" prop="packingList">
-          <el-input v-model="form.packingList" autocomplete="off" style="width:300px" clearable></el-input>
+          <el-select v-model="form.packingList" multiple placeholder="请选择" style="width:330px">
+            <el-option v-for="item in packageOptions" :key="item" :label="item" :value="item">
+            </el-option>
+          </el-select>
         </el-form-item>
 
       </el-form>
@@ -102,6 +110,8 @@
       return {
         dialogFormVisible: false,
         productTypes: localStorage.getItem("productTypes").split(","),
+        packageOptions: ['a', 'b', 'c', 'd'],
+        tagOptions: ['a', 'b', 'c', 'd'],
         form: {
           show: false,
           productName: '',
@@ -117,7 +127,8 @@
           size: '',
           weight: '',
           timeLimit: '',
-          packingList: ''
+          packingList: [],
+          tags:[]
         },
 
         rules: {
