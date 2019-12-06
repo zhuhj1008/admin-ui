@@ -28,7 +28,7 @@
 
         <el-form-item label="上架" prop="shangJia">
           <el-switch
-            v-model="productForm.show"
+            v-model="productForm.shelves"
             active-text="上架"
             inactive-text="不上架">
           </el-switch>
@@ -38,7 +38,8 @@
         <el-divider content-position="left">商品信息</el-divider>
 
         <el-form-item label="名称" prop="productName">
-          <el-input v-model="productForm.productName" autocomplete="off" style="width:200px" clearable></el-input>
+          <el-input v-model="productForm.productName" placeholder="请输入名称" autocomplete="off" style="width:200px"
+                    clearable></el-input>
         </el-form-item>
         <br>
 
@@ -50,52 +51,80 @@
         <br>
 
         <el-form-item label="编码" prop="productCode">
-          <el-input v-model="productForm.productCode" autocomplete="off" style="width:200px" clearable></el-input>
+          <el-input v-model="productForm.productCode" placeholder="请输入编码" autocomplete="off" style="width:200px"
+                    clearable></el-input>
+        </el-form-item>
+        <br>
+
+        <el-form-item label="价格(元)" prop="minPrice">
+          <el-input v-model="productForm.minPrice" placeholder="最低" autocomplete="off" style="width:80px"
+                    clearable></el-input>
+        </el-form-item>
+
+        <el-form-item label="~" prop="maxPrice">
+          <el-input v-model="productForm.maxPrice" placeholder="最高" autocomplete="off" style="width:80px"
+                    clearable></el-input>
         </el-form-item>
         <br>
 
         <el-form-item label="计价单位" prop="unit">
-          <el-input v-model="productForm.unit" autocomplete="off" style="width:200px" clearable></el-input>
-        </el-form-item>
-        <br>
-
-        <el-form-item label="单价(元)" prop="minPrice">
-          <el-input v-model="productForm.minPrice" autocomplete="off" style="width:100px" clearable></el-input>
-        </el-form-item>
-
-        <el-form-item label="~" prop="maxPrice">
-          <el-input v-model="productForm.maxPrice" autocomplete="off" style="width:100px" clearable></el-input>
+          <el-select v-model="productForm.unit" placeholder="请选择计价单位" style="width:200px" clearable>
+            <el-option label="套" value="套"></el-option>
+          </el-select>
         </el-form-item>
 
 
         <el-divider content-position="left">商品属性</el-divider>
 
         <el-form-item label="材质" prop="material">
-          <el-input v-model="productForm.material" autocomplete="off" style="width:200px" clearable></el-input>
+          <el-select v-model="productForm.material" placeholder="请选择材质" style="width:200px" clearable>
+            <el-option label="原木" value="原木"></el-option>
+            <el-option label="白橡木" value="白橡木"></el-option>
+            <el-option label="杨木" value="杨木"></el-option>
+            <el-option label="红松木" value="红松木"></el-option>
+          </el-select>
         </el-form-item>
 
         <el-form-item label="颜色" prop="color">
-          <el-input v-model="productForm.color" autocomplete="off" style="width:200px" clearable></el-input>
+          <el-select v-model="productForm.color" placeholder="选择颜色" style="width:200px" clearable>
+            <el-option v-for="(color,index) in colors" :key=index :label="color" :value="color"></el-option>
+          </el-select>
         </el-form-item>
 
         <el-form-item label="饰面工艺" prop="technology">
-          <el-input v-model="productForm.technology" autocomplete="off" style="width:200px" clearable></el-input>
+          <el-select v-model="productForm.technology" placeholder="选择工艺" style="width:200px" clearable>
+            <el-option label="烤漆" value="烤漆"></el-option>
+            <el-option label="天然木皮" value="天然木皮"></el-option>
+            <el-option label="合成木皮" value="合成木皮"></el-option>
+            <el-option label="木纹纸" value="木纹纸"></el-option>
+          </el-select>
         </el-form-item>
 
         <el-form-item label="尺寸" prop="size">
-          <el-input v-model="productForm.size" autocomplete="off" style="width:200px" clearable></el-input>
+          <el-input v-model="productForm.size" placeholder="输入尺寸" autocomplete="off" style="width:200px"
+                    clearable></el-input>
         </el-form-item>
 
         <el-form-item label="毛重" prop="weight">
-          <el-input v-model="productForm.weight" autocomplete="off" style="width:200px" clearable></el-input>
+          <el-input v-model="productForm.weight" placeholder="输入重量" autocomplete="off" style="width:200px"
+                    clearable></el-input>
         </el-form-item>
 
         <el-form-item label="生产周期" prop="timeLimit">
-          <el-input v-model="productForm.timeLimit" autocomplete="off" style="width:200px" clearable></el-input>
+          <el-input v-model="productForm.timeLimit" placeholder="输入生产周期" autocomplete="off" style="width:200px"
+                    clearable></el-input>
+        </el-form-item>
+
+        <el-form-item label="标签" prop="tags">
+          <el-select v-model="productForm.tags" multiple placeholder="请选择商品标签" style="width:320px">
+            <el-option v-for="tag in tagOptions" :key="tag" :label="tag" :value="tag"></el-option>
+          </el-select>
         </el-form-item>
 
         <el-form-item label="包装清单" prop="packingList">
-          <el-input v-model="productForm.packingList" autocomplete="off" style="width:300px" clearable></el-input>
+          <el-select v-model="productForm.packingList" multiple placeholder="请选择包装清单" style="width:330px">
+            <el-option v-for="item in packageOptions" :key="item" :label="item" :value="item"></el-option>
+          </el-select>
         </el-form-item>
 
       </el-form>
@@ -167,11 +196,14 @@
   export default {
     data() {
       return {
-        productTypes: localStorage.getItem("productTypes").split(","),
         productDialog: false,
         pictureDialog: false,
+        colors: localStorage.getItem("colors").split(","),
+        productTypes: localStorage.getItem("productTypes").split(","),
+        packageOptions: localStorage.getItem("packageList").split(","),
+        tagOptions: localStorage.getItem("tags").split(","),
         productForm: {
-          show:false,
+          shelves: false,
           productName: '',
           productType: '',
           productCode: '',
@@ -237,10 +269,11 @@
               type: 'success',
               message: '修改成功!'
             });
+            this.$emit('queryProduct');
           }
         });
 
-        this.$emit('queryProduct');
+
       },
 
       updatePicture: function () {

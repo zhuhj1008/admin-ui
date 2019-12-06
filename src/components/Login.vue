@@ -74,6 +74,8 @@
             localStorage.setItem("orderTypes", response.data.orderTypes);
             localStorage.setItem("productTypes", response.data.productTypes);
             localStorage.setItem("regions", response.data.regions);
+            localStorage.setItem("tags", response.data.tags);
+            localStorage.setItem("packageList", response.data.packageList);
           }
         });
       }
