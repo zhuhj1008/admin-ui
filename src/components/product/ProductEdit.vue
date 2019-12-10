@@ -285,16 +285,15 @@
               type: 'success',
               message: '修改成功!'
             });
+            this.$emit('queryProduct');
           }
         });
-        this.$emit('queryProduct');
       },
 
       getOSSToken: function () {
         this.$post("/common/ossToken").then((response) => {
           if (response.code == 1) {
             this.ossData = response.data;
-            console.log(JSON.stringify(this.ossData))
           }
         });
       },

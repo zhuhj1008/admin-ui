@@ -15,8 +15,8 @@
       <!--轮播图-->
       <div style="border: thick outset;">
         <el-carousel :interval="3000" arrow="always">
-          <el-carousel-item v-for="(carousel,index) in productData.carouselUrls" :key="index">
-            <el-image :src="carousel"/>
+          <el-carousel-item v-for="(carousel,index) in productData.tinyFigure" :key="index">
+            <el-image :src="carousel.url"/>
           </el-carousel-item>
         </el-carousel>
       </div>
@@ -96,7 +96,7 @@
       <!--详情图-->
       <el-divider content-position="left">商品展示</el-divider>
 
-      <el-image v-for="(url,index) in productData.detailUrls" :key="index" :src="url"></el-image>
+      <el-image v-for="(picture,index) in productData.detailFigure" :key="index" :src="picture.url"></el-image>
 
     </el-dialog>
 
@@ -116,22 +116,22 @@
           productTags: ['环保', '静音', '黑胡桃'],
           unit: '套',
           material: '橡木',
-          color: '瓷白色',
+          color: '',
           technology: '免漆',
           size: '200*120*30',
           weight: '30KG',
           timeLimit: '25天',
           packingList: '门 锁 合页',
-          carouselUrls: [
-            'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg',
+          tinyFigure: [
+            /*'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg',
             'https://fuss10.elemecdn.com/1/34/19aa98b1fcb2781c4fba33d850549jpeg.jpeg',
-            'https://fuss10.elemecdn.com/0/6f/e35ff375812e6b0020b6b4e8f9583jpeg.jpeg',
+            'https://fuss10.elemecdn.com/0/6f/e35ff375812e6b0020b6b4e8f9583jpeg.jpeg',*/
           ],
-          detailUrls: [
-            'https://fuss10.elemecdn.com/9/bb/e27858e973f5d7d3904835f46abbdjpeg.jpeg',
+          detailFigure: [
+            /*'https://fuss10.elemecdn.com/9/bb/e27858e973f5d7d3904835f46abbdjpeg.jpeg',
             'https://fuss10.elemecdn.com/d/e6/c4d93a3805b3ce3f323f7974e6f78jpeg.jpeg',
             'https://fuss10.elemecdn.com/3/28/bbf893f792f03a54408b3b7a7ebf0jpeg.jpeg',
-            'https://fuss10.elemecdn.com/2/11/6535bcfb26e4c79b48ddde44f4b6fjpeg.jpeg',
+            'https://fuss10.elemecdn.com/2/11/6535bcfb26e4c79b48ddde44f4b6fjpeg.jpeg',*/
           ]
         },
 
@@ -143,7 +143,8 @@
         param.productId = this.productId;
         this.$post("/product/query", param).then((response) => {
           if (response.code == 1) {
-            // this.productData == response.data;
+            console.log(JSON.stringify(response.data));
+            this.productData = response.data;
           }
         });
       }

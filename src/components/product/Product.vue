@@ -39,7 +39,7 @@
         <el-col :span="4" class="card-box">
           <el-card>
 
-            <img :src="product.picture" style="text-align:center; width: 95px; height: 170px">
+            <img :src="product.picture" style="text-align:center; width: 160px; height: 160px">
 
             <!--编辑产品-->
             <product-edit :productId="product.productId"
