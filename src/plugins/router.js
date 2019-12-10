@@ -26,6 +26,7 @@ Vue.use(ElementUI)
 
 
 export default new Router({
+  base:'/hdui/',
   mode: 'history',
   routes: [
     {path: '/', redirect: '/login'},
