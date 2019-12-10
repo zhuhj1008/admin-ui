@@ -4,7 +4,8 @@ import context from '../main.js'
 
 axios.defaults.timeout = 1000 * 60 ;
 // axios.defaults.baseURL = 'http://192.144.179.13:6060';
-axios.defaults.baseURL = 'http://127.0.0.1:6060';
+axios.defaults.baseURL = 'https://www.joezzz.cn/hd';
+// axios.defaults.baseURL = 'http://127.0.0.1:6060';
 
 //http request 拦截器
 axios.interceptors.request.use(
