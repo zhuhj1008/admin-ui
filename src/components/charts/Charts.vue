@@ -95,12 +95,20 @@
           rows: []
         },
         ringChartSettings: {
-          dimension: '地区',
-          metrics: '订单量'
+          dimension: 'region',
+          metrics: 'total',
+          labelMap: {
+            region: '地区',
+            total: '订单量',
+          }
         },
         ringChartSettings2: {
-          dimension: '地区',
-          metrics: '订单金额'
+          dimension: 'region',
+          metrics: 'amount',
+          labelMap: {
+            region: '地区',
+            amount: '订单金额'
+          }
         }
       }
     },
@@ -134,8 +142,7 @@
         param.years = year;
         this.$post("/charts/ring", param).then(response => {
           if (response.code == 1) {
-            this.ringChartData.rows = JSON.parse(JSON.stringify(response.data)
-              .replace(/region/g, '地区').replace(/total/g, '订单量').replace(/amount/g, '订单金额'));
+            this.ringChartData.rows = response.data;
           }
         })
       }

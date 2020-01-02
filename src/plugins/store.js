@@ -21,10 +21,10 @@ export default new Vuex.Store({
     }
   },
   mutations: {
-    setLocal(state,param){
-      return localStorage.setItem(param.key,param.value);
+    setLocal(state, param) {
+      return localStorage.setItem(param.key, param.value);
     },
-    getLocal(key){
+    getLocal(key) {
       return localStorage.getItem(key);
     }
   }

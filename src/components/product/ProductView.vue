@@ -143,7 +143,6 @@
         param.productId = this.productId;
         this.$post("/product/query", param).then((response) => {
           if (response.code == 1) {
-            console.log(JSON.stringify(response.data));
             this.productData = response.data;
           }
         });

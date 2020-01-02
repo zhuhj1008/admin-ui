@@ -57,7 +57,7 @@
 
       //点击菜单
       handleSelect(key, keyPath) {
-        /*console.log(key, keyPath);*/
+
       },
 
       //登出
