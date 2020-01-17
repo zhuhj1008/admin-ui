@@ -1,12 +1,15 @@
 <template>
   <el-main>
-    <!-- 下拉列表是通过command传值的-->
-    <el-dropdown style="float: left" @command="queryData">
-      <span class="el-dropdown-link">年限<i class="el-icon-arrow-down el-icon--right"></i></span>
-      <el-dropdown-menu slot="dropdown">
-        <el-dropdown-item v-for="(year,index) in years" :command=year :key=index>{{year}}</el-dropdown-item>
-      </el-dropdown-menu>
-    </el-dropdown>
+
+    <div>
+
+      <el-radio-group v-model="year" @change="queryData">
+        <el-radio label="2018" border>2018</el-radio>
+        <el-radio label="2019" border>2019</el-radio>
+        <el-radio label="2020" border>2020</el-radio>
+      </el-radio-group>
+
+    </div>
 
     <el-scrollbar class="default-scrollbar" wrap-class="default-scrollbar__wrap" view-class="p20-scrollbar__view">
       <el-row :gutter="20">
@@ -41,6 +44,7 @@
     name: 'Index',
     data() {
       return {
+        year: "2019",
         years: [2018, 2019],
         barChartData: {
           columns: ['brokerName', 'amount', 'total', 'proportion'],
@@ -113,11 +117,10 @@
       }
     },
     methods: {
-      queryData(year) {
-        this.queryLineData(year);
-        this.queryRingData(year);
-        this.queryBarData(year);
-        this.$message('数据查询完成' + year);
+      queryData() {
+        this.queryLineData(this.year);
+        this.queryRingData(this.year);
+        this.queryBarData(this.year);
       },
       queryBarData: function (year) {
         const param = {};
@@ -147,13 +150,13 @@
         })
       }
     },
-    mounted: function () {
-      //默认加载当前年份的数据
-      const currentYear = new Date().getFullYear();
-      this.queryLineData(currentYear);
-      this.queryRingData(currentYear);
-      this.queryBarData(currentYear);
-    }
+    // mounted: function () {
+    //   //默认加载当前年份的数据
+    //   const currentYear = new Date().getFullYear();
+    //   this.queryLineData(currentYear);
+    //   this.queryRingData(currentYear);
+    //   this.queryBarData(currentYear);
+    // }
   }
 </script>
 
@@ -167,12 +170,4 @@
     color: #1f2f3d;
   }
 
-  .el-dropdown-link {
-    cursor: pointer;
-    color: #409EFF;
-  }
-
-  .el-icon-arrow-down {
-    font-size: 12px;
-  }
 </style>

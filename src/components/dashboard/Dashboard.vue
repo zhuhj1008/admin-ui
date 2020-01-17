@@ -4,7 +4,7 @@
 
       <el-col :span="6">
         <user-card></user-card>
-        <task-card></task-card>
+        <!--<task-card></task-card>-->
       </el-col>
 
       <el-col :span="18">

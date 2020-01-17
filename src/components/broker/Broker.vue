@@ -111,13 +111,6 @@
             message: '已取消删除'
           });
         });
-      },
-      dateFormatter(row, column) {
-        const date = new Date(row[column.property])
-        const Y = date.getFullYear() + '-'
-        const M = date.getMonth() + 1 + '-'
-        const D = date.getDate() + ' '
-        return Y + M + D;
       }
     },
     mounted: function () {

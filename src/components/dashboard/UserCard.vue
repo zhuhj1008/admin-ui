@@ -63,7 +63,7 @@
         userCard: {
           name: "",
           headPortrait: "",
-          lastLoginTime: ""
+          lastLoginTime: new Date()
         }
       }
     },
@@ -71,11 +71,23 @@
       queryUserCard: function () {
         this.$post("/dashboard/userCard").then((response) => {
           if (response.code == 1) {
+            console.log(JSON.stringify(response.data))
             this.userCard = response.data;
+            this.userCard.lastLoginTime = this.dateFormatter(response.data.lastLoginTime);
           }
         })
+      },
+      dateFormatter(date) {
+        date = new Date(date)
+        const Y = date.getFullYear() + '.'
+        const M = date.getMonth() + 1 + '.'
+        const D = date.getDate() + ' '
+        const H = date.getUTCHours() + ':';
+        const I = date.getMinutes();
+        return Y + M + D + H + I;
       }
     },
+
     mounted: function () {
       this.queryUserCard();
     },

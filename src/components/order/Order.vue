@@ -228,13 +228,6 @@
       downLoadOrder(orderNum) {
         window.location.href = "https://www.joezzz.cn/hd/order/download?orderId=" + orderNum;
       },
-      dateFormatter(row, column) {
-        const date = new Date(row[column.property])
-        const Y = date.getFullYear() + '-'
-        const M = ((date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)) + '-'
-        const D = date.getDate() < 10 ? '0' + date.getDate() : date.getDate();
-        return Y + M + D;
-      },
       orderStatusFormatter(row, column) {
         const statusId = row[column.property];
         for (let status of this.orderStatus) {

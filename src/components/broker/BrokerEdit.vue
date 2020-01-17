@@ -25,26 +25,31 @@
         <el-form-item label="经销商" prop="brokerName">
           <el-input v-model="brokerForm.brokerName" style="width:150px" clearable></el-input>
         </el-form-item>
+
         <el-form-item label="联系人" prop="contact">
           <el-input v-model="brokerForm.contact" style="width:150px" clearable></el-input>
         </el-form-item>
+
         <el-form-item label="手机号" prop="phone">
           <el-input v-model="brokerForm.phone" style="width:150px" clearable></el-input>
         </el-form-item>
+
         <el-form-item label="地址" prop="address">
-          <!--<el-select v-model="brokerForm.city" placeholder="" style="width:75px">
+          <el-select v-model="brokerForm.city" placeholder="" style="width:75px">
             <el-option key="沧州" label="沧州" value="沧州"></el-option>
             <el-option key="衡水" label="衡水" value="衡水"></el-option>
           </el-select>
           <el-select v-model="brokerForm.county" placeholder="" style="width:75px">
             <el-option key="泊头" label="泊头" value="泊头"></el-option>
             <el-option key="阜城" label="阜城" value="阜城"></el-option>
-          </el-select>-->
+          </el-select>
           <el-input v-model="brokerForm.address" style="width:378px" clearable></el-input>
         </el-form-item>
+
         <el-form-item label="备注" prop="remark">
           <el-input v-model="brokerForm.remark" style="width:378px" clearable></el-input>
         </el-form-item>
+
       </el-form>
 
 
